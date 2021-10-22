@@ -1,10 +1,7 @@
 package com.eggoz.ecommerce
 
-import android.R.attr
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -12,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -20,22 +16,13 @@ import androidx.databinding.library.BuildConfig
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.cashfree.pg.CFPaymentService
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.ActivityMainBinding
-import com.eggoz.ecommerce.network.repository.Retrofithit
-import com.eggoz.ecommerce.view.address.AddressViewModel
-import com.eggoz.ecommerce.view.address.model.CartToken
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 
 class MainActivity : AppCompatActivity() {
@@ -136,7 +123,12 @@ class MainActivity : AppCompatActivity() {
         userPreferences = UserPreferences(this)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.btmNav.menu.findItem(R.id.nav_botomhome).isChecked = true
-        binding.footerItem1.text = BuildConfig.VERSION_NAME
+        try {
+            val pInfo = packageManager.getPackageInfo(packageName, 0);
+            binding.footerItem1.text  = pInfo.versionName;
+        } catch ( e:Exception) {
+            e.printStackTrace();
+        }
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
