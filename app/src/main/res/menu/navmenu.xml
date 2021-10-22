@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <group android:id="@+id/header1" android:checkableBehavior="single">
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_homeside"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="@string/menu_home" />
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_prod"
+            android:icon="@drawable/ic_baseline_widgets_24"
+            android:title="@string/menu_products" />
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_baseline_account_balance_wallet_24"
+            android:title="@string/your_order" />
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_subscription"
+            android:icon="@drawable/ic_baseline_person_outline_24"
+            android:title="@string/Subscription" />
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_referearn"
+            android:icon="@drawable/ic_baseline_person_outline_24"
+            android:title="@string/Refer_Earn" />
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_myaccount"
+            android:icon="@drawable/ic_baseline_person_outline_24"
+            android:title="@string/MyAccount" />
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_contactus"
+            android:icon="@drawable/ic_baseline_phone_24"
+            android:title="@string/ContactUs" />
+
+    </group>
+    <item android:title="@string/customerservice" android:id="@+id/header2" android:checkableBehavior="single" >
+        <menu>
+
+        <item
+            android:orderInCategory="1"
+            android:id="@+id/nav_side_FAQs"
+            android:icon="@drawable/ic_baseline_error_outline_24"
+            android:title="@string/FAQs" />
+
+        <item
+            android:orderInCategory="1"
+            android:id="@+id/nav_side_help_support"
+            android:icon="@drawable/ic_baseline_help_24"
+            android:title="@string/helpsupport" />
+
+        </menu>
+
+    </item>
+    <group android:id="@+id/header3" android:checkableBehavior="single">
+
+        <item
+            android:orderInCategory="2"
+            android:id="@+id/nav_side_Logout"
+            android:icon="@drawable/ic_baseline_logout_24"
+            android:title="@string/Logout" />
+        <item
+            android:orderInCategory="2"
+            android:id="@+id/menu_none"
+            android:title=""
+            android:visible="false"/>
+    </group>
+
+</menu>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_splash">
+    <fragment
+        android:id="@+id/nav_splash"
+        android:name="com.eggoz.ecommerce.view.splash.SplashFragment"
+        android:label="@string/splash"
+        tools:layout="@layout/fragment_splash"/>
+    <fragment
+        android:id="@+id/nav_starter"
+        android:name="com.eggoz.ecommerce.view.starter.StarterFragment"
+        android:label="@string/splash"
+        tools:layout="@layout/fragment_starter"/>
+    <fragment
+        android:id="@+id/nav_sigin1"
+        android:name="com.eggoz.ecommerce.view.SignIn.SignIn1Fragment"
+        android:label="@string/splash"
+        tools:layout="@layout/fragment_sign_in1"/>
+    <fragment
+        android:id="@+id/nav_city"
+        android:name="com.eggoz.ecommerce.view.starter.SelectCityFragment"
+        android:label="@string/splash"
+        tools:layout="@layout/fragment_select_city">
+
+        <argument
+            android:name="city" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_loc"
+        android:name="com.eggoz.ecommerce.view.starter.LocalityFragment"
+        android:label="@string/splash"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_locality"/>
+    <fragment
+        android:id="@+id/nav_sigin2"
+        android:name="com.eggoz.ecommerce.view.SignIn.Sigin2Fragment"
+        android:label="@string/splash"
+        tools:layout="@layout/fragment_sigin2"/>
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.eggoz.ecommerce.view.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+        <action android:id="@+id/action_nav_home_to_nav_product_detail"
+            app:destination="@+id/nav_product_detail"/>
+
+        <action android:id="@+id/action_nav_home_to_nav_product_popular"
+            app:destination="@+id/nav_product_popular"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_product_popular"
+        android:name="com.eggoz.ecommerce.view.product.MoreProductFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_more_product">
+
+        <action android:id="@+id/action_nav_product_popular_to_nav_cart_list"
+            app:destination="@+id/nav_cart_list"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_product"
+        android:name="com.eggoz.ecommerce.view.product.ProductFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_product">
+        <action android:id="@+id/action_nav_product_to_nav_product_detail"
+            app:destination="@+id/nav_product_detail"/>
+
+        <action android:id="@+id/action_nav_product_to_nav_cart_list"
+            app:destination="@+id/nav_cart_list"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_wallet"
+        android:name="com.eggoz.ecommerce.view.wallet.WalletFragment"
+        android:label="@string/menu_wallet"
+        tools:layout="@layout/fragment_wallet">
+        <action android:id="@+id/action_nav_wallet_to_nav_sigin1"
+            app:destination="@+id/nav_sigin1"/>
+        <action android:id="@+id/action_nav_wallet_to_nav_addmoney"
+            app:destination="@+id/nav_addMoney"/>
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/nav_addMoney"
+        android:name="com.eggoz.ecommerce.view.wallet.AddMoneyFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_add_money"/>
+
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.eggoz.ecommerce.view.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile">
+        <action android:id="@+id/action_nav_profile_detail_to_nav_edt_profile"
+            app:destination="@+id/nav_edt_profile"/>
+        <action android:id="@+id/action_nav_profile_detail_to_nav_manageAddress"
+            app:destination="@+id/nav_manageAddress"/>
+        <action android:id="@+id/action_nav_profile_to_nav_sigin1"
+            app:destination="@+id/nav_sigin1"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_membership"
+        android:name="com.eggoz.ecommerce.view.MembershipPlans.MembershipPlansFragment"
+        android:label="@string/menu_membership"
+        tools:layout="@layout/fragment_membership_plans"/>
+    <fragment
+        android:id="@+id/nav_subscribeinfro"
+        android:name="com.eggoz.ecommerce.view.Subscribe.SubscribeDetailFragment"
+        android:label="@string/menu_membership"
+        tools:layout="@layout/fragment_subscribe_detail"/>
+
+    <fragment
+        android:id="@+id/nav_subscribe"
+        android:name="com.eggoz.ecommerce.view.Subscribe.SubscribeFragment"
+        android:label="@string/menu_membership"
+        tools:layout="@layout/fragment_subscribe">
+
+        <action android:id="@+id/action_nav_subscribe_to_nav_address_list"
+            app:destination="@+id/nav_address_list"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_product_detail"
+        android:name="com.eggoz.ecommerce.view.product.ProductDetailFragment"
+        android:label="@string/menu_itemdetail"
+        tools:layout="@layout/fragment_product_detail">
+        <action android:id="@+id/action_nav_product_detail_to_nav_product_detail"
+            app:destination="@+id/nav_product_detail"/>
+
+        <action android:id="@+id/action_nav_product_detail_to_nav_address_list"
+            app:destination="@+id/nav_address_list"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_cart_list"
+        android:name="com.eggoz.ecommerce.view.cart.CartListFragment"
+        android:label="@string/menu_cart"
+        tools:layout="@layout/fragment_cart_list">
+
+        <action android:id="@+id/action_nav_cart_list_to_nav_address_list"
+            app:destination="@+id/nav_address_list"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_address_list"
+        android:name="com.eggoz.ecommerce.view.address.AddressFragment"
+        android:label="@string/menu_address"
+        tools:layout="@layout/fragment_address">
+        <action android:id="@+id/action_nav_address_list_to_nav_sigin1"
+            app:destination="@+id/nav_sigin1"/>
+        <action android:id="@+id/action_nav_address_list_to_nav_manageAddress"
+            app:destination="@+id/nav_manageAddress"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_manageAddress"
+        android:name="com.eggoz.ecommerce.view.profile.ManageAddressFragment"
+        android:label="@string/menu_address"
+        tools:layout="@layout/fragment_manage_addersses">
+        <action android:id="@+id/action_nav_manageAddress_to_nav_inputAddress"
+            app:destination="@+id/nav_inputAddress"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_inputAddress"
+        android:name="com.eggoz.ecommerce.view.profile.AddressInputFragment"
+        android:label="@string/menu_address"
+        tools:layout="@layout/fragment_address_input">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_edt_profile"
+        android:name="com.eggoz.ecommerce.view.profile.EditProfileFragment"
+        android:label="@string/menu_address"
+        tools:layout="@layout/fragment_edit_profile">
+    </fragment>
+
+
+
+
+
+</navigation>

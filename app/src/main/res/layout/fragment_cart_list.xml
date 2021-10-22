@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".view.cart.CartListFragment">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s150"
+            android:src="@drawable/background"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/app_name" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/cons_itemcart">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_back"
+                    android:layout_width="@dimen/s40"
+                    android:layout_height="@dimen/s40"
+                    android:layout_marginStart="@dimen/s16"
+                    android:layout_marginTop="@dimen/s16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/s24"
+                        android:layout_height="@dimen/s24"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_baseline_arrow_back_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="@dimen/s56"
+                    android:layout_height="@dimen/s56"
+                    android:layout_marginTop="@dimen/s4"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/applogo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_ReviewCart"
+                    style="@style/textLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/s16"
+                    android:layout_marginTop="@dimen/s16"
+                    android:text="@string/review_cart"
+                    android:textSize="@dimen/s20"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/icon" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_ReviewCart" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cons_itemcart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s80"
+            android:elevation="@dimen/s2"
+            android:background="@drawable/checkoutbackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/s2"
+                android:background="@color/litegrey"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/txt_price"
+                style="@style/textLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/spartansemibold"
+                android:text="@string/Price"
+                android:layout_marginStart="@dimen/s16"
+                app:layout_constraintBottom_toTopOf="@+id/txt_dis"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/txt_dis"
+                style="@style/texts14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s4"
+                android:layout_marginStart="@dimen/s16"
+                android:fontFamily="@font/spartanregular"
+                android:text="@string/Price"
+                android:textColor="@color/darkgrey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/s48"
+                android:layout_marginEnd="@dimen/s16"
+                android:background="@drawable/curvedbacksmall"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/textLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/s45"
+                    android:paddingEnd="@dimen/s45"
+                    android:text="@string/Checkout"
+                    android:textSize="@dimen/s18"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

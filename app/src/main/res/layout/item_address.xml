@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+      <!--  <variable
+            name="address"
+            type="com.eggoz.ecommerce.network.model.Address.AAddress" />
+-->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/s42">
+
+        <RadioButton
+            android:id="@+id/add_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s16"
+            app:buttonTint="@color/app_color"
+            style="@style/textLargemedium"
+            android:fontFamily="@font/spartansemibold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/add_select"
+            app:layout_constraintTop_toTopOf="@+id/add_select"
+            app:layout_constraintBottom_toBottomOf="@+id/add_select"
+            android:text="@string/default1"
+            android:textSize="@dimen/s12"
+            android:layout_marginStart="@dimen/s4"
+            android:fontFamily="@font/spartanregular"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/txt_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_select"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/textsmall"
+            android:layout_marginStart="@dimen/s44"
+            android:layout_marginEnd="@dimen/s26"
+            android:fontFamily="@font/spartanregular"
+            android:textColor="@color/darkgrey" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

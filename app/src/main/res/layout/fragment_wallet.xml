@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="wallet"
+            type="com.eggoz.ecommerce.view.wallet.WalletViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.wallet.WalletFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/s150"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/img_top"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/s48"
+                android:layout_marginTop="@dimen/s48"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/applogo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_card_whole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s16"
+                android:layout_marginLeft="@dimen/s16"
+                android:layout_marginTop="@dimen/s40"
+                android:layout_marginEnd="@dimen/s16"
+                android:layout_marginRight="@dimen/s16"
+                android:background="@drawable/card_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_top">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cons_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_gradient_back"
+                    android:elevation="@dimen/s2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_title"
+                        style="@style/textLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/s16"
+                        android:layout_marginTop="@dimen/s26"
+                        android:gravity="start"
+                        android:text="@string/MYWALLET"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/s18"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_Poweredby"
+                        style="@style/textvsmall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/s16"
+                        android:layout_marginTop="@dimen/s6"
+                        android:gravity="start"
+                        android:text="@string/Poweredby"
+                        android:textColor="@color/litewhite"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_TotalBalancetitle"
+                        style="@style/textsmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/s16"
+                        android:layout_marginTop="@dimen/s36"
+                        android:gravity="start"
+                        android:text="@string/TotalBalance"
+                        android:textColor="@color/litewhite"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Poweredby" />
+<!--                    android:text='@{@string/price_format(wallet.responWallet.results[0].totalBalance) ?? @string/Rs0 }'-->
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_TotalBalance"
+                        style="@style/textxlarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/s16"
+                        android:layout_marginTop="@dimen/s12"
+                        android:gravity="start"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_TotalBalancetitle" />
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_PromotionalBalancetitle"
+                        style="@style/textsmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/s36"
+                        android:layout_marginEnd="@dimen/s16"
+                        android:gravity="start"
+                        android:text="@string/PromotionalBalance"
+                        android:textColor="@color/litewhite"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_Poweredby" />
+
+<!--                    android:text='@{@string/price_format(wallet.responWallet.results[0].totalBalance) ?? @string/def_price - @string/price_format(wallet.responWallet.results[0].rechargeBalance) ?? @string/def_price }'-->
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_PromotionalBalance"
+                        style="@style/textxlarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/s12"
+                        android:layout_marginEnd="@dimen/s16"
+                        android:gravity="start"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_PromotionalBalancetitle" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_PromotionalBalanceexp"
+                        style="@style/textssmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/s16"
+                        android:layout_marginTop="@dimen/s45"
+                        android:layout_marginBottom="@dimen/s25"
+                        android:gravity="start"
+                        android:text="@string/PromotionalBalanceexpires"
+                        android:textColor="@color/litewhite"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_TotalBalance" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txt_ADDMONEY"
+                    style="@style/texts14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/s16"
+                    android:layout_marginTop="@dimen/s16"
+                    android:gravity="start"
+                    android:text="@string/ADDMONEY"
+                    android:textColor="@color/orange"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cons_card" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recy_promo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_ADDMONEY" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_Historytitle"
+                style="@style/textLargemedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s16"
+                android:layout_marginTop="@dimen/s40"
+                android:fontFamily="@font/spartanbold"
+                android:gravity="start"
+                android:text="@string/History"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cons_card_whole" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_wallethis"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/s16"
+                android:layout_marginEnd="@dimen/s16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_Historytitle"
+                tools:listitem="@layout/item_wallhis" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</layout>
