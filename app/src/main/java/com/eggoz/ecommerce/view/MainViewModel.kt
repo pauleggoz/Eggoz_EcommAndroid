@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.eggoz.ecommerce.network.model.CityData
 import com.eggoz.ecommerce.network.model.Otpgenerate
 import com.eggoz.ecommerce.network.model.Otpverify
+import com.eggoz.ecommerce.network.model.TokenData
 import com.eggoz.ecommerce.network.repository.Retrofithit
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -27,8 +28,8 @@ class MainViewModel : ViewModel() {
             Retrofithit().Login(mobile = mobile)
                 .catch { e ->
 
-                    var errorResponse: Otpgenerate?=null
-                    when(e){
+                    var errorResponse: Otpgenerate? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<Otpgenerate>() {}.type
@@ -38,19 +39,19 @@ class MainViewModel : ViewModel() {
                         }
                     }
 
-                    responOtpgenerate.value=errorResponse
+                    responOtpgenerate.value = errorResponse
                 }.collect { response ->
                     responOtpgenerate.value = response
                 }
         }
     }
 
-    fun validate(mobile: String,otp: String,loc_id: Int,city_id: Int) {
+    fun validate(mobile: String, otp: String, loc_id: Int, city_id: Int) {
         viewModelScope.launch {
-            Retrofithit().validate(mobile = mobile,otp = otp,sector = loc_id,city = city_id)
-                .catch {  e ->
-                    var errorResponse: Otpverify?=null
-                    when(e){
+            Retrofithit().validate(mobile = mobile, otp = otp, sector = loc_id, city = city_id)
+                .catch { e ->
+                    var errorResponse: Otpverify? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<Otpverify>() {}.type
@@ -61,7 +62,7 @@ class MainViewModel : ViewModel() {
                     }
                     Log.d("TAG", "validate: $errorResponse")
 
-                    responOtpverify.value=errorResponse
+                    responOtpverify.value = errorResponse
                 }.collect { response ->
                     responOtpverify.value = response
                     Log.d("TAG", "validate: $response")
@@ -69,12 +70,12 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getCity(){
+    fun getCity() {
         viewModelScope.launch {
             Retrofithit().getCity()
-                .catch {e ->
-                    var errorResponse: CityData?=null
-                    when(e){
+                .catch { e ->
+                    var errorResponse: CityData? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<CityData>() {}.type
@@ -84,20 +85,20 @@ class MainViewModel : ViewModel() {
                         }
                     }
 
-                    responsecity.value=errorResponse
+                    responsecity.value = errorResponse
                 }.collect { response ->
                     responsecity.value = response
                 }
         }
     }
 
-    fun getLocality(id: Int)  {
+    fun getLocality(id: Int) {
         viewModelScope.launch {
             Retrofithit().getLocality(id = id)
                 .catch { e ->
 
-                    var errorResponse: CityData.Result?=null
-                    when(e){
+                    var errorResponse: CityData.Result? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<CityData.Result>() {}.type
@@ -107,12 +108,14 @@ class MainViewModel : ViewModel() {
                         }
                     }
 
-                    responselocality.value=errorResponse
+                    responselocality.value = errorResponse
                 }.collect { response ->
                     responselocality.value = response
                 }
         }
     }
+
+
 
 
 }

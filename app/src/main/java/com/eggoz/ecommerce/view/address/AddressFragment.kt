@@ -83,7 +83,7 @@ class AddressFragment : Fragment() {
         dialog = Loadinddialog()
         lifecycleScope.launch {
             mid = userPreferences!!.userid.first() ?: -1
-            val bundle: Bundle? = getArguments()
+            val bundle: Bundle? = arguments
             if (bundle != null) {
                 ordertype = bundle.getString("ordertype", "")
                 if (ordertype == "cart") {

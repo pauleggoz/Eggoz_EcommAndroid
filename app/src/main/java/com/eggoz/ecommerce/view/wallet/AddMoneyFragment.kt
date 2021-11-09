@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -60,8 +61,8 @@ class AddMoneyFragment : Fragment() {
         dialog = Loadinddialog()
         userPreferences = UserPreferences(requireContext())
         viewModel = ViewModelProvider(this).get(WalletViewModel::class.java)
-        walletbal= this.arguments?.getDouble("bal", 0.0) ?:0.0
-        walletid= this.arguments?.getInt("walletid", -1) ?:-1
+        walletbal = this.arguments?.getDouble("bal", 0.0) ?: 0.0
+        walletid = this.arguments?.getInt("walletid", -1) ?: -1
 
         promoamount = ArrayList()
         promolist = ArrayList()
@@ -72,7 +73,7 @@ class AddMoneyFragment : Fragment() {
                 Navigation.findNavController(binding.root)
                     .popBackStack()
             }
-            txtWalletbal.text="Available Eggoz Balance ₹ $walletbal"
+            txtWalletbal.text = "Available Eggoz Balance ₹ $walletbal"
             recyPromo.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(activity)
@@ -86,13 +87,13 @@ class AddMoneyFragment : Fragment() {
                 if (it.toString() == "")
                     amount = 0.0
                 else {
-                    amount=it.toString().toDouble()
-                    txtbtnAddmoney.text="Add Money"
-                    for (i in 0 until promoamount.size){
-                        if (amount>=promoamount[i].toDouble()){
-                            txtbtnAddmoney.text="Add ₹ ${amount.toInt()} & Promocode"
-                            promocodeName=promolist[i]
-                            selectpromoid=promoid[i]
+                    amount = it.toString().toDouble()
+                    txtbtnAddmoney.text = "Add Money"
+                    for (i in 0 until promoamount.size) {
+                        if (amount >= promoamount[i].toDouble()) {
+                            txtbtnAddmoney.text = "Add ₹ ${amount.toInt()} & Promocode"
+                            promocodeName = promolist[i]
+                            selectpromoid = promoid[i]
 
                         }
                     }
@@ -102,10 +103,15 @@ class AddMoneyFragment : Fragment() {
         getPromo()
     }
 
-    private fun getWalletToken(){
+    private fun getWalletToken() {
         if (!dialog.isShowing())
             dialog.create(requireContext())
-        viewModel.getWalletToken(requireContext(),walletid,selectpromoid,binding.edtAmount.text.toString().toInt())
+        viewModel.getWalletToken(
+            requireContext(),
+            walletid,
+            selectpromoid,
+            binding.edtAmount.text.toString().toInt()
+        )
         viewModel.responCartToken.observe(viewLifecycleOwner, {
             if (dialog.isShowing())
                 dialog.dismiss()
@@ -125,6 +131,7 @@ class AddMoneyFragment : Fragment() {
 
         })
     }
+
     private fun paymentcart(
         appId: String,
         orderId: String,
@@ -146,7 +153,7 @@ class AddMoneyFragment : Fragment() {
         parms.put("customerEmail", customerEmail)
         parms.put("notifyUrl", notifyUrl)
 
-        (requireActivity() as MainActivity).paymentType="wallet"
+        (requireActivity() as MainActivity).paymentType = "wallet"
         Log.d("TAG", "paymentcart: $parms \n cftoken $ctoken")
 
         CFPaymentService.getCFPaymentServiceInstance()
@@ -179,8 +186,14 @@ class AddMoneyFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 }

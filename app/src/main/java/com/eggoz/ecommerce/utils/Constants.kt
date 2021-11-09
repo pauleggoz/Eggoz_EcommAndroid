@@ -14,6 +14,7 @@ class Constants {
 
 
         const val apiend_otpgenerate = "ecomm_login_otp/generate/"
+        const val apiTokenRefresh = "api-token-refresh/"
         const val apiend_otpvalidate = "ecomm_login_otp/validate/"
         const val ecommerce_zone = "base/ecommerce_zone/"
         const val ecommerce_zone_id = "base/ecommerce_zone/{id}/"

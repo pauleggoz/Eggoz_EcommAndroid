@@ -3,6 +3,7 @@ package com.eggoz.ecommerce
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.eggoz.ecommerce.network.model.Address
 import com.eggoz.ecommerce.network.model.Checkout
+import com.eggoz.ecommerce.network.model.TokenData
 import com.eggoz.ecommerce.network.repository.Retrofithit
 import com.eggoz.ecommerce.room.CartDao
 import com.eggoz.ecommerce.room.MyDatabase
@@ -26,6 +28,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var responUser: MutableLiveData<Address> = MutableLiveData()
     var responCheckout: MutableLiveData<Checkout> = MutableLiveData()
     var responCheckoutWallet: MutableLiveData<Checkout> = MutableLiveData()
+    var refreshToken: MutableLiveData<TokenData> = MutableLiveData()
 
     private var database: MyDatabase =
         Room.databaseBuilder(application, MyDatabase::class.java, Constants.DB_NAME)
@@ -81,7 +84,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun conformPaymentWallet(context: Context, bundle: Bundle) {
         viewModelScope.launch {
-            Retrofithit().conformPaymentWallet( context = context, bundle)
+            Retrofithit().conformPaymentWallet(context = context, bundle)
                 .catch { e ->
 
                     var errorResponse: Checkout? = null
@@ -106,5 +109,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             cartdao.clearCart()
         }
+    }
+
+    fun setRefreshToken(token: String) = viewModelScope.launch {
+        Retrofithit().refreshToken(token)
+            .catch { e ->
+                Log.d("main", "getRefreshToken:${e.message} ")
+            }.collect {
+                Log.d("main", "setRefreshToken: ${it.token} ")
+                refreshToken.value = it
+            }
     }
 }

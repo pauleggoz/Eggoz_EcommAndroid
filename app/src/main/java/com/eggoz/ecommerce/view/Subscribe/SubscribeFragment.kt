@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -324,15 +325,15 @@ class SubscribeFragment : Fragment(), OnDateSetListener {
             btnSubmit.setOnClickListener {
 //                selectdays()
                 val bundle = Bundle()
-                bundle.putDouble("amount",price)
-                bundle.putString("start_date",binding.edtStartDate.text.toString())
-                bundle.putString("expiry_date",binding.edtEndDate.text.toString())
-                bundle.putString("quantity","$box")
-                bundle.putString("product","$selitem")
-                bundle.putString("ordertype","subitem")
-                bundle.putIntegerArrayList("days",days)
+                bundle.putDouble("amount", price)
+                bundle.putString("start_date", binding.edtStartDate.text.toString())
+                bundle.putString("expiry_date", binding.edtEndDate.text.toString())
+                bundle.putString("quantity", "$box")
+                bundle.putString("product", "$selitem")
+                bundle.putString("ordertype", "subitem")
+                bundle.putIntegerArrayList("days", days)
                 Navigation.findNavController(root)
-                    .navigate(R.id.action_nav_subscribe_to_nav_address_list,bundle)
+                    .navigate(R.id.action_nav_subscribe_to_nav_address_list, bundle)
 
 
                 if (!dialog.isShowing())
@@ -444,6 +445,17 @@ class SubscribeFragment : Fragment(), OnDateSetListener {
         val enddate: Date = cal.time
 
         binding.edtEndDate.setText(sdf.format(enddate))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
 }

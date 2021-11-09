@@ -97,8 +97,7 @@ class Sigin2Fragment : Fragment() {
                 loc_id = loc_id,
                 city_id = city_id
             )
-            viewModel.responOtpverify.observe(viewLifecycleOwner,
-                Observer {
+            viewModel.responOtpverify.observe(viewLifecycleOwner, {
 
                     var sas = it.toString();
 

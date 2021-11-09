@@ -127,15 +127,15 @@ class Retrofithit {
             flockarray.add(cart)
 
         }
-        paramsarray["cart_products"]= flockarray
+        paramsarray["cart_products"] = flockarray
 
         Log.d("TAG", "getcartToken: ${cartlist.size}  ${flockarray.size()}")
         val response = RetrofitClient().retrofitApiSerInterceptor(context = context).getcartToken(
             paramsstring = paramsstring,
-            paramsdouble =paramsdouble ,
-            paramsarray=paramsarray,
-            paramsint=paramsint,
-            paramsbolean=paramsbolean
+            paramsdouble = paramsdouble,
+            paramsarray = paramsarray,
+            paramsint = paramsint,
+            paramsbolean = paramsbolean
         )
         emit(response)
     }.flowOn(Dispatchers.IO)
@@ -169,22 +169,22 @@ class Retrofithit {
 
         val flockarray = JsonArray()
 
-            val cart = JsonObject()
-            cart.addProperty("product", item_id)
-            cart.addProperty("quantity", 1)
-            cart.addProperty("single_sku_mrp", totalamount*1.25)
-            cart.addProperty("single_sku_rate", totalamount)
+        val cart = JsonObject()
+        cart.addProperty("product", item_id)
+        cart.addProperty("quantity", 1)
+        cart.addProperty("single_sku_mrp", totalamount * 1.25)
+        cart.addProperty("single_sku_rate", totalamount)
 
-            flockarray.add(cart)
+        flockarray.add(cart)
 
-        paramsarray["cart_products"]= flockarray
+        paramsarray["cart_products"] = flockarray
 
         val response = RetrofitClient().retrofitApiSerInterceptor(context = context).getcartToken(
             paramsstring = paramsstring,
-            paramsdouble =paramsdouble ,
-            paramsarray=paramsarray,
-            paramsint=paramsint,
-            paramsbolean=paramsbolean
+            paramsdouble = paramsdouble,
+            paramsarray = paramsarray,
+            paramsint = paramsint,
+            paramsbolean = paramsbolean
         )
         emit(response)
     }.flowOn(Dispatchers.IO)
@@ -217,7 +217,13 @@ class Retrofithit {
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    fun editUser(id: Int, context: Context, name: String, email: String, phone_no: String): Flow<Address> = flow {
+    fun editUser(
+        id: Int,
+        context: Context,
+        name: String,
+        email: String,
+        phone_no: String
+    ): Flow<Address> = flow {
         val body = JsonObject()
         body.addProperty("name", name)
         body.addProperty("email", email)
@@ -263,9 +269,10 @@ class Retrofithit {
         structure.addProperty("membership", membership)
         structure.addProperty("pay_by_wallet", pay_by_wallet)
 
-        val response = RetrofitClient().retrofitApiSerInterceptor(context = context).membershiprecharge(
-            body = structure
-        )
+        val response =
+            RetrofitClient().retrofitApiSerInterceptor(context = context).membershiprecharge(
+                body = structure
+            )
         emit(response)
     }.flowOn(Dispatchers.IO)
 
@@ -288,12 +295,12 @@ class Retrofithit {
         structure.addProperty("customer", customer)
         structure.addProperty("product", product)
         structure.addProperty("slot", slot)
-        for (i in 0 until days.size){
+        for (i in 0 until days.size) {
             body.add(days[i])
         }
         structure.add("days", body)
 
-        val data=structure.toString()
+        val data = structure.toString()
 
         Log.d("TAG", "subscriptions: ${structure.toString()}")
 
@@ -343,18 +350,23 @@ class Retrofithit {
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    fun getSubList(userid: Int,context:Context): Flow<Sublist> = flow {
+    fun getSubList(userid: Int, context: Context): Flow<Sublist> = flow {
         val response = RetrofitClient().retrofitApiSerInterceptor(context = context).getSubList(
-          userid
+            userid
         )
         emit(response)
     }.flowOn(Dispatchers.IO)
 
 
-    fun getWalletToken(context: Context,walletid:Int,selectpromoid:Int,amount:Int): Flow<CartToken?> = flow {
+    fun getWalletToken(
+        context: Context,
+        walletid: Int,
+        selectpromoid: Int,
+        amount: Int
+    ): Flow<CartToken?> = flow {
         val paramsint: MutableMap<String, Int> = HashMap()
-        if (selectpromoid!=-1)
-        paramsint["voucher"] = selectpromoid
+        if (selectpromoid != -1)
+            paramsint["voucher"] = selectpromoid
         paramsint["wallet"] = walletid
         paramsint["amount"] = amount
         Log.d("TAG", "getWalletToken: $paramsint")
@@ -408,16 +420,16 @@ class Retrofithit {
         cart.addProperty("single_sku_rate", -1)
 
 
-        paramsjobj["cart_product"]=cart
+        paramsjobj["cart_product"] = cart
 
 
         val response = RetrofitClient().retrofitApiSerInterceptor(context = context).getsubToken(
             paramsstring = paramsstring,
-            paramsarrStrng =paramsarrStrng ,
-            paramsarrInt=paramsarrInt,
-            paramsint=paramsint,
-            paramsbolean=paramsbolean,
-            paramsjobj=paramsjobj
+            paramsarrStrng = paramsarrStrng,
+            paramsarrInt = paramsarrInt,
+            paramsint = paramsint,
+            paramsbolean = paramsbolean,
+            paramsjobj = paramsjobj
         )
         emit(response)
     }.flowOn(Dispatchers.IO)
@@ -428,18 +440,18 @@ class Retrofithit {
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    fun conformPaymentCart( context: Context,bundle: Bundle): Flow<Checkout> = flow {
+    fun conformPaymentCart(context: Context, bundle: Bundle): Flow<Checkout> = flow {
         val paramsstring: MutableMap<String, String> = HashMap()
 
-        paramsstring["orderId"] =bundle.getString("orderId","")
-        paramsstring["orderAmount"] = bundle.getString("orderAmount","")
-        paramsstring["paymentMode"] = bundle.getString("paymentMode","")
-        paramsstring["referenceId"] = bundle.getString("referenceId","")
-        paramsstring["txStatus"] = bundle.getString("txStatus","")
-        paramsstring["txMsg"] = bundle.getString("txMsg","")
-        paramsstring["txTime"] = bundle.getString("txTime","")
-        paramsstring["type"] = bundle.getString("type","")
-        paramsstring["signature"] = bundle.getString("signature","")
+        paramsstring["orderId"] = bundle.getString("orderId", "")
+        paramsstring["orderAmount"] = bundle.getString("orderAmount", "")
+        paramsstring["paymentMode"] = bundle.getString("paymentMode", "")
+        paramsstring["referenceId"] = bundle.getString("referenceId", "")
+        paramsstring["txStatus"] = bundle.getString("txStatus", "")
+        paramsstring["txMsg"] = bundle.getString("txMsg", "")
+        paramsstring["txTime"] = bundle.getString("txTime", "")
+        paramsstring["type"] = bundle.getString("type", "")
+        paramsstring["signature"] = bundle.getString("signature", "")
         paramsstring["orderStatus"] = "PAID"
 
         val response = RetrofitClient().retrofitApiSerInterceptor(context = context)
@@ -448,23 +460,29 @@ class Retrofithit {
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    fun conformPaymentWallet( context: Context,bundle: Bundle): Flow<Checkout> = flow {
+    fun conformPaymentWallet(context: Context, bundle: Bundle): Flow<Checkout> = flow {
         val paramsstring: MutableMap<String, String> = HashMap()
 
-        paramsstring["orderId"] =bundle.getString("orderId","")
-        paramsstring["orderAmount"] = bundle.getString("orderAmount","")
-        paramsstring["paymentMode"] = bundle.getString("paymentMode","")
-        paramsstring["referenceId"] = bundle.getString("referenceId","")
-        paramsstring["txStatus"] = bundle.getString("txStatus","")
-        paramsstring["txMsg"] = bundle.getString("txMsg","")
-        paramsstring["txTime"] = bundle.getString("txTime","")
-        paramsstring["type"] = bundle.getString("type","")
-        paramsstring["signature"] = bundle.getString("signature","")
+        paramsstring["orderId"] = bundle.getString("orderId", "")
+        paramsstring["orderAmount"] = bundle.getString("orderAmount", "")
+        paramsstring["paymentMode"] = bundle.getString("paymentMode", "")
+        paramsstring["referenceId"] = bundle.getString("referenceId", "")
+        paramsstring["txStatus"] = bundle.getString("txStatus", "")
+        paramsstring["txMsg"] = bundle.getString("txMsg", "")
+        paramsstring["txTime"] = bundle.getString("txTime", "")
+        paramsstring["type"] = bundle.getString("type", "")
+        paramsstring["signature"] = bundle.getString("signature", "")
         paramsstring["orderStatus"] = "PAID"
 
         val response = RetrofitClient().retrofitApiSerInterceptor(context = context)
             .conformPaymentWallet(paramsstring)
         Log.d("data", response.toString())
+        emit(response)
+    }.flowOn(Dispatchers.IO)
+
+    fun refreshToken(token: String): Flow<TokenData> = flow {
+        val response =
+            RetrofitClient().retrofitApiSerwithoutInterceptor.refreshToken(token)
         emit(response)
     }.flowOn(Dispatchers.IO)
 }

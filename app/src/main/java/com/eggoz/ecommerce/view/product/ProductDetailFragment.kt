@@ -10,6 +10,7 @@ import android.view.animation.AlphaAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -337,10 +338,15 @@ class ProductDetailFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
 }

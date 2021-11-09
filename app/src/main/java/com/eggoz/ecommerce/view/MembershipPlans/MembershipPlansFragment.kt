@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -46,9 +47,9 @@ class MembershipPlansFragment : Fragment(), MembershipCallback {
     var day = -1
     var mont: Int = -1
 
-    var endyear:Int=-1
-    var endday:Int=-1
-    var endmonths:Int=-1
+    var endyear: Int = -1
+    var endday: Int = -1
+    var endmonths: Int = -1
 
     var startdate = ""
     var enddate = ""
@@ -89,15 +90,15 @@ class MembershipPlansFragment : Fragment(), MembershipCallback {
                 "$year-$mont-$day 00:00:00"
 
 
-            endday=day
-            endmonths=mont+3
-            if (endmonths>12)
-                endyear=year+1
+            endday = day
+            endmonths = mont + 3
+            if (endmonths > 12)
+                endyear = year + 1
             else
-                endyear=year
+                endyear = year
 
             if (endmonths < 10) enddate = "$endyear-0$endmonths-$endday 00:00:00"
-            else enddate ="$endyear-$endmonths-$endday 00:00:00"
+            else enddate = "$endyear-$endmonths-$endday 00:00:00"
 
 
             recMember.apply {
@@ -109,15 +110,15 @@ class MembershipPlansFragment : Fragment(), MembershipCallback {
 
             }
             txt3months.setOnClickListener {
-                endday=day
-                endmonths=mont+3
-                if (endmonths>12)
-                    endyear=year+1
+                endday = day
+                endmonths = mont + 3
+                if (endmonths > 12)
+                    endyear = year + 1
                 else
-                    endyear=year
+                    endyear = year
 
                 if (endmonths < 10) enddate = "$endyear-0$endmonths-$endday 00:00:00"
-                else enddate ="$endyear-$endmonths-$endday 00:00:00"
+                else enddate = "$endyear-$endmonths-$endday 00:00:00"
 
 
 
@@ -130,15 +131,15 @@ class MembershipPlansFragment : Fragment(), MembershipCallback {
                     ContextCompat.getDrawable(requireContext(), R.drawable.cartitemsmallborder)
             }
             txt6months.setOnClickListener {
-                endday=day
-                endmonths=mont+6
-                if (endmonths>12)
-                    endyear=year+1
+                endday = day
+                endmonths = mont + 6
+                if (endmonths > 12)
+                    endyear = year + 1
                 else
-                    endyear=year
+                    endyear = year
 
                 if (endmonths < 10) enddate = "$endyear-0$endmonths-$endday 00:00:00"
-                else enddate ="$endyear-$endmonths-$endday 00:00:00"
+                else enddate = "$endyear-$endmonths-$endday 00:00:00"
 
 
                 adapter != null
@@ -217,23 +218,24 @@ class MembershipPlansFragment : Fragment(), MembershipCallback {
 
     }
 
-    private fun payment(){
-        val parms=HashMap<String,String>()
-        parms.put("appId","appId")
-        parms.put("orderId","Ads123")
+    private fun payment() {
+        val parms = HashMap<String, String>()
+        parms.put("appId", "appId")
+        parms.put("orderId", "Ads123")
 //        parms.put("orderCurrency","appId")
-        parms.put("orderAmount","2300")
-        parms.put("orderNote","appId")
-        parms.put("customerName","appId")
-        parms.put("customerPhone","8273217889")
-        parms.put("customerEmail","asdk@asd.com")
-        parms.put("notifyUrl","appId")
-        val ptoken="dasdadlasdla;s"
+        parms.put("orderAmount", "2300")
+        parms.put("orderNote", "appId")
+        parms.put("customerName", "appId")
+        parms.put("customerPhone", "8273217889")
+        parms.put("customerEmail", "asdk@asd.com")
+        parms.put("notifyUrl", "appId")
+        val ptoken = "dasdadlasdla;s"
 
-        CFPaymentService.getCFPaymentServiceInstance().doPayment(requireActivity(),parms,ptoken,"TEST")
+        CFPaymentService.getCFPaymentServiceInstance()
+            .doPayment(requireActivity(), parms, ptoken, "TEST")
     }
 
-    override fun selectmambership(id: Int,price:Double) {
+    override fun selectmambership(id: Int, price: Double) {
 
         if (!dialog.isShowing())
             dialog.create(requireContext())
@@ -248,6 +250,17 @@ class MembershipPlansFragment : Fragment(), MembershipCallback {
             context = requireContext()
         )
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -42,12 +43,12 @@ class MoreProductFragment : Fragment(), ProductCallback {
     private var userPreferences: UserPreferences? = null
     private lateinit var job2: Job
     private lateinit var viewModel: ProductMoreViewModel
-    private var price=0.0
+    private var price = 0.0
     private var city_id = -1
     private lateinit var prodadapter: ProductMoreAdapter
 
-    private lateinit var type:String
-    private lateinit var result:ArrayList<Products.Result>
+    private lateinit var type: String
+    private lateinit var result: ArrayList<Products.Result>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,11 +59,11 @@ class MoreProductFragment : Fragment(), ProductCallback {
         return binding.root
     }
 
-    private fun init(){
+    private fun init() {
         type = this.arguments?.getString("type", "") ?: ""
         viewModel = ViewModelProvider(this).get(ProductMoreViewModel::class.java)
         dialog = Loadinddialog()
-        result=ArrayList()
+        result = ArrayList()
 
 
         getCart()
@@ -103,7 +104,7 @@ class MoreProductFragment : Fragment(), ProductCallback {
 
                 } else {
                     if (it.results != null) {
-                        if (type=="Popular"){
+                        if (type == "Popular") {
                             result.clear()
                             for (i in it.results!!.indices) {
                                 if (it.results!![i].isPrimeOnline == true) {
@@ -138,17 +139,17 @@ class MoreProductFragment : Fragment(), ProductCallback {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getCart(){
+    private fun getCart() {
         job2 = lifecycleScope.launch {
 
             viewModel.getCart2().collect {
-                if (it.isNotEmpty()){
-                    binding.consCart.visibility=View.VISIBLE
-                    price=0.0
-                    for (i in it.indices){
-                        val qnt:Double=it[i].quantaty?.toDouble() ?:0.0
-                        val pricec=it[i].price?.toDouble() ?:0.0
-                        price+=qnt*pricec
+                if (it.isNotEmpty()) {
+                    binding.consCart.visibility = View.VISIBLE
+                    price = 0.0
+                    for (i in it.indices) {
+                        val qnt: Double = it[i].quantaty?.toDouble() ?: 0.0
+                        val pricec = it[i].price?.toDouble() ?: 0.0
+                        price += qnt * pricec
                     }
 
                     binding.apply {
@@ -169,7 +170,7 @@ class MoreProductFragment : Fragment(), ProductCallback {
         qnt: Int,
         des: String,
         status: Boolean,
-        sKUCount:Int
+        sKUCount: Int
     ) {
         binding.consCart.visibility = View.VISIBLE
 
@@ -207,7 +208,7 @@ class MoreProductFragment : Fragment(), ProductCallback {
 
     override fun updateqNT(id: Int, qnt: Int) {
         lifecycleScope.launch {
-            viewModel.updateQnt(id = id,qnt=qnt)
+            viewModel.updateQnt(id = id, qnt = qnt)
         }
     }
 
@@ -221,5 +222,16 @@ class MoreProductFragment : Fragment(), ProductCallback {
         lifecycleScope.launch {
             viewModel.qntCart(id = id)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 }

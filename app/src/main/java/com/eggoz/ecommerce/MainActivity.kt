@@ -21,6 +21,7 @@ import androidx.navigation.Navigation
 import com.cashfree.pg.CFPaymentService
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -125,8 +126,8 @@ class MainActivity : AppCompatActivity() {
         binding.btmNav.menu.findItem(R.id.nav_botomhome).isChecked = true
         try {
             val pInfo = packageManager.getPackageInfo(packageName, 0);
-            binding.footerItem1.text  = pInfo.versionName;
-        } catch ( e:Exception) {
+            binding.footerItem1.text = pInfo.versionName;
+        } catch (e: Exception) {
             e.printStackTrace();
         }
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -191,17 +192,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun getData() {
         lifecycleScope.launch {
-
             viewModel.user(userid, this@MainActivity)
+
         }
+
+
+
         viewModel.responUser.observe(this, {
             if (it?.errorType != null) {
                 if (it.errors != null)
-                    if (it.errors!![0].message == "Invalid signature.")
+                    if (it.errors!![0].message == "Invalid signature.") {
+                        viewModel.refreshToken.observe(this) {
+                            lifecycleScope.launchWhenStarted {
+                                userPreferences?.authtoken?.collect { response ->
+                                    viewModel.setRefreshToken(response!!)
+                                }
+                                userPreferences?.saveAuthtoke(it.token!!)
+
+                            }
+                        }
                         navController.navigate(R.id.nav_sigin1)
+                    }
 
             } else {
-
                 txt_person_name.text = it.name ?: ""
                 txt_person_mobile.text = it.phoneNo ?: ""
 
@@ -248,23 +261,29 @@ class MainActivity : AppCompatActivity() {
         Log.d("TAG", "ordertype :$paymentType ")
         //Prints all extras. Replace with app logic.
         //Prints all extras. Replace with app logic.
-        data.let {
-            val bundle: Bundle = data?.extras!!
-            for (key in bundle.keySet()) {
-                if (bundle.getString(key) != null) {
-                    Log.d("TAG", key + ":" + bundle.getString(key))
-                }
-            }
 
-            val ordertype = paymentType
-            val txStatus = bundle.getString("txStatus")
-            Log.d("TAG", "onActivityResult: order $ordertype stat= $txStatus")
-            if ((ordertype == "single" || ordertype == "cart") && txStatus == "SUCCESS")
-                conformPaymentCart(bundle)
-            else if (ordertype == "wallet" && txStatus == "SUCCESS")
-                conformPaymentWallet(bundle)
-            else
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+        data?.let {
+            try {
+                val bundle: Bundle = data.extras!!
+                for (key in bundle.keySet()) {
+                    if (bundle.getString(key) != null) {
+                        Log.d("TAG", key + ":" + bundle.getString(key))
+                    }
+                }
+
+
+                val ordertype = paymentType
+                val txStatus = bundle.getString("txStatus")
+                Log.d("TAG", "onActivityResult: order $ordertype stat= $txStatus")
+                if ((ordertype == "single" || ordertype == "cart") && txStatus == "SUCCESS")
+                    conformPaymentCart(bundle)
+                else if (ordertype == "wallet" && txStatus == "SUCCESS")
+                    conformPaymentWallet(bundle)
+                else
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -288,10 +307,14 @@ class MainActivity : AppCompatActivity() {
                                 binding.toolbar.visibility = View.VISIBLE
                                 binding.navView.visibility = View.VISIBLE
                                 navController.navigate(R.id.nav_home)
-                                paymentType=""
+                                paymentType = ""
 
-                            }else{
-                                Toast.makeText(this@MainActivity,"Some error has occurred",Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Some error has occurred",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                     }
                 })
@@ -316,7 +339,7 @@ class MainActivity : AppCompatActivity() {
                                 binding.toolbar.visibility = View.VISIBLE
                                 binding.navView.visibility = View.VISIBLE
                                 navController.navigate(R.id.nav_home)
-                                paymentType=""
+                                paymentType = ""
 
                             } else {
                                 Toast.makeText(

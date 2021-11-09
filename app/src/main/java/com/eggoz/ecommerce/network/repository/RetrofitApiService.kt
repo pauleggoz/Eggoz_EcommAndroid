@@ -24,7 +24,7 @@ interface RetrofitApiService {
     suspend fun validate(
         @Field("phone_no") mobile_no: String,
         @Field("otp") otp: String,
-        @Field(" ecommerce_sector") ecommerce_sector: Int,
+        @Field("ecommerce_sector") ecommerce_sector: Int,
         @Field("city") city: Int
     ): Otpverify
 
@@ -127,11 +127,11 @@ interface RetrofitApiService {
     @POST(Constants.ecommerce_cartToken)
     @FormUrlEncoded
     suspend fun getcartToken(
-        @FieldMap  paramsstring:Map<String,String>,
-        @FieldMap  paramsdouble:Map<String,Double>,
-        @FieldMap  paramsarray:Map<String, JsonArray>,
-        @FieldMap  paramsint:Map<String, Int>,
-        @FieldMap  paramsbolean:Map<String, Boolean>
+        @FieldMap paramsstring: Map<String, String>,
+        @FieldMap paramsdouble: Map<String, Double>,
+        @FieldMap paramsarray: Map<String, JsonArray>,
+        @FieldMap paramsint: Map<String, Int>,
+        @FieldMap paramsbolean: Map<String, Boolean>
     ): CartToken
 
     @GET(Constants.ecommerce_customersubscriptions)
@@ -142,18 +142,18 @@ interface RetrofitApiService {
     @POST(Constants.ecommerce_mobile_wallet_recharge)
     @FormUrlEncoded
     suspend fun walletToken(
-        @FieldMap  paramsint:Map<String,Int>
+        @FieldMap paramsint: Map<String, Int>
     ): CartToken
 
     @POST(Constants.ecommerce_cartToken)
     @FormUrlEncoded
     suspend fun getsubToken(
-        @FieldMap  paramsstring:Map<String,String>,
-        @FieldMap  paramsarrStrng:Map<String, ArrayList<String>>,
-        @FieldMap  paramsarrInt:Map<String, ArrayList<Int>>,
-        @FieldMap  paramsint:Map<String, Int>,
-        @FieldMap  paramsbolean:Map<String, Boolean>,
-        @FieldMap  paramsjobj:Map<String, JsonObject>
+        @FieldMap paramsstring: Map<String, String>,
+        @FieldMap paramsarrStrng: Map<String, ArrayList<String>>,
+        @FieldMap paramsarrInt: Map<String, ArrayList<Int>>,
+        @FieldMap paramsint: Map<String, Int>,
+        @FieldMap paramsbolean: Map<String, Boolean>,
+        @FieldMap paramsjobj: Map<String, JsonObject>
     ): CartToken
 
     @GET(Constants.ecommerce_homeslider)
@@ -162,12 +162,18 @@ interface RetrofitApiService {
     @POST(Constants.ecommerce_mobile_cart_checkout)
     @FormUrlEncoded
     suspend fun conformPaymentCart(
-        @FieldMap  paramsint:Map<String,String>
+        @FieldMap paramsint: Map<String, String>
     ): Checkout
 
     @POST(Constants.ecommerce_mobile_cart_checkoutWallet)
     @FormUrlEncoded
     suspend fun conformPaymentWallet(
-        @FieldMap  paramsint:Map<String,String>
+        @FieldMap paramsint: Map<String, String>
     ): Checkout
+
+    @POST(Constants.apiTokenRefresh)
+    @FormUrlEncoded
+    suspend fun refreshToken(
+        @Field("token") token: String
+    ): TokenData
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.FragmentSubscribeBinding
 import com.eggoz.ecommerce.databinding.FragmentSubscribeCostBinding
@@ -21,7 +22,19 @@ class SubscribeCostFragment : Fragment() {
         init()
         return binding.root
     }
-    private fun init(){
 
+    private fun init() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 }
