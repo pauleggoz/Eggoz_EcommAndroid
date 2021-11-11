@@ -135,12 +135,12 @@ class AddressFragment : Fragment() {
 
     }
 
-    private fun getTokenforsubitem() {/*
+    private fun getTokenforsubitem() {
 
-        expiry_date = getArguments()?.getString("expiry_date", "") ?:""
-        quantity = getArguments()?.getString("quantity", "0") ?:"0"
-        subitem = getArguments()?.getString("product", "0") ?:"0"
-        days = getArguments()?.getIntegerArrayList("product" ) as ArrayList<Int>
+        expiry_date = getArguments()?.getString("expiry_date", "") ?: ""
+        quantity = getArguments()?.getString("quantity", "0") ?: "0"
+        subitem = getArguments()?.getString("product", "0") ?: "0"
+        days = arguments?.getIntegerArrayList("days") as ArrayList<Int>
 
         if (!dialog.isShowing())
             dialog.create(requireContext())
@@ -153,31 +153,32 @@ class AddressFragment : Fragment() {
                 item_id,
                 start_date,
                 expiry_date,
-                quantity,
-                subitem,
-                days,
-                pay_by_wallet = false
+                quantity.toInt(),
+                subitem.toInt(),
+                days!!,
+                pay_by_wallet = false,
+                date = "11-11-2021"
             )
             viewModel.responTokenforsingle.observe(viewLifecycleOwner, {
-                if (it.errorType == null) {
+               // if (it.body()?.errorType == null) {
 
                     if (dialog.isShowing())
                         dialog.dismiss()
                     paymentcart(
-                        it.payload?.appId ?: "",
-                        it.payload?.orderId ?: "",
-                        it.payload?.orderAmount ?: 0.0,
-                        it.payload?.orderNote ?: "",
-                        it.payload?.customerName ?: "",
-                        it.payload?.customerPhone ?: "",
-                        it.payload?.customerEmail ?: "",
-                        it.payload?.notifyUrl ?: "",
-                        it.gatewayResponse?.cftoken ?: ""
+                        it.body()?.payload?.appId ?: "",
+                        it.body()?.payload?.orderId ?: "",
+                        it.body()?.payload?.orderAmount ?: 0.0,
+                        it.body()?.payload?.orderNote ?: "",
+                        it.body()?.payload?.customerName ?: "",
+                        it.body()?.payload?.customerPhone ?: "",
+                        it.body()?.payload?.customerEmail ?: "",
+                        it.body()?.payload?.notifyUrl ?: "",
+                        it.body()?.gatewayResponse?.cftoken ?: ""
                     )
-                }
+
 
             })
-        }*/
+        }
     }
 
     private fun getTokenforsingle() {
@@ -200,20 +201,20 @@ class AddressFragment : Fragment() {
                 pay_by_wallet = false
             )
             viewModel.responTokenforsingle.observe(viewLifecycleOwner, {
-                if (it.errorType == null) {
+                if (it.body()?.errorType == null) {
 
                     if (dialog.isShowing())
                         dialog.dismiss()
                     paymentcart(
-                        it.payload?.appId ?: "",
-                        it.payload?.orderId ?: "",
-                        it.payload?.orderAmount ?: 0.0,
-                        it.payload?.orderNote ?: "",
-                        it.payload?.customerName ?: "",
-                        it.payload?.customerPhone ?: "",
-                        it.payload?.customerEmail ?: "",
-                        it.payload?.notifyUrl ?: "",
-                        it.gatewayResponse?.cftoken ?: ""
+                        it.body()?.payload?.appId ?: "",
+                        it.body()?.payload?.orderId ?: "",
+                        it.body()?.payload?.orderAmount ?: 0.0,
+                        it.body()?.payload?.orderNote ?: "",
+                        it.body()?.payload?.customerName ?: "",
+                        it.body()?.payload?.customerPhone ?: "",
+                        it.body()?.payload?.customerEmail ?: "",
+                        it.body()?.payload?.notifyUrl ?: "",
+                        it.body()?.gatewayResponse?.cftoken ?: ""
                     )
                 }
 
@@ -256,20 +257,20 @@ class AddressFragment : Fragment() {
                 pay_by_wallet = false
             )
             viewModel.responCartToken.observe(viewLifecycleOwner, {
-                if (it.errorType == null) {
+                if (it.body()?.errorType == null) {
 
                     if (dialog.isShowing())
                         dialog.dismiss()
                     paymentcart(
-                        it.payload?.appId ?: "",
-                        it.payload?.orderId ?: "",
-                        it.payload?.orderAmount ?: 0.0,
-                        it.payload?.orderNote ?: "",
-                        it.payload?.customerName ?: "",
-                        it.payload?.customerPhone ?: "",
-                        it.payload?.customerEmail ?: "",
-                        it.payload?.notifyUrl ?: "",
-                        it.gatewayResponse?.cftoken ?: ""
+                        it.body()?.payload?.appId ?: "",
+                        it.body()?.payload?.orderId ?: "",
+                        it.body()?.payload?.orderAmount ?: 0.0,
+                        it.body()?.payload?.orderNote ?: "",
+                        it.body()?.payload?.customerName ?: "",
+                        it.body()?.payload?.customerPhone ?: "",
+                        it.body()?.payload?.customerEmail ?: "",
+                        it.body()?.payload?.notifyUrl ?: "",
+                        it.body()?.gatewayResponse?.cftoken ?: ""
                     )
                 }
 
@@ -303,9 +304,9 @@ class AddressFragment : Fragment() {
 
         try {
 
-            (requireActivity() as MainActivity).paymentType=ordertype
-            (requireActivity() as MainActivity).totalamount=totalamount
-        }catch (e:Exception){
+            (requireActivity() as MainActivity).paymentType = ordertype
+            (requireActivity() as MainActivity).totalamount = totalamount
+        } catch (e: Exception) {
             Log.d("TAG", "paymentcart: ${e.message}")
 
         }

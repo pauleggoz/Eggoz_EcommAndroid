@@ -22,8 +22,9 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import retrofit2.Response
 
-class AddressViewModel(application: Application): AndroidViewModel(application) {
+class AddressViewModel(application: Application) : AndroidViewModel(application) {
     private var database: MyDatabase =
         Room.databaseBuilder(application, MyDatabase::class.java, Constants.DB_NAME)
             .allowMainThreadQueries().build()
@@ -33,17 +34,17 @@ class AddressViewModel(application: Application): AndroidViewModel(application) 
     var cart2 = MutableStateFlow(emptycart)
 
     var responAddress: MutableLiveData<Address> = MutableLiveData()
-    var responCartToken: MutableLiveData<CartToken> = MutableLiveData()
-    var responTokenforsingle: MutableLiveData<CartToken> = MutableLiveData()
+    var responCartToken: MutableLiveData<Response<CartToken>> = MutableLiveData()
+    var responTokenforsingle: MutableLiveData<Response<CartToken>> = MutableLiveData()
 
 
-    fun userAddress(customer: Int,context: Context)  {
+    fun userAddress(customer: Int, context: Context) {
         viewModelScope.launch {
-            Retrofithit().userAddress(id = customer,context = context)
+            Retrofithit().userAddress(id = customer, context = context)
                 .catch { e ->
 
-                    var errorResponse: Address?=null
-                    when(e){
+                    var errorResponse: Address? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<Address>() {}.type
@@ -53,7 +54,7 @@ class AddressViewModel(application: Application): AndroidViewModel(application) 
                         }
                     }
 
-                    responAddress.value=errorResponse
+                    responAddress.value = errorResponse
                 }.collect { response ->
                     responAddress.value = response
                 }
@@ -69,13 +70,29 @@ class AddressViewModel(application: Application): AndroidViewModel(application) 
         return cart2
     }
 
-    fun getcartToken(customer: Int,context: Context,totalamount:Double,addressid:Int,cartlist:ArrayList<RoomCart>,date:String,pay_by_wallet:Boolean)  {
+    fun getcartToken(
+        customer: Int,
+        context: Context,
+        totalamount: Double,
+        addressid: Int,
+        cartlist: ArrayList<RoomCart>,
+        date: String,
+        pay_by_wallet: Boolean
+    ) {
         viewModelScope.launch {
-            Retrofithit().getcartToken(customer=customer,context=context,totalamount=totalamount,addressid=addressid,cartlist=cartlist,date,pay_by_wallet)
+            Retrofithit().getcartToken(
+                customer = customer,
+                context = context,
+                totalamount = totalamount,
+                addressid = addressid,
+                cartlist = cartlist,
+                date,
+                pay_by_wallet
+            )
                 .catch { e ->
 
-                    var errorResponse: CartToken?=null
-                    when(e){
+                    var errorResponse: Response<CartToken>? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<CartToken>() {}.type
@@ -85,20 +102,36 @@ class AddressViewModel(application: Application): AndroidViewModel(application) 
                         }
                     }
 
-                    responCartToken.value=errorResponse
+                    responCartToken.value = errorResponse
                 }.collect { response ->
                     responCartToken.value = response
                 }
         }
     }
 
-    fun getTokenforsingle(customer: Int,context: Context,totalamount:Double,addressid:Int, item_id :Int,date:String,pay_by_wallet:Boolean)  {
+    fun getTokenforsingle(
+        customer: Int,
+        context: Context,
+        totalamount: Double,
+        addressid: Int,
+        item_id: Int,
+        date: String,
+        pay_by_wallet: Boolean
+    ) {
         viewModelScope.launch {
-            Retrofithit().getTokenforsingle(customer=customer,context=context,totalamount=totalamount,addressid=addressid,item_id=item_id,date,pay_by_wallet)
+            Retrofithit().getTokenforsingle(
+                customer = customer,
+                context = context,
+                totalamount = totalamount,
+                addressid = addressid,
+                item_id = item_id,
+                date,
+                pay_by_wallet
+            )
                 .catch { e ->
 
-                    var errorResponse: CartToken?=null
-                    when(e){
+                    var errorResponse: Response<CartToken>? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<CartToken>() {}.type
@@ -108,7 +141,7 @@ class AddressViewModel(application: Application): AndroidViewModel(application) 
                         }
                     }
 
-                    responTokenforsingle.value=errorResponse
+                    responTokenforsingle.value = errorResponse
                 }.collect { response ->
                     responTokenforsingle.value = response
                 }
@@ -116,19 +149,28 @@ class AddressViewModel(application: Application): AndroidViewModel(application) 
     }
 
 
-
-    fun getTokenforsubitem(customer: Int,context: Context,totalamount:Double,addressid:Int, item_id :Int,
-                           start_date:String,
-                           expiry_date:String,
-                           quantity:Int,
-                           subitem:Int,
-                           days:ArrayList<Int>,date:String,pay_by_wallet:Boolean)  {
+    fun getTokenforsubitem(
+        customer: Int, context: Context, totalamount: Double, addressid: Int, item_id: Int,
+        start_date: String,
+        expiry_date: String,
+        quantity: Int,
+        subitem: Int,
+        days: ArrayList<Int>, date: String, pay_by_wallet: Boolean
+    ) {
         viewModelScope.launch {
-            Retrofithit().getTokenforsubitem(customer=customer,context=context,totalamount=totalamount,addressid=addressid,item_id=item_id,date,pay_by_wallet)
+            Retrofithit().getTokenforsubitem(
+                customer = customer,
+                context = context,
+                totalamount = totalamount,
+                addressid = addressid,
+                item_id = item_id,
+                date,
+                pay_by_wallet
+            )
                 .catch { e ->
 
-                    var errorResponse: CartToken?=null
-                    when(e){
+                    var errorResponse: Response<CartToken>? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<CartToken>() {}.type
@@ -138,7 +180,7 @@ class AddressViewModel(application: Application): AndroidViewModel(application) 
                         }
                     }
 
-                    responTokenforsingle.value=errorResponse
+                    responTokenforsingle.value = errorResponse
                 }.collect { response ->
                     responTokenforsingle.value = response
                 }

@@ -17,6 +17,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 
 class Retrofithit {
 
@@ -96,7 +98,7 @@ class Retrofithit {
         cartlist: ArrayList<RoomCart>,
         date: String,
         pay_by_wallet: Boolean
-    ): Flow<CartToken> = flow {
+    ): Flow<Response<CartToken>> = flow {
         val paramsstring: MutableMap<String, String> = HashMap()
         val paramsarray: MutableMap<String, JsonArray> = HashMap()
         val paramsdouble: MutableMap<String, Double> = HashMap()
@@ -148,7 +150,7 @@ class Retrofithit {
         item_id: Int,
         date: String,
         pay_by_wallet: Boolean
-    ): Flow<CartToken> = flow {
+    ): Flow<Response<CartToken>> = flow {
         val paramsstring: MutableMap<String, String> = HashMap()
         val paramsarray: MutableMap<String, JsonArray> = HashMap()
         val paramsdouble: MutableMap<String, Double> = HashMap()
@@ -285,7 +287,7 @@ class Retrofithit {
         slot: String,
         days: ArrayList<Int>,
         context: Context
-    ): Flow<ResponseBody> = flow {
+    ): Flow<Response<ResponseBody>> = flow {
 
         val body = JsonArray()
         val structure = JsonObject()
@@ -384,7 +386,7 @@ class Retrofithit {
         item_id: Int,
         date: String,
         pay_by_wallet: Boolean
-    ): Flow<CartToken> = flow {
+    ): Flow<Response<CartToken>> = flow {
 
 
         val paramsstring: MutableMap<String, String> = HashMap()

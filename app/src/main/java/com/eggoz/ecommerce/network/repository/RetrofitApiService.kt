@@ -9,6 +9,8 @@ import com.eggoz.ecommerce.view.address.model.CartToken
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface RetrofitApiService {
@@ -117,7 +119,7 @@ interface RetrofitApiService {
     @POST(Constants.ecommerce_customersubscriptions)
     suspend fun subscriptions(
         @Body body: JsonObject
-    ): ResponseBody
+    ): Response<ResponseBody>
 
     @GET(Constants.ecommerce_subscriptions)
     suspend fun getSubscribe(
@@ -132,7 +134,7 @@ interface RetrofitApiService {
         @FieldMap paramsarray: Map<String, JsonArray>,
         @FieldMap paramsint: Map<String, Int>,
         @FieldMap paramsbolean: Map<String, Boolean>
-    ): CartToken
+    ): Response<CartToken>
 
     @GET(Constants.ecommerce_customersubscriptions)
     suspend fun getSubList(
@@ -154,7 +156,7 @@ interface RetrofitApiService {
         @FieldMap paramsint: Map<String, Int>,
         @FieldMap paramsbolean: Map<String, Boolean>,
         @FieldMap paramsjobj: Map<String, JsonObject>
-    ): CartToken
+    ): Response<CartToken>
 
     @GET(Constants.ecommerce_homeslider)
     suspend fun homeSlider(): HomeSlider

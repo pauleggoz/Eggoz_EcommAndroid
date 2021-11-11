@@ -15,21 +15,23 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.HttpException
+import retrofit2.Response
 
-class SubscribeViewModel: ViewModel() {
+class SubscribeViewModel : ViewModel() {
 
     var responProduct: MutableLiveData<Products> = MutableLiveData()
-    var responsemembershiprecharge: MutableLiveData<ResponseBody?> = MutableLiveData()
+    var responsemembershiprecharge: MutableLiveData<Response<ResponseBody>?> = MutableLiveData()
     var responseSubscribe: MutableLiveData<Subscribe?> = MutableLiveData()
 
-    fun productList(city: Int,is_available:Int)  {
+    fun productList(city: Int, is_available: Int) {
         viewModelScope.launch {
-            Retrofithit().productList(city = city,is_available = is_available)
+            Retrofithit().productList(city = city, is_available = is_available)
                 .catch { e ->
 
-                    var errorResponse: Products?=null
-                    when(e){
+                    var errorResponse: Products? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
                             val type = object : TypeToken<Products>() {}.type
@@ -39,14 +41,12 @@ class SubscribeViewModel: ViewModel() {
                         }
                     }
 
-                    responProduct.value=errorResponse
+                    responProduct.value = errorResponse
                 }.collect { response ->
                     responProduct.value = response
                 }
         }
     }
-
-
 
 
     fun subscriptions(
@@ -61,18 +61,17 @@ class SubscribeViewModel: ViewModel() {
     ) {
         viewModelScope.launch {
             Retrofithit().subscriptions(
-                start_date =start_date,
-                expiry_date =expiry_date,
-                quantity =quantity,
-                customer =customer,
-                product =product,
-                slot =slot,
-                days =days,
+                start_date = start_date,
+                expiry_date = expiry_date,
+                quantity = quantity,
+                customer = customer,
+                product = product,
+                slot = slot,
+                days = days,
                 context = context
-            )
-                .catch { e ->
+            ).catch { e ->
 
-                    var errorResponse: ResponseBody? = null
+                    var errorResponse: Response<ResponseBody>? = null
                     when (e) {
                         is HttpException -> {
                             val gson = Gson()
@@ -82,17 +81,18 @@ class SubscribeViewModel: ViewModel() {
                             )
                         }
                     }
-
+                    //Log.d("main", "subscriptions: ${e.message} ")
                     responsemembershiprecharge.value = errorResponse
                 }.collect { response ->
                     responsemembershiprecharge.value = response
+                    Log.d("main", "subscriptions: ${response.body()} ")
                 }
         }
     }
 
     fun getSubscribe(context: Context) {
         viewModelScope.launch {
-            Retrofithit().getSubscribe( context = context)
+            Retrofithit().getSubscribe(context = context)
                 .catch { e ->
 
                     var errorResponse: Subscribe? = null
@@ -113,7 +113,6 @@ class SubscribeViewModel: ViewModel() {
                 }
         }
     }
-
 
 
 }
