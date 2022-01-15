@@ -1,4 +1,4 @@
-package com.eggoz.ecommerce.view.profile
+package com.eggoz.ecommerce.view.profile.view
 
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +16,10 @@ import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentManageAdderssesBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
 import com.eggoz.ecommerce.view.profile.adapter.ManageAdderssesAdapter
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileRepository
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModelFactory
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -26,8 +29,6 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
     private var _binding: FragmentManageAdderssesBinding? = null
     private val binding get() = _binding!!
 
-    private var userPreferences: UserPreferences? = null
-    private var userid: Int = -1
     private lateinit var viewModel: ProfileViewModel
     private lateinit var dialog: Loadinddialog
     private lateinit var adapter: ManageAdderssesAdapter
@@ -43,8 +44,12 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
     }
 
     private fun initView() {
-        userPreferences = UserPreferences(requireContext())
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        val userPreferences = UserPreferences(requireContext())
+        val repository = ProfileRepository(userPreferences)
+        val viewmodelFat = ProfileViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, viewmodelFat)[ProfileViewModel::class.java]
+
         dialog = Loadinddialog()
         binding.apply {
             btnBack.setOnClickListener {
@@ -65,12 +70,7 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
                     .navigate(R.id.action_nav_manageAddress_to_nav_inputAddress)
             }
         }
-        lifecycleScope.launch {
-            userid = userPreferences!!.Customer_id.first() ?: -1
-            if (userid != -1) {
-                getUser()
-            }
-        }
+        getUser()
     }
 
     private fun getUser() {
@@ -78,32 +78,30 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
 
         if (!dialog.isShowing())
             dialog.create(requireContext())
-        Log.d("data", "id$userid")
         lifecycleScope.launch {
-            viewModel.user(userid, requireContext())
-        }
-        viewModel.responUser.observe(viewLifecycleOwner, {
+            viewModel.user(requireContext()).observe(viewLifecycleOwner, {
 
-            if (dialog.isShowing())
-                dialog.dismiss()
-            if (it?.errorType != null) {
+                if (dialog.isShowing())
+                    dialog.dismiss()
+                if (it?.errorType != null) {
 
 
-            } else {
-                if (it.addresses != null)
+                } else {
+                    if (it.addresses != null)
 
-                    binding.apply {
-                        adapter = ManageAdderssesAdapter(
-                            result = it.addresses,
-                            this@ManageAddressFragment
-                        )
                         binding.apply {
-                            recManageAdd.adapter = adapter
-                            (recManageAdd.adapter as ManageAdderssesAdapter).notifyDataSetChanged()
+                            adapter = ManageAdderssesAdapter(
+                                result = it.addresses,
+                                this@ManageAddressFragment
+                            )
+                            binding.apply {
+                                recManageAdd.adapter = adapter
+                                (recManageAdd.adapter as ManageAdderssesAdapter).notifyDataSetChanged()
+                            }
                         }
-                    }
-            }
-        })
+                }
+            })
+        }
     }
 
     override fun deleteAddress(id: Int) {
@@ -113,14 +111,14 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.deleteAddress(id, requireContext())
+                .observe(viewLifecycleOwner, {
+                if (it.errorType == null) {
+                    getUser()
+                }
+                if (dialog.isShowing())
+                    dialog.dismiss()
+            })
         }
-        viewModel.responOtpgenerate.observe(viewLifecycleOwner, {
-            if (it.errorType == null) {
-                getUser()
-            }
-            if (dialog.isShowing())
-                dialog.dismiss()
-        })
     }
 
     override fun onResume() {

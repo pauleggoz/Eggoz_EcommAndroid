@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.ItemManageAddressBinding
 import com.eggoz.ecommerce.network.model.Address
-import com.eggoz.ecommerce.view.profile.ManageAddressFragment
+import com.eggoz.ecommerce.view.profile.view.ManageAddressFragment
 
 class ManageAdderssesAdapter(val result:List<Address.AAddress>,val callbacks: ManageAddressFragment) :
     RecyclerView.Adapter<ManageAdderssesAdapter.ViewHolder>() {

@@ -1,4 +1,5 @@
 <resources>
+    <string name="price_format">₹%,.2f</string>
     <string name="app_name">Eggoz</string>
     <string name="splash">Splash</string>
     <string name="start_heading">Protein for your teen in every bite</string>
@@ -92,8 +93,6 @@
     <string name="hint_email">Enter Email</string>
     <string name="email">Email</string>
     <string name="pincode">Pincode</string>
-
-    <string name="price_format">₹ %1$.2f</string>
     <string name="def_price">0.0f</string>
     <string name="price_format_currentballance">₹ %1$.2f</string>
     <string name="reload">Refresh</string>

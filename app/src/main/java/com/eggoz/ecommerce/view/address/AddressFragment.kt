@@ -50,7 +50,7 @@ class AddressFragment : Fragment() {
     private var ordertype = ""
     private var addressid = -1
     private lateinit var job: Job
-    private lateinit var cartlist: ArrayList<RoomCart>
+    private var cartlist: ArrayList<RoomCart> = ArrayList()
 
     private var item_id: Int = -1
 
@@ -59,7 +59,7 @@ class AddressFragment : Fragment() {
     private var expiry_date = ""
     private var quantity = ""
     private var subitem = "-1"
-    private var days: ArrayList<Int>? = null
+    private var days: ArrayList<Int>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,12 +74,10 @@ class AddressFragment : Fragment() {
     }
 
     private fun init() {
-        cartlist = ArrayList()
-
-        days = ArrayList()
 
         userPreferences = UserPreferences(requireContext())
         viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
+
         dialog = Loadinddialog()
         lifecycleScope.launch {
             mid = userPreferences!!.userid.first() ?: -1
@@ -120,12 +118,6 @@ class AddressFragment : Fragment() {
                 }
             }
 
-            recAddress.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                itemAnimator = DefaultItemAnimator()
-                isNestedScrollingEnabled = false
-            }
             txtAddAddress.setOnClickListener {
                 Navigation.findNavController(root)
                     .navigate(R.id.action_nav_address_list_to_nav_manageAddress)
@@ -317,6 +309,8 @@ class AddressFragment : Fragment() {
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
+            addressAdapter = AddressAdapter()
+            binding.addressAdapter=addressAdapter
             viewModel.userAddress(mid, requireContext())
             viewModel.responAddress.observe(viewLifecycleOwner, {
 
@@ -332,12 +326,13 @@ class AddressFragment : Fragment() {
 
                 } else {
                     if (it.addresses != null) {
-                        addressAdapter = AddressAdapter(it.addresses)
+//                        addressAdapter = AddressAdapter(it.addresses)
                         binding.apply {
                             if (it.addresses != null)
                                 addressid = it.addresses[0].id ?: -1
-                            recAddress.adapter = addressAdapter
-                            (recAddress.adapter as AddressAdapter).notifyDataSetChanged()
+                            addressAdapter?.submitList(it.addresses)
+//                            recAddress.adapter = addressAdapter
+//                            (recAddress.adapter as AddressAdapter).notifyDataSetChanged()
                         }
                     }
                 }

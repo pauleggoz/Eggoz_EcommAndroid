@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="versionName"
+            type="String"/>
+        <import type="android.view.View" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -28,7 +31,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/Theme.Eggoz.PopupOverlay" />
-
 
             <fragment
                 android:id="@+id/nav_host_fragment"
@@ -77,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:clickable="true"
+                android:minHeight="32dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -84,7 +87,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:gravity="center"
-                    android:text="Footer Item 1" />
+                    android:visibility="@{versionName ==null ? View.VISIBLE :View.GONE}"
+                    android:text="@{versionName}" />
 
             </LinearLayout>
         </com.google.android.material.navigation.NavigationView>

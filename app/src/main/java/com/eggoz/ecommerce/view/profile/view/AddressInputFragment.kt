@@ -1,4 +1,4 @@
-package com.eggoz.ecommerce.view.profile
+package com.eggoz.ecommerce.view.profile.view
 
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +18,7 @@ import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentAddressInputBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.utils.Validation
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -217,18 +218,17 @@ class AddressInputFragment : Fragment() {
                     State = stateid,
                     Pincode = edtPincode.text.toString(),
                     context = requireContext()
-                )
+                ).observe(viewLifecycleOwner, {
+                    if (it.errorType == null)
+                        Navigation.findNavController(binding.root)
+                            .popBackStack()
+
+                    if (dialog.isShowing())
+                        dialog.dismiss()
+
+                })
             }
 
-            viewModel.responUser.observe(viewLifecycleOwner, {
-                if (it.errorType == null)
-                    Navigation.findNavController(binding.root)
-                        .popBackStack()
-
-                if (dialog.isShowing())
-                    dialog.dismiss()
-
-            })
         }
     }
 
@@ -237,8 +237,7 @@ class AddressInputFragment : Fragment() {
             if (!dialog.isShowing())
                 dialog.create(requireContext())
 
-            viewModel.getCity()
-            viewModel.responsecity.observe(viewLifecycleOwner,
+            viewModel.getCity().observe(viewLifecycleOwner,
                 {
 
                     if (dialog.isShowing())
@@ -280,8 +279,7 @@ class AddressInputFragment : Fragment() {
             if (!dialog.isShowing())
                 dialog.create(requireContext())
 
-            viewModel.getCity()
-            viewModel.responsecity.observe(viewLifecycleOwner,
+            viewModel.getCity().observe(viewLifecycleOwner,
                 {
 
                     if (dialog.isShowing())
@@ -332,8 +330,7 @@ class AddressInputFragment : Fragment() {
             if (!dialog.isShowing())
                 dialog.create(requireContext())
 
-            viewModel.getLocality(id = id)
-            viewModel.responselocality.observe(viewLifecycleOwner, {
+            viewModel.getLocality(id = id).observe(viewLifecycleOwner, {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -377,8 +374,7 @@ class AddressInputFragment : Fragment() {
             if (!dialog.isShowing())
                 dialog.create(requireContext())
 
-            viewModel.getLocality(id = id)
-            viewModel.responselocality.observe(viewLifecycleOwner, {
+            viewModel.getLocality(id = id).observe(viewLifecycleOwner, {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -493,19 +489,18 @@ class AddressInputFragment : Fragment() {
                     State = stateid,
                     Pincode = edtPincode.text.toString(),
                     context = requireContext()
-                )
+                ).observe(viewLifecycleOwner, {
+                    if (dialog.isShowing())
+                        dialog.dismiss()
+
+                    if (it.errorType == null)
+                        Navigation.findNavController(binding.root)
+                            .popBackStack()
+
+                    Log.d("data", it.toString())
+                })
             }
 
-            viewModel.responUser.observe(viewLifecycleOwner, {
-                if (dialog.isShowing())
-                    dialog.dismiss()
-
-                if (it.errorType == null)
-                    Navigation.findNavController(binding.root)
-                        .popBackStack()
-
-                Log.d("data", it.toString())
-            })
         }
     }
 

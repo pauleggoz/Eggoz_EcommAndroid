@@ -3,56 +3,43 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/activity_main.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_add_money.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_address.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_address_input.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_cart_list.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_edit_profile.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_home.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_locality.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_manage_addersses.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_membership_plans.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_more_product.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_payment_sucessful.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_product.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_product_detail.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_profile.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_select_city.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_sigin2.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_sign_in1.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_splash.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_starter.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe_cost.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe_detail.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_wallet.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_address.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_cartlist.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_checkbutton.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_city.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_loc.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_manage_address.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_membership.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_membership_detail.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_poddetailprod.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_popprod.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_product.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_promo.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_subscribe.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_subscription.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_tablist.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_wallhis.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/layout_loader.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/nav_header.xml" value="0.2421875" />
-        <entry key="..\:/Users/Antino/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/slider_item_container.xml" value="0.2421875" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/active_dot.xml" value="0.2203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/blackdot.xml" value="0.2203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/curvedback.xml" value="0.2203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/non_active_dot.xml" value="0.2203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/topcurve.xml" value="0.2203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_add_money.xml" value="0.203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_address.xml" value="0.22" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_cart_list.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_locality.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_payment_sucessful.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_product.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_product_detail.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_select_city.xml" value="0.20092592592592592" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe.xml" value="0.203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe_detail.xml" value="0.203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_wallet.xml" value="0.203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_address.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_cartlist.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_city.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_loc.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_manage_address.xml" value="0.203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_order.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_poddetailprod.xml" value="0.203125" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_popprod.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_product.xml" value="0.1361111111111111" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_subscription.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_wallhis.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/nav_header.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/slider_item_container.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/menu/navmenu.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
-  <component name="ProjectType">
-    <option name="id" value="Android" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

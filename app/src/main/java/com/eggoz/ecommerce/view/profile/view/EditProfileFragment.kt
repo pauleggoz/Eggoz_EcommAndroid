@@ -1,4 +1,4 @@
-package com.eggoz.ecommerce.view.profile
+package com.eggoz.ecommerce.view.profile.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,6 +13,7 @@ import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentEditProfileBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.utils.Validation
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -93,8 +94,7 @@ class EditProfileFragment : Fragment() {
                 name = binding.edtName.text.toString(),
                 email = binding.edtEmail.text.toString(),
                 "+91" + binding.edtPhone.text.toString()
-            )
-            viewModel.responeditUser.observe(viewLifecycleOwner, {
+            ).observe(viewLifecycleOwner, {
 
                 if (dialog.isShowing())
                     dialog.dismiss()

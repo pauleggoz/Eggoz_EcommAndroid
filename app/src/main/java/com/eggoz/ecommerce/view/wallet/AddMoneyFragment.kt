@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.widget.addTextChangedListener
@@ -81,7 +82,11 @@ class AddMoneyFragment : Fragment() {
                 isNestedScrollingEnabled = false
             }
             txtbtnAddmoney.setOnClickListener {
-                getWalletToken()
+                if (edtAmount.text.toString().isNotEmpty() && binding.edtAmount.text.toString()
+                        .toInt() >= 100
+                )
+                    getWalletToken()
+                else Toast.makeText(requireContext(),"Minimum Amount is ₹ 100",Toast.LENGTH_LONG).show()
             }
             edtAmount.addTextChangedListener {
                 if (it.toString() == "")

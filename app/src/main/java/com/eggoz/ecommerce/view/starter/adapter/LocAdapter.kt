@@ -2,17 +2,104 @@ package com.eggoz.ecommerce.view.starter.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.R
+import com.eggoz.ecommerce.databinding.ItemCityBinding
 import com.eggoz.ecommerce.databinding.ItemLocBinding
 import com.eggoz.ecommerce.network.model.CityData
+import com.eggoz.ecommerce.view.address.adapter.AddressAdapter
+import com.eggoz.ecommerce.view.address.adapter.Opetion
 import com.eggoz.ecommerce.view.starter.LocalityFragment
 
-class LocAdapter(
+class LocAdapter(private val mycallback: (CityData.Result.City.EcommerceSector?) -> Unit) :
+    ListAdapter<CityData.Result.City.EcommerceSector?, LocAdapter.LocRecyclerViewHolder>(
+        LocCallBack()
+    ), Opetion {
+
+    private var lastCheckedPosition: Int = 0
+
+    class LocRecyclerViewHolder(
+        private val binding: ItemLocBinding,
+        private var adaptercallback: LocAdapter,
+        private var lastCheckedPosition: Int
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(
+            item: CityData.Result.City.EcommerceSector?,
+            callback: (CityData.Result.City.EcommerceSector?) -> Unit,
+            currentPos: Int
+        ) {
+            binding.apply {
+
+                itemdata = item
+                seletedPos = lastCheckedPosition
+                viewcurrentPos = currentPos
+
+
+                locSelect.setOnClickListener {
+                    adaptercallback.reset(position = currentPos)
+                    callback(item)
+                }
+
+
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): LocRecyclerViewHolder {
+        val binding = ItemLocBinding.inflate(LayoutInflater.from(parent.context))
+        return LocRecyclerViewHolder(binding, this, lastCheckedPosition)
+    }
+
+    override fun onBindViewHolder(holder: LocRecyclerViewHolder, position: Int) {
+        val currentArticle = getItem(position)
+        holder.bind(currentArticle, mycallback, position)
+    }
+
+    override fun reset(position: Int) {
+        val copyOfLastCheckedPosition = lastCheckedPosition
+        lastCheckedPosition = position
+        notifyItemChanged(copyOfLastCheckedPosition)
+        notifyItemChanged(lastCheckedPosition)
+    }
+
+
+}
+
+class LocCallBack : DiffUtil.ItemCallback<CityData.Result.City.EcommerceSector?>() {
+
+    override fun areItemsTheSame(
+        oldItem: CityData.Result.City.EcommerceSector,
+        newItem: CityData.Result.City.EcommerceSector
+    ): Boolean =
+        oldItem == newItem
+
+    override fun areContentsTheSame(
+        oldItem: CityData.Result.City.EcommerceSector,
+        newItem: CityData.Result.City.EcommerceSector
+    ): Boolean =
+        oldItem.sectorName == newItem.sectorName
+
+}
+
+
+/*
+
+
+
+(
     var result: List<CityData.Result.City.EcommerceSector?>,
     var contextloc: LocalityFragment
 ) : RecyclerView.Adapter<LocAdapter.ViewHolder>() {
@@ -68,4 +155,4 @@ class LocAdapter(
 
     }
 
-}
+}*/

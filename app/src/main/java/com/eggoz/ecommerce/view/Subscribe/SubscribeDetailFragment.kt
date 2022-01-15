@@ -55,6 +55,10 @@ class SubscribeDetailFragment : Fragment() {
                 itemAnimator = DefaultItemAnimator()
                 isNestedScrollingEnabled = false
             }
+            btnBack.setOnClickListener {
+                Navigation.findNavController(binding.root)
+                    .popBackStack()
+            }
         }
         getSubscribe()
 

@@ -4,6 +4,12 @@
 
     <data>
 
+        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils" />
+
+        <variable
+            name="itemdata"
+            type="com.eggoz.ecommerce.network.model.CityData.Result" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +36,7 @@
             android:layout_marginTop="@dimen/s24"
             android:paddingRight="@dimen/s76"
             android:paddingLeft="@dimen/s76"
+            android:text="@{itemdata.zoneName ?? ``}"
             style="@style/textLargemedium"
             android:textColor="@color/gray"
             app:layout_constraintTop_toBottomOf="@+id/img"

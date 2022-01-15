@@ -31,10 +31,6 @@ interface CartDao {
     @Query("SELECT COUNT(*) FROM cart")
     suspend fun Cartsize() :Int
 
-   /* @Query("delete from cart where id= :mid and :qnt==0")
-    suspend fun checkcart(mid:Int,qnt:Int,price:String)*/
-
-
     @Query("DELETE FROM cart")
     suspend fun clearCart()
 

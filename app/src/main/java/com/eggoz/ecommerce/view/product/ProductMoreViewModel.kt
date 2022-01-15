@@ -22,10 +22,8 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class ProductMoreViewModel(application: Application) : AndroidViewModel(application) {
-    private var database: MyDatabase =
-    Room.databaseBuilder(application, MyDatabase::class.java, Constants.DB_NAME)
-        .allowMainThreadQueries().build()
-    var cartdao: CartDao = database.deatailcart()
+
+    var cartdao: CartDao = MyDatabase.getInstance(context = application).deatailcart
 
     private var emptycart: List<RoomCart> = ArrayList()
     var cart2 = MutableStateFlow(emptycart)

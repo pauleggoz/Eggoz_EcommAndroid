@@ -1,6 +1,7 @@
 package com.eggoz.ecommerce.view
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,13 +18,9 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class MainViewModel : ViewModel() {
-    var responselocality: MutableLiveData<CityData.Result?> = MutableLiveData()
-    var responsecity: MutableLiveData<CityData> = MutableLiveData()
-    var responOtpgenerate: MutableLiveData<Otpgenerate> = MutableLiveData()
-    var responOtpverify: MutableLiveData<Otpverify> = MutableLiveData()
 
-
-    fun Login(mobile: String) {
+    fun Login(mobile: String) :LiveData<Otpgenerate> {
+        val responOtpgenerate: MutableLiveData<Otpgenerate> = MutableLiveData()
         viewModelScope.launch {
             Retrofithit().Login(mobile = mobile)
                 .catch { e ->
@@ -39,14 +36,16 @@ class MainViewModel : ViewModel() {
                         }
                     }
 
-                    responOtpgenerate.value = errorResponse
+                    responOtpgenerate.value = errorResponse!!
                 }.collect { response ->
                     responOtpgenerate.value = response
                 }
         }
+        return responOtpgenerate
     }
 
-    fun validate(mobile: String, otp: String, loc_id: Int, city_id: Int) {
+    fun validate(mobile: String, otp: String, loc_id: Int, city_id: Int) :LiveData<Otpverify> {
+        val responOtpverify: MutableLiveData<Otpverify> = MutableLiveData()
         viewModelScope.launch {
             Retrofithit().validate(mobile = mobile, otp = otp, sector = loc_id, city = city_id)
                 .catch { e ->
@@ -62,15 +61,17 @@ class MainViewModel : ViewModel() {
                     }
                     Log.d("TAG", "validate: $errorResponse")
 
-                    responOtpverify.value = errorResponse
+                    responOtpverify.value = errorResponse!!
                 }.collect { response ->
                     responOtpverify.value = response
                     Log.d("TAG", "validate: $response")
                 }
         }
+        return responOtpverify
     }
 
-    fun getCity() {
+    fun getCity() : LiveData<CityData> {
+        val responsecity: MutableLiveData<CityData> = MutableLiveData()
         viewModelScope.launch {
             Retrofithit().getCity()
                 .catch { e ->
@@ -90,9 +91,11 @@ class MainViewModel : ViewModel() {
                     responsecity.value = response
                 }
         }
+        return responsecity
     }
 
-    fun getLocality(id: Int) {
+    fun getLocality(id: Int) :LiveData<CityData.Result?> {
+        val responselocality: MutableLiveData<CityData.Result?> = MutableLiveData()
         viewModelScope.launch {
             Retrofithit().getLocality(id = id)
                 .catch { e ->
@@ -113,6 +116,7 @@ class MainViewModel : ViewModel() {
                     responselocality.value = response
                 }
         }
+        return responselocality
     }
 
 

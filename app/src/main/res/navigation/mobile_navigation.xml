@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_sigin2"/>
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.eggoz.ecommerce.view.home.HomeFragment"
+        android:name="com.eggoz.ecommerce.view.home.view.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
         <action android:id="@+id/action_nav_home_to_nav_product_detail"
@@ -94,7 +94,7 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.eggoz.ecommerce.view.profile.ProfileFragment"
+        android:name="com.eggoz.ecommerce.view.profile.view.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile">
         <action android:id="@+id/action_nav_profile_detail_to_nav_edt_profile"
@@ -141,7 +141,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_cart_list"
-        android:name="com.eggoz.ecommerce.view.cart.CartListFragment"
+        android:name="com.eggoz.ecommerce.view.cart.view.CartListFragment"
         android:label="@string/menu_cart"
         tools:layout="@layout/fragment_cart_list">
 
@@ -160,7 +160,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_manageAddress"
-        android:name="com.eggoz.ecommerce.view.profile.ManageAddressFragment"
+        android:name="com.eggoz.ecommerce.view.profile.view.ManageAddressFragment"
         android:label="@string/menu_address"
         tools:layout="@layout/fragment_manage_addersses">
         <action android:id="@+id/action_nav_manageAddress_to_nav_inputAddress"
@@ -169,14 +169,14 @@
 
     <fragment
         android:id="@+id/nav_inputAddress"
-        android:name="com.eggoz.ecommerce.view.profile.AddressInputFragment"
+        android:name="com.eggoz.ecommerce.view.profile.view.AddressInputFragment"
         android:label="@string/menu_address"
         tools:layout="@layout/fragment_address_input">
     </fragment>
 
     <fragment
         android:id="@+id/nav_edt_profile"
-        android:name="com.eggoz.ecommerce.view.profile.EditProfileFragment"
+        android:name="com.eggoz.ecommerce.view.profile.view.EditProfileFragment"
         android:label="@string/menu_address"
         tools:layout="@layout/fragment_edit_profile">
     </fragment>

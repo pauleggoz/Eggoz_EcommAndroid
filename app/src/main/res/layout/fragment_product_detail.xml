@@ -58,9 +58,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/pagger_slider"
+                <ImageView
+                    android:id="@+id/img_detail"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/s200"
                     android:layout_marginTop="@dimen/s24"
@@ -68,7 +67,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/icon" />
+                    app:layout_constraintTop_toBottomOf="@+id/icon"/>
+
 
                 <LinearLayout
                     android:id="@+id/SliderDots"
@@ -79,14 +79,14 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pagger_slider" />
+                    app:layout_constraintTop_toBottomOf="@+id/img_detail" />
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/s0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pagger_slider">
+                    app:layout_constraintTop_toBottomOf="@+id/img_detail">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

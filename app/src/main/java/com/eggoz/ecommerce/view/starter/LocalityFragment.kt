@@ -1,6 +1,7 @@
 package com.eggoz.ecommerce.view.starter
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,20 +11,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentLocalityBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.MainViewModel
 import com.eggoz.ecommerce.view.starter.adapter.LocAdapter
-import com.eggoz.ecommerce.view.starter.callback.LocCallback
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class LocalityFragment : Fragment(), LocCallback {
+class LocalityFragment : Fragment() {
 
 
     private var _binding: FragmentLocalityBinding? = null
@@ -67,13 +65,11 @@ class LocalityFragment : Fragment(), LocCallback {
                     return@setOnKeyListener true
                 } else false
             }
-
-            recloc.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireContext())
-                itemAnimator = DefaultItemAnimator()
-                isNestedScrollingEnabled = false
+            locAdapter = LocAdapter { sector->
+                Log.d("TAG", "init: ")
+                locid = sector?.id ?: -1
             }
+            viewlocAdapter=locAdapter
 
 
             btnSubmit.setOnClickListener {
@@ -105,8 +101,7 @@ class LocalityFragment : Fragment(), LocCallback {
             if (!dialog.isShowing())
                 dialog.create(requireContext())
 
-            viewModel.getLocality(id = id)
-            viewModel.responselocality.observe(viewLifecycleOwner, {
+            viewModel.getLocality(id = id).observe(viewLifecycleOwner, {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -116,19 +111,24 @@ class LocalityFragment : Fragment(), LocCallback {
 
                 } else {
 
-                    if (it?.cities != null) {
-                        if (it.cities!![0].ecommerceSectors != null) {
-                            locid = it.cities!![0].ecommerceSectors!![0].id ?: -1
-                            locAdapter = LocAdapter(
-                                it.cities!![0].ecommerceSectors!!,
-                                contextloc = this@LocalityFragment
-                            )
-                            binding.apply {
-                                recloc.adapter = locAdapter
-                                (recloc.adapter as LocAdapter).notifyDataSetChanged()
-                            }
+                    it?.cities.let { city->
+                        city!![0].ecommerceSectors.let { ecomSec->
+                            if (ecomSec!!.isNotEmpty())
+                                locid = ecomSec[0].id ?: -1
+                            locAdapter.submitList(ecomSec)
+
                         }
+
                     }
+
+            /*        if (it?.cities != null) {
+                        if (it.cities!![0].ecommerceSectors != null) {
+                            if (it.cities!![0].ecommerceSectors!!.isNotEmpty())
+                            locid = it.cities!![0].ecommerceSectors!![0].id ?: -1
+                            locAdapter.submitList(it.cities!![0].ecommerceSectors!!)
+//                            locAdapter.reset(locAdapter.itemCount)
+                        }
+                    }*/
 
                 }
             })
@@ -139,9 +139,4 @@ class LocalityFragment : Fragment(), LocCallback {
         super.onDestroy()
         _binding = null
     }
-
-    override fun locId(id: Int?) {
-        locid = id ?: -1
-    }
-
 }

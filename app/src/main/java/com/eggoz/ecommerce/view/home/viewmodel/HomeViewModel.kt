@@ -1,30 +1,40 @@
-package com.eggoz.ecommerce.view.home
+package com.eggoz.ecommerce.view.home.viewmodel
 
+import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.network.model.HomeSlider
 import com.eggoz.ecommerce.network.model.Products
 import com.eggoz.ecommerce.network.model.Sublist
 import com.eggoz.ecommerce.network.repository.Retrofithit
+import com.eggoz.ecommerce.view.cart.viewmodel.ProductRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class HomeViewModel:ViewModel() {
+class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
 
-    var responProduct: MutableLiveData<Products> = MutableLiveData()
-    var responSublist: MutableLiveData<Sublist> = MutableLiveData()
-    var responHomeSlider: MutableLiveData<HomeSlider> = MutableLiveData()
+    private var city_id = -1
+    private var user_id = -1
 
-    fun productList(city: Int,is_available:Int)  {
+    init {
         viewModelScope.launch {
-            Retrofithit().productList(city = city,is_available = is_available)
+            city_id = repository.city_id.buffer().first() ?: -1
+            user_id = repository.user_id.buffer().first() ?: -1
+        }
+    }
+
+    fun productList():LiveData<Products>  {
+        val responProduct: MutableLiveData<Products> = MutableLiveData()
+        viewModelScope.launch {
+            Retrofithit().productList(city = city_id,is_available = 1)
                 .catch { e ->
 
                     var errorResponse: Products?=null
@@ -45,13 +55,14 @@ class HomeViewModel:ViewModel() {
                     responProduct.value = response
                 }
         }
+        return responProduct
     }
 
-    fun getSubList(userid: Int,context:Context)  {
+    fun getSubList(userid: Int,context:Context) :LiveData<Sublist> {
+        val responSublist: MutableLiveData<Sublist> = MutableLiveData()
         viewModelScope.launch {
             Retrofithit().getSubList(userid = userid,context=context)
                 .catch { e ->
-
                     var errorResponse: Sublist?=null
                     when(e){
                         is HttpException -> {
@@ -62,17 +73,17 @@ class HomeViewModel:ViewModel() {
                             )
                         }
                     }
-
-                    Log.d("data",responSublist.toString())
-
                     responSublist.value=errorResponse
                 }.collect { response ->
                     responSublist.value = response
                 }
         }
+        return responSublist
     }
 
-    fun homeSlider(context: Context)  {
+    fun homeSlider(context: Context) :LiveData<HomeSlider> {
+
+        val responHomeSlider: MutableLiveData<HomeSlider> = MutableLiveData()
         viewModelScope.launch {
             Retrofithit().homeSlider(context = context)
                 .catch { e ->
@@ -88,10 +99,11 @@ class HomeViewModel:ViewModel() {
                         }
                     }
 
-                    responHomeSlider.value=errorResponse
+                    responHomeSlider.value=errorResponse!!
                 }.collect { response ->
                     responHomeSlider.value = response
                 }
         }
+        return responHomeSlider
     }
 }

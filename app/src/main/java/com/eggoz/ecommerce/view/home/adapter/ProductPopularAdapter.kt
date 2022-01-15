@@ -1,22 +1,74 @@
 package com.eggoz.ecommerce.view.home.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.ItemPopprodBinding
 import com.eggoz.ecommerce.network.model.Products
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import java.text.DecimalFormat
 
-class ProductPopularAdapter(val result: List<Products.Result?>
+class ProductPopularAdapter :
+    ListAdapter<Products.Result, ProductPopularAdapter.ProductPopularRecyclerViewHolder>(
+        ProductPopularCallBack()
+    ) {
+
+    class ProductPopularRecyclerViewHolder(
+        private val binding: ItemPopprodBinding
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: Products.Result) {
+            binding.apply {
+
+                itemdata = item
+
+                if (item.isPrimeOnline != true) {
+                    root.visibility = View.GONE
+                    catMain.visibility = View.GONE
+                    root.layoutParams = RecyclerView.LayoutParams(0, 0)
+                }
+
+                root.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putInt("id", item.id ?: -1)
+                    Navigation.findNavController(root)
+                        .navigate(R.id.action_nav_home_to_nav_product_detail, bundle)
+                }
+
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ProductPopularRecyclerViewHolder {
+        val binding = ItemPopprodBinding.inflate(LayoutInflater.from(parent.context))
+        return ProductPopularRecyclerViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ProductPopularRecyclerViewHolder, position: Int) {
+        val currentArticle = getItem(position)
+        holder.bind(currentArticle)
+    }
+
+
+}
+
+class ProductPopularCallBack : DiffUtil.ItemCallback<Products.Result>() {
+    override fun areItemsTheSame(oldItem: Products.Result, newItem: Products.Result): Boolean =
+        oldItem == newItem
+
+    override fun areContentsTheSame(oldItem: Products.Result, newItem: Products.Result): Boolean =
+        oldItem.name == newItem.name
+
+}
+/*(val result: List<Products.Result?>
 ) : RecyclerView.Adapter<ProductPopularAdapter.ViewHolder>() {
     private lateinit var context: Context
     private lateinit var listItem: View
@@ -51,11 +103,11 @@ class ProductPopularAdapter(val result: List<Products.Result?>
             listItem.visibility = View.GONE
             holder.binding.catMain.visibility=View.GONE
             listItem.layoutParams = RecyclerView.LayoutParams(0, 0)
-        }/*else{
+        }*//*else{
             listItem.visibility = View.VISIBLE;
             listItem.layoutParams =
                 RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        }*/
+        }*//*
 
         holder.binding.apply {
 
@@ -89,4 +141,4 @@ class ProductPopularAdapter(val result: List<Products.Result?>
 
     }
 
-}
+}*/

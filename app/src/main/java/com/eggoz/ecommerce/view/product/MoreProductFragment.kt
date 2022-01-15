@@ -145,6 +145,7 @@ class MoreProductFragment : Fragment(), ProductCallback {
             viewModel.getCart2().collect {
                 if (it.isNotEmpty()) {
                     binding.consCart.visibility = View.VISIBLE
+
                     price = 0.0
                     for (i in it.indices) {
                         val qnt: Double = it[i].quantaty?.toDouble() ?: 0.0

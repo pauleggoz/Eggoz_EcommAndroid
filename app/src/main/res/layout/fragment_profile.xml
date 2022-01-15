@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils"/>
+
         <variable
             name="personDetail"
-            type="com.eggoz.ecommerce.view.profile.ProfileViewModel" />
+            type="com.eggoz.ecommerce.network.model.Address" />
+
+        <variable
+            name="viewoderAdapter"
+            type="com.eggoz.ecommerce.view.profile.adapter.OrderAdapter" />
 
     </data>
 
@@ -14,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".view.profile.ProfileFragment">
+        tools:context=".view.profile.view.ProfileFragment">
 
 
         <ImageView
@@ -70,11 +76,11 @@
                     android:layout_marginStart="@dimen/s16"
                     android:fontFamily="@font/spartanbold"
                     android:lines="1"
-                    android:text='@{personDetail.responUser.name ?? ""}'
+                    android:text='@{personDetail.name ?? ""}'
                     android:textColor="@color/black"
+                    android:textSize="@dimen/s14"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="@dimen/s14" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txt_person_phone"
@@ -84,7 +90,7 @@
                     android:layout_marginTop="@dimen/s12"
                     android:fontFamily="@font/spartanmedium"
                     android:lines="1"
-                    android:text='@{personDetail.responUser.phoneNo ?? ""}'
+                    android:text='@{personDetail.phoneNo ?? ""}'
                     android:textColor="@color/gray"
                     android:textSize="@dimen/s14"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +108,7 @@
                     android:textSize="@dimen/s12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintTop_toTopOf="parent"  />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_Manage_Addresses"
@@ -151,8 +157,8 @@
                     android:layout_marginStart="@dimen/s16"
                     android:layout_marginEnd="@dimen/s16"
                     android:paddingTop="@dimen/s16"
-                    android:visibility="gone"
                     android:paddingBottom="@dimen/s16"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layout_Manage_Addresses">
 
@@ -183,6 +189,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_membership"
                     android:layout_width="match_parent"
@@ -190,8 +197,8 @@
                     android:layout_marginStart="@dimen/s16"
                     android:layout_marginEnd="@dimen/s16"
                     android:paddingTop="@dimen/s16"
-                    android:visibility="gone"
                     android:paddingBottom="@dimen/s16"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layout_payment">
 
@@ -222,6 +229,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_subscribe"
                     android:layout_width="match_parent"
@@ -345,8 +353,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/grayback"
                     android:paddingTop="@dimen/s14"
-                    android:visibility="gone"
                     android:paddingBottom="@dimen/s14"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layout_Terms_Conditions">
 
@@ -377,14 +385,21 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycle_order"
+                    android:id="@+id/recycleOrder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/s48"
+                    android:layout_marginTop="@dimen/s34"
+                    android:paddingBottom="@dimen/s48"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    app:spanCount="1"
+                    setAdapter="@{viewoderAdapter}"
+                    tools:listitem="@layout/item_order"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layout_past_orders" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

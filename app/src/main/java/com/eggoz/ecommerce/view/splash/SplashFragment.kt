@@ -20,6 +20,7 @@ class SplashFragment : Fragment() {
     private val binding get() = _binding!!
     private var userPreferences: UserPreferences?=null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

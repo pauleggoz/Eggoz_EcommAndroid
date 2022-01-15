@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="viewlocAdapter"
+            type="com.eggoz.ecommerce.view.starter.adapter.LocAdapter" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,14 +21,15 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_Submit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/btn_Submit">
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -60,21 +65,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/img_top" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recloc"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/s0"
-                    android:layout_marginTop="@dimen/s36"
+                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/txt_title" />
+                    app:layout_constraintTop_toBottomOf="@id/txt_title">
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recloc"
+                        setAdapter="@{viewlocAdapter}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/s36"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:spanCount="1"
+                        tools:listitem="@layout/item_loc" />
 
+                </RelativeLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btn_Submit"
             android:layout_width="match_parent"

@@ -75,6 +75,7 @@ data class Address(
     )
 
     class AAddress(
+        val isSelected:Boolean=false,
 
         @SerializedName("id")
         @Expose

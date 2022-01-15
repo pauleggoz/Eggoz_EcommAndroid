@@ -30,10 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     var responCheckoutWallet: MutableLiveData<Checkout> = MutableLiveData()
     var refreshToken: MutableLiveData<TokenData> = MutableLiveData()
 
-    private var database: MyDatabase =
-        Room.databaseBuilder(application, MyDatabase::class.java, Constants.DB_NAME)
-            .allowMainThreadQueries().build()
-    var cartdao: CartDao = database.deatailcart()
+    var cartdao: CartDao = MyDatabase.getInstance(context = application).deatailcart
     private var emptycart: List<RoomCart> = ArrayList()
 
     fun user(customer: Int, context: Context) {

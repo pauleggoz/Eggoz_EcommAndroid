@@ -28,8 +28,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityMainBinding
+//    private val binding get() = _binding!!
 
     private var loc = 0
     private lateinit var navController: NavController
@@ -47,10 +47,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         window.statusBarColor = ContextCompat.getColor(this, R.color.app_color)
-//        setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
         val toggle = ActionBarDrawerToggle(
@@ -87,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.nav_home -> {
                     loc = 0
-                    Log.d("data", "des $des loc $loc nav_home")
                     binding.btmNav.menu.getItem(loc).isChecked = true
                     binding.btmNav.visibility = View.VISIBLE
                     binding.toolbar.visibility = View.VISIBLE
@@ -95,24 +93,20 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_product -> {
                     loc = 1
-                    Log.d("data", "des $des loc $loc nav_product")
                     binding.btmNav.menu.getItem(loc).isChecked = true
                     binding.btmNav.visibility = View.VISIBLE
                 }
                 R.id.nav_wallet -> {
                     loc = 2
-                    Log.d("data", "des $des loc $loc nav_wallet")
                     binding.btmNav.menu.getItem(loc).isChecked = true
                     binding.btmNav.visibility = View.VISIBLE
                 }
                 R.id.nav_profile -> {
                     loc = 3
-                    Log.d("data", "des $des loc $loc nav_profile")
                     binding.btmNav.menu.getItem(loc).isChecked = true
                     binding.btmNav.visibility = View.VISIBLE
                 }
                 else -> {
-                    Log.d("data", "des $des loc $loc else")
                     binding.btmNav.visibility = View.GONE
                 }
             }
@@ -124,11 +118,13 @@ class MainActivity : AppCompatActivity() {
         userPreferences = UserPreferences(this)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.btmNav.menu.findItem(R.id.nav_botomhome).isChecked = true
+        var versionName: String? =null
         try {
-            val pInfo = packageManager.getPackageInfo(packageName, 0);
-            binding.footerItem1.text = pInfo.versionName;
+            versionName = packageManager.getPackageInfo(packageName, 0).toString()
+            binding.versionName=versionName
         } catch (e: Exception) {
-            e.printStackTrace();
+            binding.versionName=versionName
+            e.printStackTrace()
         }
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
@@ -193,10 +189,7 @@ class MainActivity : AppCompatActivity() {
     private fun getData() {
         lifecycleScope.launch {
             viewModel.user(userid, this@MainActivity)
-
         }
-
-
 
         viewModel.responUser.observe(this, {
             if (it?.errorType != null) {

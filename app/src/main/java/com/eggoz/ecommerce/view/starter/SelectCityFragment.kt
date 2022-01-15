@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentSelectCityBinding
+import com.eggoz.ecommerce.network.model.CityData
+import com.eggoz.ecommerce.room.RoomCart
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.MainViewModel
 import com.eggoz.ecommerce.view.starter.adapter.CityAdapter
@@ -53,12 +55,12 @@ class SelectCityFragment : Fragment() {
                 } else false
             }
 
-            reccity.apply {
+          /*  reccity.apply {
                 setHasFixedSize(true)
                 layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
                 itemAnimator = DefaultItemAnimator()
                 isNestedScrollingEnabled = false
-            }
+            }*/
         }
     }
 
@@ -67,8 +69,15 @@ class SelectCityFragment : Fragment() {
             if (!dialog.isShowing())
                 dialog.create(requireContext())
 
-            viewModel.getCity()
-            viewModel.responsecity.observe(viewLifecycleOwner,
+            cityadapter =
+                CityAdapter { item: CityData.Result ->
+                    lifecycleScope.launch {
+                        userPreferences?.saveciy(city = item.id ?: -1)
+                    }
+                }
+            binding.viewadapter=cityadapter
+
+            viewModel.getCity().observe(viewLifecycleOwner,
                 {
 
                     if (dialog.isShowing())
@@ -77,15 +86,10 @@ class SelectCityFragment : Fragment() {
                         Toast.makeText(requireContext(), it.errorType, Toast.LENGTH_SHORT).show()
 
                     } else {
-
-                        if (it != null) {
-                            cityadapter =
-                                CityAdapter(result = it.results!!,lifecycleScope =  lifecycleScope, userPreferences = userPreferences!!)
-                            binding.apply {
-                                reccity.adapter = cityadapter
-                                (reccity.adapter as CityAdapter).notifyDataSetChanged()
-                            }
+                        it.let {
+                            cityadapter.submitList(it.results)
                         }
+
                     }
                 })
         }

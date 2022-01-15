@@ -168,9 +168,9 @@ class WalletFragment : Fragment() {
         })
     }
 
-    override fun onDetach() {
+ /*   override fun onDetach() {
         super.onDetach()
-        if (dialog.isShowing())
+        if (dialog != null && dialog.isShowing())
             dialog.dismiss()
-    }
+    }*/
 }

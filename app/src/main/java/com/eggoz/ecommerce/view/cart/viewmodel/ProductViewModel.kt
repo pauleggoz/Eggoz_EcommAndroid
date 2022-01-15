@@ -1,10 +1,11 @@
-package com.eggoz.ecommerce.view.product
+package com.eggoz.ecommerce.view.cart.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
+import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.network.model.Products
 import com.eggoz.ecommerce.network.repository.Retrofithit
 import com.eggoz.ecommerce.room.CartDao
@@ -13,32 +14,29 @@ import com.eggoz.ecommerce.room.RoomCart
 import com.eggoz.ecommerce.utils.Constants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
-    private var database: MyDatabase =
-        Room.databaseBuilder(application, MyDatabase::class.java, Constants.DB_NAME)
-            .allowMainThreadQueries().build()
-    var cartdao: CartDao = database.deatailcart()
-    private var emptycart: List<RoomCart> = ArrayList()
+    var cartdao: CartDao = MyDatabase.getInstance(context = application).deatailcart
+
 
     var responProduct: MutableLiveData<Products> = MutableLiveData()
     var responProductbyid: MutableLiveData<Products.Result> = MutableLiveData()
+    private var userPreferences: UserPreferences? = null
+    private var city_id = -1
 
-    var cart2 = MutableStateFlow(emptycart)
-
-    fun getCart2(): StateFlow<List<RoomCart>> {
+    init {
+        userPreferences = UserPreferences(application)
         viewModelScope.launch {
-            cartdao.getAll2()?.collect {
-                cart2.value = it
-            }
+            city_id = userPreferences?.city?.buffer()?.first() ?: -1
         }
-        return cart2
+    }
+
+
+    fun getCart2(): Flow<List<RoomCart>> {
+        return cartdao.getAll2()!!
     }
 
     suspend fun insertdata(cart: RoomCart) {
@@ -65,9 +63,9 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         return cartdao.updateQnt(mid = id,qnt = qnt)
     }
 
-    fun productList(city: Int,is_available:Int)  {
+    fun productList(is_available:Int)  {
         viewModelScope.launch {
-            Retrofithit().productList(city = city,is_available = is_available)
+            Retrofithit().productList(city = city_id,is_available = is_available)
                 .catch { e ->
 
                     var errorResponse: Products?=null
@@ -81,7 +79,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                         }
                     }
 
-                    responProduct.value=errorResponse
+                    responProduct.value=errorResponse!!
                 }.collect { response ->
                     responProduct.value = response
                 }
@@ -104,7 +102,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
                         }
                     }
 
-                    responProductbyid.value=errorResponse
+                    responProductbyid.value=errorResponse!!
                 }.collect { response ->
                     responProductbyid.value = response
                 }

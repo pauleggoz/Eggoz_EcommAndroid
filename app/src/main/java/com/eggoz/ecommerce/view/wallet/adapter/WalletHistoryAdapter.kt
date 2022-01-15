@@ -41,7 +41,9 @@ class WalletHistoryAdapter(var result: List<Wallet.Result>
     }
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {/*
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+    /*
 
         holder.binding.apply {
             txtTitle.text = result[position]?.name.toString()

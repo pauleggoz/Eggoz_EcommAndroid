@@ -1,26 +1,49 @@
 package com.eggoz.ecommerce.view.profile.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.ItemOrderBinding
-import com.eggoz.ecommerce.network.model.Orderhistory
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import com.eggoz.ecommerce.network.model.OrderModel
 
-class OrderAdapter(
-    val date: ArrayList<String>,
-    val orderitem: ArrayList<Orderhistory.Result.OrderLines.OrderItem>,
-    val orderid: ArrayList<String>,
-    val orderstatus: ArrayList<String>
-) :
+class OrderAdapter : ListAdapter<OrderModel, OrderAdapter.OrderRecyclerViewHolder>(OrderCallBack()) {
+
+    class OrderRecyclerViewHolder(
+        private val binding: ItemOrderBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: OrderModel) {
+            binding.apply {
+                itemData=item
+                itemTitle="${item.orderitem.name} ${item.orderitem.sku} Pcs X ${item.orderitem.quantity}"
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderRecyclerViewHolder {
+        val binding = ItemOrderBinding.inflate(LayoutInflater.from(parent.context))
+        return OrderRecyclerViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: OrderRecyclerViewHolder, position: Int) {
+        val currentArticle = getItem(position)
+        holder.bind(currentArticle)
+    }
+}
+
+class OrderCallBack : DiffUtil.ItemCallback<OrderModel>() {
+    override fun areItemsTheSame(oldItem: OrderModel, newItem: OrderModel): Boolean =
+        oldItem == newItem
+
+    override fun areContentsTheSame(oldItem: OrderModel, newItem: OrderModel): Boolean =
+        oldItem.orderid == newItem.orderid
+
+}
+
+
+/*:
     RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
     private lateinit var context: Context
     private lateinit var listItem: View
@@ -85,4 +108,4 @@ class OrderAdapter(
         val binding: ItemOrderBinding = itemBinding
 
     }
-}
+}*/

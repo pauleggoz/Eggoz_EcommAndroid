@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils"/>
+        <variable
+            name="viewadapter"
+            type="com.eggoz.ecommerce.view.cart.adapter.RoomCartAdapter" />
 
     </data>
 
@@ -11,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".view.cart.CartListFragment">
+        tools:context=".view.cart.view.CartListFragment">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/s150"
@@ -27,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/s0"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/cons_itemcart">
 
 
@@ -82,10 +88,19 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec_cart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s12"
+                    android:paddingBottom="@dimen/s48"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    setAdapter="@{viewadapter}"
+                    app:spanCount="1"
+                    tools:listitem="@layout/item_cartlist"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_ReviewCart" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

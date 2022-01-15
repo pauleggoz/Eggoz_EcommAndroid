@@ -82,7 +82,7 @@ class SignIn1Fragment : Fragment() {
                 if (!dialog.isShowing())
                     dialog.create(requireContext())
                 viewModel.Login(mobile = "+91" + binding.edtMobileNo.text.toString())
-                viewModel.responOtpgenerate.observe(viewLifecycleOwner,
+                    .observe(viewLifecycleOwner,
                     Observer {
 
                         if (dialog.isShowing())

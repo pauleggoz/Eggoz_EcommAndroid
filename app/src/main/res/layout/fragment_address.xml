@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="addressAdapter"
+            type="com.eggoz.ecommerce.view.address.adapter.AddressAdapter" />
 
     </data>
 
@@ -78,10 +81,16 @@
                     android:id="@+id/rec_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/s48"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    app:spanCount="1"
+                    setAdapter="@{addressAdapter}"
+                    tools:listitem="@layout/item_address"
                     android:layout_marginTop="@dimen/s35"
                     app:layout_constraintTop_toBottomOf="@+id/txt_title"
-                    android:layout_marginStart="@dimen/s18"
-                    />
+                    android:layout_marginStart="@dimen/s18" />
+
 
 
                 <TextView

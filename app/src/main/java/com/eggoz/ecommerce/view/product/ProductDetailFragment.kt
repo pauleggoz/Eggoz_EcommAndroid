@@ -7,23 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentProductDetailBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
-import com.eggoz.ecommerce.view.home.adapter.SliderAdapter
+import com.eggoz.ecommerce.view.cart.viewmodel.ProductViewModel
 import com.eggoz.ecommerce.view.product.adapter.ImageSliderProd
 import com.eggoz.ecommerce.view.product.adapter.ProductDetailPopularAdapter
 import com.eggoz.ecommerce.view.product.adapter.TabLayoutAdapter
@@ -197,9 +195,16 @@ class ProductDetailFragment : Fragment() {
 
                 imageurl.add(it.productImage ?:"")
 
-                viewPagerAdapter = ImageSliderProd(imageurl)
-                binding.paggerSlider.adapter = viewPagerAdapter
-                (binding.paggerSlider.adapter as ImageSliderProd).notifyDataSetChanged()
+                Glide.with(requireActivity())
+                    .asBitmap()
+                    .load(it.productImage ?:"")
+                    .centerInside()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.logo1)
+                    .into(binding.imgDetail)
+//                viewPagerAdapter = ImageSliderProd(imageurl)
+//                binding.paggerSlider.adapter = viewPagerAdapter
+//                (binding.paggerSlider.adapter as ImageSliderProd).notifyDataSetChanged()
 
 //                pageSlider()
 
@@ -209,6 +214,7 @@ class ProductDetailFragment : Fragment() {
         })
     }
 
+/*
     private fun pageSlider() {
 
 
@@ -279,6 +285,7 @@ class ProductDetailFragment : Fragment() {
 //        view dots linked with viewpager ends
 
     }
+*/
 
     private fun recycleTabLayout() {
         tabadapter = TabLayoutAdapter()
@@ -312,7 +319,7 @@ class ProductDetailFragment : Fragment() {
             city_id = userPreferences?.city?.buffer()?.first() ?: -1
             Log.d("data", "city$city_id")
             viewModel.productList(
-                city = city_id, is_available = 1
+                is_available = 1
             )
             viewModel.responProduct.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 

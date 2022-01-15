@@ -1,22 +1,80 @@
 package com.eggoz.ecommerce.view.cart.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Paint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.ItemCartlistBinding
 import com.eggoz.ecommerce.room.RoomCart
-import com.eggoz.ecommerce.view.cart.CartListFragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 
-class CartAdapter(
+class RoomCartAdapter(private val callback: (RoomCart, Int) -> Unit) :
+    ListAdapter<RoomCart, RoomCartAdapter.RoomCartRecyclerViewHolder>(RoomCartCallBack()) {
+
+    class RoomCartRecyclerViewHolder(
+        private val binding: ItemCartlistBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private var qnt = 0
+
+        fun bind(item: RoomCart,callback: (RoomCart, Int) -> Unit) {
+            qnt = item.quantaty ?: 1
+
+            binding.apply {
+                itemData = item
+                qntval = qnt
+
+                btnInc.setOnClickListener {
+                    qnt = txtQntVal.text.toString().toInt()
+                    qnt++
+                    callback(item,qnt)
+                  /*  callback.updateCart(
+                        id = item.id,
+                        qnt = qnt,
+                        price = item.price
+                    )*/
+                }
+                btnDec.setOnClickListener {
+
+                    if (qnt != 0) {
+                        qnt--
+                    }
+                    if (qnt >= 0) {
+                        callback(item,qnt)
+                       /* callback.updateCart(
+                            id = item.id,
+                            qnt = qnt,
+                            price = item.price
+                        )*/
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomCartRecyclerViewHolder {
+        val binding = ItemCartlistBinding.inflate(LayoutInflater.from(parent.context))
+        return RoomCartRecyclerViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: RoomCartRecyclerViewHolder, position: Int) {
+        val data = getItem(position)
+        holder.bind(data,callback)
+    }
+
+}
+
+class RoomCartCallBack : DiffUtil.ItemCallback<RoomCart>() {
+    override fun areItemsTheSame(oldItem: RoomCart, newItem: RoomCart): Boolean =
+        oldItem == newItem
+
+    override fun areContentsTheSame(oldItem: RoomCart, newItem: RoomCart): Boolean =
+        oldItem.quantaty == newItem.quantaty
+
+}
+
+
+/*
+(
     var result: List<RoomCart>, private var callbak: CartListFragment
 ) : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
     private lateinit var context: Context
@@ -115,4 +173,4 @@ class CartAdapter(
         val binding: ItemCartlistBinding = itemBinding
 
     }
-}
+}*/

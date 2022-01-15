@@ -321,11 +321,9 @@ class SubscribeFragment : Fragment(), OnDateSetListener {
 
             lifecycleScope.launch {
                 user_id = userPreferences!!.Customer_id.first() ?: -1
-
             }
             btnSubmit.setOnClickListener {
 //                selectdays()
-
                 bundle.putDouble("amount", price)
                 bundle.putString("start_date", binding.edtStartDate.text.toString())
                 bundle.putString("expiry_date", binding.edtEndDate.text.toString())
