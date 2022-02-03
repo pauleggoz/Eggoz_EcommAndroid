@@ -4,26 +4,42 @@
 
     <data>
 
+        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils" />
+
+        <variable
+            name="promo"
+            type="Integer" />
+
+        <variable
+            name="amount"
+            type="Integer" />
+
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_dis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/spartanmedium"
-            android:layout_marginTop="@dimen/s10"
-            android:gravity="start"
-            style="@style/textsmallregular"
-            android:text="@string/Getdis100"
-            android:textColor="@color/brown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_dis"
+                style="@style/textsmallregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s10"
+                android:fontFamily="@font/spartanmedium"
+                android:gravity="start"
+                android:text="@{`Get ₹ `+promo+` extra on adding ₹ `+amount+` &amp; above`}"
+                android:textColor="@color/brown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>

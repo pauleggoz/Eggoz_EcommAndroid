@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.contactus.view.ContactUsFragment">
+
+        <ImageView
+            android:id="@+id/img_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s145"
+            android:src="@drawable/referfriendconceptyourownbenefit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="img" />
+        <ImageView
+            android:id="@+id/img_loc"
+            android:layout_width="@dimen/s45"
+            android:layout_height="@dimen/s45"
+            android:src="@drawable/location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_top"
+            android:layout_marginTop="@dimen/s32"
+            />
+        <TextView
+            android:id="@+id/txt_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Space it park Gurugram"
+            android:layout_marginTop="@dimen/s4"
+            android:fontFamily="@font/spartansemibold"
+            app:layout_constraintTop_toBottomOf="@+id/img_loc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/txt_address_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s8"
+            android:text="@string/open_map"
+            android:textColor="@color/app_color"
+            app:layout_constraintTop_toBottomOf="@+id/txt_address"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/img_mobile"
+            android:layout_width="@dimen/s45"
+            android:layout_height="@dimen/s45"
+            android:src="@drawable/non_active_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_address_open"
+            android:layout_marginTop="@dimen/s32"
+            />
+        <TextView
+            android:id="@+id/txt_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+91-8758634865834 \n info@eggoz.com"
+            android:layout_marginTop="@dimen/s4"
+            android:gravity="center"
+            android:fontFamily="@font/spartansemibold"
+            app:layout_constraintTop_toBottomOf="@+id/img_mobile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/txt_mobile_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s8"
+            android:text="@string/dial"
+            android:textColor="@color/app_color"
+            app:layout_constraintTop_toBottomOf="@+id/txt_mobile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/img_time"
+            android:layout_width="@dimen/s45"
+            android:layout_height="@dimen/s45"
+            android:src="@drawable/non_active_dot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_mobile_open"
+            android:layout_marginTop="@dimen/s32"
+            />
+        <TextView
+            android:id="@+id/txt_time1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monday-Friday\n 9Am-5PM"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/s4"
+            android:fontFamily="@font/spartansemibold"
+            app:layout_constraintTop_toBottomOf="@+id/img_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/txt_time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s8"
+            android:gravity="center"
+            android:text=" Saturdy-Sunday\n 9 Am-12 pm"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

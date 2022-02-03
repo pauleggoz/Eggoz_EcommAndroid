@@ -1,23 +1,13 @@
 package com.eggoz.ecommerce.view.starter.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eggoz.ecommerce.R
-import com.eggoz.ecommerce.databinding.ItemCityBinding
 import com.eggoz.ecommerce.databinding.ItemLocBinding
 import com.eggoz.ecommerce.network.model.CityData
-import com.eggoz.ecommerce.view.address.adapter.AddressAdapter
 import com.eggoz.ecommerce.view.address.adapter.Opetion
-import com.eggoz.ecommerce.view.starter.LocalityFragment
 
 class LocAdapter(private val mycallback: (CityData.Result.City.EcommerceSector?) -> Unit) :
     ListAdapter<CityData.Result.City.EcommerceSector?, LocAdapter.LocRecyclerViewHolder>(
@@ -44,11 +34,18 @@ class LocAdapter(private val mycallback: (CityData.Result.City.EcommerceSector?)
                 seletedPos = lastCheckedPosition
                 viewcurrentPos = currentPos
 
+                locSelect.setOnCheckedChangeListener { compoundButton, b ->
+                    if (b){
+                        adaptercallback.reset(position = currentPos)
+                        callback(item)
+                    }
+                }
 
-                locSelect.setOnClickListener {
+
+            /*    locSelect.setOnClickListener {
                     adaptercallback.reset(position = currentPos)
                     callback(item)
-                }
+                }*/
 
 
             }

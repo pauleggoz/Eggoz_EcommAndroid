@@ -43,4 +43,8 @@
     <dimen name="s28">28dp</dimen>
     <dimen name="s5">5dp</dimen>
     <dimen name="s176">176dp</dimen>
+    <dimen name="s50">50dp</dimen>
+    <dimen name="s145">145dp</dimen>
+    <dimen name="s240">240dp</dimen>
+    <dimen name="s92">92dp</dimen>
 </resources>

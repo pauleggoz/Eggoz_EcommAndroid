@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_color"
+        tools:context=".view.referAndEarn.view.ReferAndEarnFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/s40"
+            android:layout_height="@dimen/s40"
+            android:layout_marginStart="@dimen/s16"
+            android:layout_marginTop="@dimen/s16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/img_egg_pan"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/panegg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/together_we_re_going_further"
+            style="@style/texts32"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/img_egg_pan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_spreadtheeggoz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/spreadtheeggoz"
+            style="@style/textLarge"
+            android:layout_marginTop="@dimen/s20"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title"
+            />
+        <TextView
+            android:id="@+id/txt_refer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/refer_introduce_the_eggoz_to_your_contacts"
+            style="@style/textLarge"
+            android:textSize="@dimen/s18"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/s20"
+            app:layout_constraintTop_toBottomOf="@+id/txt_spreadtheeggoz"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_refer_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refer_now"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:layout_marginBottom="@dimen/s18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

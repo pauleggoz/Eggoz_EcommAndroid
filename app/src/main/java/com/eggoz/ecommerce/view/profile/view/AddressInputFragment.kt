@@ -216,8 +216,7 @@ class AddressInputFragment : Fragment() {
                     Landmark = edtLandmark.text.toString(),
                     City = cityid,
                     State = stateid,
-                    Pincode = edtPincode.text.toString(),
-                    context = requireContext()
+                    Pincode = edtPincode.text.toString()
                 ).observe(viewLifecycleOwner, {
                     if (it.errorType == null)
                         Navigation.findNavController(binding.root)
@@ -487,8 +486,7 @@ class AddressInputFragment : Fragment() {
                     Landmark = edtLandmark.text.toString(),
                     City = cityid,
                     State = stateid,
-                    Pincode = edtPincode.text.toString(),
-                    context = requireContext()
+                    Pincode = edtPincode.text.toString()
                 ).observe(viewLifecycleOwner, {
                     if (dialog.isShowing())
                         dialog.dismiss()

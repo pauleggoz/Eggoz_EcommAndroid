@@ -4,13 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils" />
+
+        <variable
+            name="viewpromoAdapter"
+            type="com.eggoz.ecommerce.view.wallet.adapter.PromoAdapter" />
 
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.wallet.AddMoneyFragment">
+        tools:context=".view.wallet.view.AddMoneyFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -141,6 +146,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/s8"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                app:spanCount="1"
+                setAdapter="@{viewpromoAdapter}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lay_input" />
 

@@ -1,13 +1,10 @@
 package com.eggoz.ecommerce.view.profile.viewModel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggoz.ecommerce.network.model.*
-import com.eggoz.ecommerce.network.repository.Retrofithit
-import com.eggoz.ecommerce.view.home.viewmodel.HomeRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.buffer
@@ -24,7 +21,6 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     var email = ""
     var mobile = ""
     var isverifide = false
-    var userid: Int = -1
     val ordermodel = ArrayList<OrderModel>()
 
     private var user_id = -1
@@ -38,10 +34,10 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     }
 
 
-    fun orderhistory(customer: Int, context: Context): LiveData<Orderhistory> {
+    fun orderhistory(customer: Int): LiveData<Orderhistory> {
         val responOrderhistory: MutableLiveData<Orderhistory> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().orderhistory(customer = customer, context = context)
+            repository.orderhistory(customer = customer, token = authtoken)
                 .catch { e ->
 
                     var errorResponse: Orderhistory? = null
@@ -62,10 +58,10 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         return responOrderhistory
     }
 
-    fun user( context: Context): LiveData<Address> {
+    fun user(): LiveData<Address> {
         val responUser: MutableLiveData<Address> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().userAddress(id = user_id, context = context)
+            repository.userAddress(id = user_id, token = authtoken)
                 .catch { e ->
 
                     var errorResponse: Address? = null
@@ -87,10 +83,10 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         return responUser
     }
 
-    fun deleteAddress(id: Int, context: Context) :LiveData<Otpgenerate>{
+    fun deleteAddress(id: Int) :LiveData<Otpgenerate>{
         val responOtpgenerate: MutableLiveData<Otpgenerate> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().deleteAddress(id = id, context = context)
+            repository.deleteAddress(id = id, token = authtoken)
                 .catch { e ->
                     var errorResponse: Otpgenerate? = null
                     when (e) {
@@ -120,12 +116,11 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         Landmark: String,
         City: Int,
         State: Int,
-        Pincode: String,
-        context: Context
+        Pincode: String
     ): LiveData<Address> {
         val responUser: MutableLiveData<Address> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().addAddress(
+            repository.addAddress(
                 user_id = user_id,
                 address_name = addressName,
                 phone = phone,
@@ -136,7 +131,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                 City = City,
                 State = State,
                 Pincode = Pincode,
-                context = context
+                token = authtoken
             )
                 .catch { e ->
 
@@ -169,12 +164,11 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         Landmark: String,
         City: Int,
         State: Int,
-        Pincode: String,
-        context: Context
+        Pincode: String
     ): LiveData<Address> {
         val responUser: MutableLiveData<Address> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().updateAddress(
+            repository.updateAddress(
                 user_id = user_id,
                 address_name = addressName,
                 phone = phone,
@@ -185,7 +179,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                 City = City,
                 State = State,
                 Pincode = Pincode,
-                context = context
+                token = authtoken
             )
                 .catch { e ->
 
@@ -211,7 +205,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     fun getCity() :LiveData<CityData>{
         val responsecity: MutableLiveData<CityData> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().getCity()
+            repository.getCity()
                 .catch { e ->
                     var errorResponse: CityData? = null
                     when (e) {
@@ -235,7 +229,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     fun getLocality(id: Int) : LiveData<CityData.Result?>{
         val responselocality: MutableLiveData<CityData.Result?> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().getLocality(id = id)
+            repository.getLocality(id = id)
                 .catch { e ->
 
                     var errorResponse: CityData.Result? = null
@@ -260,16 +254,15 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
 
     fun Edituser(
         customer: Int,
-        context: Context,
         name: String,
         email: String,
         phone_no: String
     ): LiveData<Address> {
         val responeditUser: MutableLiveData<Address> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().editUser(
+            repository.editUser(
                 id = customer,
-                context = context,
+                token = authtoken,
                 name = name,
                 email = email,
                 phone_no = phone_no

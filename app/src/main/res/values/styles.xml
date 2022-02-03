@@ -73,6 +73,11 @@
         <item name="android:textSize">@dimen/s14</item>
         <item name="fontFamily">@font/spartanbold</item>
     </style>
+    <style name="texts32">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/s32</item>
+        <item name="fontFamily">@font/spartansemibold</item>
+    </style>
 
     <style name="tablayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">@color/black</item>

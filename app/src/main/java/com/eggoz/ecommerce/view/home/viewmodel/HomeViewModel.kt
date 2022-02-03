@@ -1,15 +1,11 @@
 package com.eggoz.ecommerce.view.home.viewmodel
 
-import android.app.Application
-import android.content.Context
 import android.util.Log
-import androidx.lifecycle.*
-import com.eggoz.ecommerce.data.UserPreferences
-import com.eggoz.ecommerce.network.model.HomeSlider
-import com.eggoz.ecommerce.network.model.Products
-import com.eggoz.ecommerce.network.model.Sublist
-import com.eggoz.ecommerce.network.repository.Retrofithit
-import com.eggoz.ecommerce.view.cart.viewmodel.ProductRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.eggoz.ecommerce.network.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.buffer
@@ -23,18 +19,23 @@ class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
 
     private var city_id = -1
     private var user_id = -1
+    private var token = ""
+    var blogsPage = 1
+    var blogsPageMax = 1
+    val blogsresults: ArrayList<Blogs.Result> = ArrayList()
 
     init {
         viewModelScope.launch {
             city_id = repository.city_id.buffer().first() ?: -1
             user_id = repository.user_id.buffer().first() ?: -1
+            token = repository.token.buffer().first() ?: ""
         }
     }
 
     fun productList():LiveData<Products>  {
         val responProduct: MutableLiveData<Products> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().productList(city = city_id,is_available = 1)
+            repository.productList(city = city_id,is_available = 1)
                 .catch { e ->
 
                     var errorResponse: Products?=null
@@ -58,10 +59,10 @@ class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
         return responProduct
     }
 
-    fun getSubList(userid: Int,context:Context) :LiveData<Sublist> {
+    fun getSubList(userid: Int) :LiveData<Sublist> {
         val responSublist: MutableLiveData<Sublist> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().getSubList(userid = userid,context=context)
+            repository.getSubList(userid = userid,token=token)
                 .catch { e ->
                     var errorResponse: Sublist?=null
                     when(e){
@@ -81,11 +82,11 @@ class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
         return responSublist
     }
 
-    fun homeSlider(context: Context) :LiveData<HomeSlider> {
+    fun homeSlider() :LiveData<HomeSlider> {
 
         val responHomeSlider: MutableLiveData<HomeSlider> = MutableLiveData()
         viewModelScope.launch {
-            Retrofithit().homeSlider(context = context)
+            repository.homeSlider(token = token)
                 .catch { e ->
 
                     var errorResponse: HomeSlider?=null
@@ -105,5 +106,57 @@ class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
                 }
         }
         return responHomeSlider
+    }
+
+    fun orderlist(start:String,end:String) :LiveData<OrderList> {
+
+        Log.d("sk", "orderlist: $start $end")
+
+        val responOrderList: MutableLiveData<OrderList> = MutableLiveData()
+        viewModelScope.launch {
+            repository.orderList(token = token,user_id=user_id,start,end)
+                .catch { e ->
+
+                    var errorResponse: OrderList?=null
+                    when(e){
+                        is HttpException -> {
+                            val gson = Gson()
+                            val type = object : TypeToken<OrderList>() {}.type
+                            errorResponse = gson.fromJson(
+                                e.response()?.errorBody()!!.charStream(), type
+                            )
+                        }
+                    }
+
+                    responOrderList.value=errorResponse!!
+                }.collect { response ->
+                    responOrderList.value = response
+                }
+        }
+        return responOrderList
+    }
+
+
+    fun blogs() :LiveData<Blogs> {
+        val responBloglist: MutableLiveData<Blogs> = MutableLiveData()
+        viewModelScope.launch {
+            repository.getBlog(blogsPage, token)
+                .catch { e ->
+                    var errorResponse: Blogs?=null
+                    when(e){
+                        is HttpException -> {
+                            val gson = Gson()
+                            val type = object : TypeToken<Blogs>() {}.type
+                            errorResponse = gson.fromJson(
+                                e.response()?.errorBody()!!.charStream(), type
+                            )
+                        }
+                    }
+                    responBloglist.value=errorResponse
+                }.collect { response ->
+                    responBloglist.value = response
+                }
+        }
+        return responBloglist
     }
 }

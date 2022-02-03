@@ -1,19 +1,79 @@
 package com.eggoz.ecommerce.view.wallet.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.R
+import androidx.recyclerview.widget.ListAdapter
 import com.eggoz.ecommerce.databinding.ItemWallhisBinding
 import com.eggoz.ecommerce.network.model.Wallet
-import java.util.*
 
-class WalletHistoryAdapter(var result: List<Wallet.Result>
-) : RecyclerView.Adapter<WalletHistoryAdapter.ViewHolder>() {
+class WalletHistoryAdapter :
+    ListAdapter<Wallet.Result?, WalletHistoryAdapter.WalletHisRecyclerViewHolder>(
+        WallethisCallBack()
+    ) {
+
+    class WalletHisRecyclerViewHolder(
+        private val binding: ItemWallhisBinding
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(
+            item: Wallet.Result?
+        ) {
+            binding.apply {
+
+                itemdata = item
+
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): WalletHisRecyclerViewHolder {
+        val binding = ItemWallhisBinding.inflate(LayoutInflater.from(parent.context))
+        return WalletHisRecyclerViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: WalletHisRecyclerViewHolder, position: Int) {
+        val currentArticle = getItem(position)
+        holder.bind(currentArticle)
+    }
+
+}
+
+class WallethisCallBack : DiffUtil.ItemCallback<Wallet.Result?>() {
+
+    override fun areItemsTheSame(
+        oldItem: Wallet.Result,
+        newItem: Wallet.Result
+    ): Boolean =
+        oldItem == newItem
+
+    override fun areContentsTheSame(
+        oldItem: Wallet.Result,
+        newItem: Wallet.Result
+    ): Boolean =
+        oldItem.note == newItem.note
+
+}
+
+
+
+
+
+
+
+
+
+/*
+
+
+(var result: List<Wallet.Result>) : RecyclerView.Adapter<WalletHistoryAdapter.ViewHolder>() {
     private lateinit var context: Context
     private lateinit var listItem: View
 
@@ -43,7 +103,6 @@ class WalletHistoryAdapter(var result: List<Wallet.Result>
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-    /*
 
         holder.binding.apply {
             txtTitle.text = result[position]?.name.toString()
@@ -93,7 +152,8 @@ class WalletHistoryAdapter(var result: List<Wallet.Result>
             txtOrdderdate.text = dddate
 
 
-        }*/
+        }
+
     }
 
 
@@ -104,3 +164,4 @@ class WalletHistoryAdapter(var result: List<Wallet.Result>
     }
 
 }
+*/

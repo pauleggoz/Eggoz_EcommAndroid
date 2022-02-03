@@ -90,7 +90,6 @@ class EditProfileFragment : Fragment() {
                 dialog.create(requireContext())
             viewModel.Edituser(
                 userid,
-                requireContext(),
                 name = binding.edtName.text.toString(),
                 email = binding.edtEmail.text.toString(),
                 "+91" + binding.edtPhone.text.toString()

@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_starter"/>
     <fragment
         android:id="@+id/nav_sigin1"
-        android:name="com.eggoz.ecommerce.view.SignIn.SignIn1Fragment"
+        android:name="com.eggoz.ecommerce.view.signIn.SignIn1Fragment"
         android:label="@string/splash"
         tools:layout="@layout/fragment_sign_in1"/>
     <fragment
@@ -24,9 +24,6 @@
         android:name="com.eggoz.ecommerce.view.starter.SelectCityFragment"
         android:label="@string/splash"
         tools:layout="@layout/fragment_select_city">
-
-        <argument
-            android:name="city" />
     </fragment>
     <fragment
         android:id="@+id/nav_loc"
@@ -35,8 +32,14 @@
         app:popUpToInclusive="true"
         tools:layout="@layout/fragment_locality"/>
     <fragment
+        android:id="@+id/nav_contact_us"
+        android:name="com.eggoz.ecommerce.view.contactus.view.ContactUsFragment"
+        android:label="contact_us"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_contact_us"/>
+    <fragment
         android:id="@+id/nav_sigin2"
-        android:name="com.eggoz.ecommerce.view.SignIn.Sigin2Fragment"
+        android:name="com.eggoz.ecommerce.view.signIn.Sigin2Fragment"
         android:label="@string/splash"
         tools:layout="@layout/fragment_sigin2"/>
     <fragment
@@ -49,7 +52,22 @@
 
         <action android:id="@+id/action_nav_home_to_nav_product_popular"
             app:destination="@+id/nav_product_popular"/>
+        <action android:id="@+id/action_nav_home_to_nav_web_search"
+            app:destination="@+id/nav_web_search"/>
+        <action android:id="@+id/action_nav_home_to_nav_date_detail"
+            app:destination="@+id/nav_date_detail"/>
     </fragment>
+    <fragment
+        android:id="@+id/nav_date_detail"
+        android:name="com.eggoz.ecommerce.view.home.view.DateDetailFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_date_detail"/>
+    <fragment
+        android:id="@+id/nav_web_search"
+        android:name="com.eggoz.ecommerce.view.web.view.WebSearchFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_web_search"/>
+
     <fragment
         android:id="@+id/nav_product_popular"
         android:name="com.eggoz.ecommerce.view.product.MoreProductFragment"
@@ -74,7 +92,7 @@
 
     <fragment
         android:id="@+id/nav_wallet"
-        android:name="com.eggoz.ecommerce.view.wallet.WalletFragment"
+        android:name="com.eggoz.ecommerce.view.wallet.view.WalletFragment"
         android:label="@string/menu_wallet"
         tools:layout="@layout/fragment_wallet">
         <action android:id="@+id/action_nav_wallet_to_nav_sigin1"
@@ -87,7 +105,7 @@
 
     <fragment
         android:id="@+id/nav_addMoney"
-        android:name="com.eggoz.ecommerce.view.wallet.AddMoneyFragment"
+        android:name="com.eggoz.ecommerce.view.wallet.view.AddMoneyFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_add_money"/>
 
@@ -103,23 +121,30 @@
             app:destination="@+id/nav_manageAddress"/>
         <action android:id="@+id/action_nav_profile_to_nav_sigin1"
             app:destination="@+id/nav_sigin1"/>
+        <action android:id="@+id/action_nav_profile_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail"/>
 
     </fragment>
 
     <fragment
+        android:id="@+id/nav_orderdetail"
+        android:name="com.eggoz.ecommerce.view.order.view.OrderStatusFragment"
+        android:label="@string/menu_membership"
+        tools:layout="@layout/fragment_order_status"/>
+    <fragment
         android:id="@+id/nav_membership"
-        android:name="com.eggoz.ecommerce.view.MembershipPlans.MembershipPlansFragment"
+        android:name="com.eggoz.ecommerce.view.membershipPlans.MembershipPlansFragment"
         android:label="@string/menu_membership"
         tools:layout="@layout/fragment_membership_plans"/>
     <fragment
         android:id="@+id/nav_subscribeinfro"
-        android:name="com.eggoz.ecommerce.view.Subscribe.SubscribeDetailFragment"
+        android:name="com.eggoz.ecommerce.view.subscribe.SubscribeDetailFragment"
         android:label="@string/menu_membership"
         tools:layout="@layout/fragment_subscribe_detail"/>
 
     <fragment
         android:id="@+id/nav_subscribe"
-        android:name="com.eggoz.ecommerce.view.Subscribe.SubscribeFragment"
+        android:name="com.eggoz.ecommerce.view.subscribe.SubscribeFragment"
         android:label="@string/menu_membership"
         tools:layout="@layout/fragment_subscribe">
 
@@ -157,6 +182,29 @@
             app:destination="@+id/nav_sigin1"/>
         <action android:id="@+id/action_nav_address_list_to_nav_manageAddress"
             app:destination="@+id/nav_manageAddress"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_referearn"
+        android:name="com.eggoz.ecommerce.view.referAndEarn.view.ReferAndEarnFragment"
+        android:label="@string/menu_address"
+        tools:layout="@layout/fragment_refer_and_earn">
+        <action android:id="@+id/action_nav_referearn_to_nav_referearnwithfriends"
+            app:destination="@+id/nav_referearnwithfriends"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_referearnwithfriends"
+        android:name="com.eggoz.ecommerce.view.referAndEarn.view.ReferWithFriendsFragment"
+        android:label="@string/menu_address"
+        tools:layout="@layout/fragment_refer_with_friends">
+        <action android:id="@+id/action_nav_referearnwithfriends_to_nav_invitation_send"
+            app:destination="@+id/nav_invitation_send"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_invitation_send"
+        android:name="com.eggoz.ecommerce.view.referAndEarn.view.InvitationSendFragment"
+        android:label="@string/menu_address"
+        tools:layout="@layout/fragment_invitation_send">
     </fragment>
     <fragment
         android:id="@+id/nav_manageAddress"

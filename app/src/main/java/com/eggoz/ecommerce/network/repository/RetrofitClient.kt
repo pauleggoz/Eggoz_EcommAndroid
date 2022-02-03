@@ -72,4 +72,9 @@ class RetrofitClient {
         Log.d("data","token $token \n $retrofitApiSer")
         return retrofitApiSer
     }
+
+    fun retrofitApiSerInterceptor(token: String): RetrofitApiService {
+        this.token = token
+        return retrofitApiSer
+    }
 }

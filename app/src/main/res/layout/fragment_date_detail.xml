@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.home.view.DateDetailFragment">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/No_order"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/app_color2"
+            app:cardCornerRadius="@dimen/s24"
+            android:layout_marginTop="@dimen/s32"
+            app:layout_constraintStart_toStartOf="@+id/guideline_start"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img_noOrder"
+                    android:layout_width="@dimen/s240"
+                    android:layout_height="@dimen/s200"
+                    android:src="@drawable/applogo"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:id="@+id/txt_noOder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_order_for_the_day"
+                    style="@style/textxlarge"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/s92"
+                    android:layout_marginEnd="@dimen/s92"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_noOrder"
+                    />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/s24"
+                    android:layout_marginEnd="@dimen/s24"
+                    app:cardCornerRadius="@dimen/s12"
+                    android:layout_marginBottom="@dimen/s24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:cardBackgroundColor="@color/app_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_noOder">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_products"
+                        android:gravity="center"
+                        style="@style/textLarge"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="@dimen/s12"
+                        android:layout_marginBottom="@dimen/s12"
+                        />
+
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/s16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/s16" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

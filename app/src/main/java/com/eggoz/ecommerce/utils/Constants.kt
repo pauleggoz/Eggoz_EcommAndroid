@@ -36,5 +36,7 @@ class Constants {
         const val ecommerce_homeslider = "ecommerce/slider/"
         const val ecommerce_mobile_cart_checkout = "payment/return_mobile_wallet_recharge/"
         const val ecommerce_mobile_cart_checkoutWallet = "payment/return_mobile_wallet_recharge/"
+        const val ecommerce_order_list = "order/ecommerce_order/"
+        const val ecommerce_blogs = "ecommerce/app-blogs/"
     }
 }

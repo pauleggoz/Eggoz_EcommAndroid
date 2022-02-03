@@ -124,4 +124,20 @@
     <string name="Refer_Earn"><![CDATA[Refer & Earn]]></string>
     <string name="MyAccount">My Account</string>
     <string name="ContactUs">Contact Us</string>
+    <string name="together_we_re_going_further">Together,we’re going further!</string>
+    <string name="spreadtheeggoz">#spreadtheeggoz</string>
+    <string name="refer_introduce_the_eggoz_to_your_contacts"><![CDATA[Refer & introduce the eggoz to your contacts]]></string>
+    <string name="refer_now">REFER NOW!</string>
+    <string name="i_refer_now">I Refer Now!</string>
+    <string name="url">url</string>
+    <string name="share_your_link">Share Your Link</string>
+    <string name="invitation_send">Invitation Send</string>
+    <string name="thank_you">Thank you !</string>
+    <string name="your_friend_receives_the_invitation_soon">Your friend receives the invitation soon</string>
+    <string name="open_map">Open Map</string>
+    <string name="dial">Dial</string>
+    <string name="myorders">My Orders</string>
+    <string name="blog">Blogs</string>
+    <string name="no_order_for_the_day">No order for the day</string>
+    <string name="add_products">Add Products</string>
 </resources>

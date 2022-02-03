@@ -4,67 +4,78 @@
 
     <data>
 
+        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils" />
+
+        <variable
+            name="itemdata"
+            type="com.eggoz.ecommerce.network.model.Wallet.Result" />
+
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/s24"
-        android:layout_marginBottom="@dimen/s16">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_title"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            style="@style/texts14"
-            android:text="@string/PaidforEggoz"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="@dimen/s24"
+            android:layout_marginBottom="@dimen/s16">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="@string/Rs0"
-            style="@style/texts14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_title"
+                style="@style/texts14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{itemdata.note}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_ordderid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s8"
-            android:fontFamily="@font/spartanmedium"
-            android:gravity="start"
-            android:text="@string/EggozOrder"
-            android:textColor="@color/darkgrey"
-            style="@style/textsmallregular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_price"
+                style="@style/texts14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/Rs0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_ordderdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/s8"
-            android:fontFamily="@font/spartanmedium"
-            android:gravity="start"
-            android:text="@string/dummydate"
-            android:textColor="@color/darkgrey"
-            style="@style/textsmallregular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_ordderid" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_ordderid"
+                style="@style/textsmallregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s8"
+                android:fontFamily="@font/spartanmedium"
+                android:gravity="start"
+                android:text="@string/EggozOrder"
+                android:textColor="@color/darkgrey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txt_ordderdate"
+                style="@style/textsmallregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s8"
+                android:fontFamily="@font/spartanmedium"
+                android:gravity="start"
+                android:text="@string/dummydate"
+                android:textColor="@color/darkgrey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_ordderid" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>

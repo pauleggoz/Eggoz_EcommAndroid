@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.referAndEarn.view.ReferWithFriendsFragment">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/darkblue"
+            app:layout_constraintBottom_toTopOf="@+id/guideline60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/s40"
+            android:layout_height="@dimen/s40"
+            android:layout_marginStart="@dimen/s16"
+            android:layout_marginTop="@dimen/s16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/texts32"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s24"
+            android:layout_marginEnd="@dimen/s24"
+            android:gravity="center"
+            android:text="@string/together_we_re_going_further"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+
+        <TextView
+            style="@style/textLargemedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s24"
+            android:layout_marginTop="@dimen/s50"
+            android:layout_marginEnd="@dimen/s24"
+            android:gravity="center"
+            android:text="@string/together_we_re_going_further"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline32s"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/s32" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline32e"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crd_refer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/app_color"
+            app:cardCornerRadius="@dimen/s8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline32e"
+            app:layout_constraintStart_toEndOf="@+id/guideline32s"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_i_refer_now"
+                    style="@style/textLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s24"
+                    android:text="@string/i_refer_now"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_refer_introduce_the_eggoz"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s24"
+                    android:fontFamily="@font/spartansemibold"
+                    android:gravity="center"
+                    android:textSize="@dimen/s18"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/s18"
+                    android:layout_marginEnd="@dimen/s18"
+                    android:paddingBottom="@dimen/s45"
+                    android:text="@string/refer_introduce_the_eggoz_to_your_contacts"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/edt_email"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_i_refer_now" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edt_email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/s18"
+                    android:layout_marginEnd="@dimen/s18"
+                    android:layout_marginTop="@dimen/s45"
+                    android:layout_marginBottom="@dimen/s24"
+                    android:background="@color/white"
+                    app:endIconDrawable="@drawable/ic_launcher_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_mobile_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="10"
+                        android:digits="0123456789"
+                        android:hint="@string/email"
+                        android:inputType="phone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/share_your_link"
+            android:layout_marginTop="@dimen/s18"
+            style="@style/textLarge"
+            app:layout_constraintStart_toEndOf="@+id/guideline32s"
+            app:layout_constraintTop_toBottomOf="@+id/crd_refer"
+            />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crd_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/app_color"
+            app:cardCornerRadius="@dimen/s8"
+            android:layout_marginBottom="@dimen/s36"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline32e"
+            app:layout_constraintStart_toEndOf="@+id/guideline32s">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/url"
+                android:layout_marginTop="@dimen/s18"
+                android:layout_marginBottom="@dimen/s18"
+                android:layout_marginStart="@dimen/s14"
+                android:textColor="@color/ddarkgrey"
+                style="@style/textLarge"/>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

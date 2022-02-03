@@ -7,12 +7,12 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.BuildConfig
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -21,8 +21,10 @@ import androidx.navigation.Navigation
 import com.cashfree.pg.CFPaymentService
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.ActivityMainBinding
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
+import com.eggoz.ecommerce.mainactivityviewmodel.MainRepository
+import com.eggoz.ecommerce.mainactivityviewmodel.MainViewModel
+import com.eggoz.ecommerce.mainactivityviewmodel.MainViewModelFactory
+import com.eggoz.ecommerce.room.MyDatabase
 import kotlinx.coroutines.launch
 
 
@@ -33,11 +35,9 @@ class MainActivity : AppCompatActivity() {
 
     private var loc = 0
     private lateinit var navController: NavController
-    private var userPreferences: UserPreferences? = null
 
     private lateinit var viewModel: MainViewModel
 
-    private var userid: Int = -1
     private lateinit var headerLayout: View
     private lateinit var txt_person_name: TextView
     private lateinit var txt_person_mobile: TextView
@@ -115,8 +115,12 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initView() {
-        userPreferences = UserPreferences(this)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        val userPreferences = UserPreferences(this)
+
+        val repository = MainRepository(userPreferences, MyDatabase.getInstance(context = application))
+        val viewmodelFat = MainViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this,viewmodelFat).get(MainViewModel::class.java)
         binding.btmNav.menu.findItem(R.id.nav_botomhome).isChecked = true
         var versionName: String? =null
         try {
@@ -177,31 +181,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNav()
-        lifecycleScope.launch {
-            userid = userPreferences!!.Customer_id.first() ?: -1
-            if (userid != -1) {
-                getData()
-            }
-        }
-
+        getData()
     }
 
     private fun getData() {
-        lifecycleScope.launch {
-            viewModel.user(userid, this@MainActivity)
-        }
 
         viewModel.responUser.observe(this, {
             if (it?.errorType != null) {
                 if (it.errors != null)
                     if (it.errors!![0].message == "Invalid signature.") {
                         viewModel.refreshToken.observe(this) {
-                            lifecycleScope.launchWhenStarted {
-                                userPreferences?.authtoken?.collect { response ->
-                                    viewModel.setRefreshToken(response!!)
-                                }
-                                userPreferences?.saveAuthtoke(it.token!!)
 
+
+                            lifecycleScope.launchWhenStarted {
+                                it.token?.let { it1 -> viewModel.upDateToken(it1) }
                             }
                         }
                         navController.navigate(R.id.nav_sigin1)
@@ -284,7 +277,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             lifecycleScope.launch {
 
-                viewModel.conformPaymentCart(this@MainActivity, bundle)
+                viewModel.conformPaymentCart( bundle)
                 viewModel.responCheckout.observe(this@MainActivity, Observer {
                     if (it.errorType == null) {
                         if (paymentType == "cart")
@@ -320,7 +313,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             lifecycleScope.launch {
 
-                viewModel.conformPaymentWallet(this@MainActivity, bundle)
+                viewModel.conformPaymentWallet( bundle)
                 viewModel.responCheckoutWallet.observe(this@MainActivity, Observer {
                     if (it.errorType == null) {
                         Log.d("TAG", "conformPaymentWallet: ${it.sign}  ${it.signData?.signature}")
@@ -351,8 +344,8 @@ class MainActivity : AppCompatActivity() {
     fun sideNaveClick() {
         binding.navView.setNavigationItemSelectedListener { item ->
 
-            when {
-                item.itemId == R.id.nav_homeside -> {
+            when (item.itemId) {
+                R.id.nav_homeside -> {
                     loc = 0
                     binding.btmNav.menu.findItem(R.id.nav_botomhome).isChecked = true
                     binding.btmNav.visibility = View.VISIBLE
@@ -360,38 +353,53 @@ class MainActivity : AppCompatActivity() {
                     binding.navView.visibility = View.VISIBLE
                     navController.navigate(R.id.nav_home)
                 }
-                item.itemId == R.id.nav_prod -> {
+                R.id.nav_prod -> {
                     loc = 1
                     binding.btmNav.menu.findItem(R.id.nav_botomprod).isChecked = true
                     binding.btmNav.visibility = View.VISIBLE
                     navController.navigate(R.id.nav_product)
                 }
-                item.itemId == R.id.nav_order -> {
+                R.id.nav_order -> {
 
                 }
-                item.itemId == R.id.nav_subscription -> {
+                R.id.nav_subscription -> {
 
                 }
-                item.itemId == R.id.nav_referearn -> {
+                R.id.nav_referearn -> {
+                    binding.btmNav.visibility = View.GONE
+                    binding.toolbar.visibility = View.GONE
+                    binding.navView.visibility = View.GONE
+                    navController.navigate(R.id.nav_referearn)
+                }
+                R.id.nav_myaccount -> {
+                    loc = 3
+                    binding.btmNav.menu.findItem(R.id.nav_botomprofile).isChecked = true
+                    binding.btmNav.visibility = View.VISIBLE
+                    navController.navigate(R.id.nav_profile)
+                }
+                R.id.nav_contactus -> {
+                    binding.btmNav.visibility = View.GONE
+                    binding.toolbar.visibility = View.GONE
+                    binding.navView.visibility = View.GONE
+                    navController.navigate(R.id.nav_contact_us)
+                }
+                R.id.nav_side_FAQs -> {
 
                 }
-                item.itemId == R.id.nav_myaccount -> {
+                R.id.nav_side_help_support -> {
 
                 }
-                item.itemId == R.id.nav_contactus -> {
+                R.id.nav_side_Logout -> {
+                    AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Log Out")
+                        .setMessage("Are you sure you want to logout ?")
+                        .setPositiveButton("Yes") { dialog, which ->
+                            lifecycleScope.launch {
+                                viewModel.userDataClear()
+                                navController.navigate(R.id.nav_city)
+                            }
+                        }.setNegativeButton("No", null).show()
 
-                }
-                item.itemId == R.id.nav_side_FAQs -> {
-
-                }
-                item.itemId == R.id.nav_side_help_support -> {
-
-                }
-                item.itemId == R.id.nav_side_Logout -> {
-                    lifecycleScope.launch {
-                        userPreferences!!.clear()
-                        navController.navigate(R.id.nav_city)
-                    }
                 }
             }
             binding.drawerlayout.closeDrawer(GravityCompat.START)

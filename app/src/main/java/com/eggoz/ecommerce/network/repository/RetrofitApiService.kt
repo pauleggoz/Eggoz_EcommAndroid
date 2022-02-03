@@ -2,14 +2,13 @@ package com.eggoz.ecommerce.network.repository
 
 import com.eggoz.ecommerce.network.model.*
 import com.eggoz.ecommerce.utils.Constants
-import com.eggoz.ecommerce.view.MembershipPlans.model.Membership
-import com.eggoz.ecommerce.view.MembershipPlans.model.MembershipRecharge
-import com.eggoz.ecommerce.view.Subscribe.model.Subscribe
+import com.eggoz.ecommerce.view.membershipPlans.model.Membership
+import com.eggoz.ecommerce.view.membershipPlans.model.MembershipRecharge
+import com.eggoz.ecommerce.view.subscribe.model.Subscribe
 import com.eggoz.ecommerce.view.address.model.CartToken
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -138,7 +137,7 @@ interface RetrofitApiService {
 
     @GET(Constants.ecommerce_customersubscriptions)
     suspend fun getSubList(
-        @Query("customer") city: Int
+        @Query("customer") customer: Int
     ): Sublist
 
     @POST(Constants.ecommerce_mobile_wallet_recharge)
@@ -178,4 +177,14 @@ interface RetrofitApiService {
     suspend fun refreshToken(
         @Field("token") token: String
     ): TokenData
+
+
+    @GET(Constants.ecommerce_order_list)
+    suspend fun orderList(@Query("customer") customer: Int,@Query("from_delivery_date") startDate:String,@Query("to_delivery_date") endDate:String): OrderList
+
+
+    @GET(Constants.ecommerce_blogs)
+    suspend fun getBlog(
+        @Query("page") customer: Int
+    ): Blogs
 }

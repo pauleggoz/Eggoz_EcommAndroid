@@ -1,34 +1,29 @@
 package com.eggoz.ecommerce.view.address
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.cashfree.pg.CFPaymentService
 import com.eggoz.ecommerce.MainActivity
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentAddressBinding
+import com.eggoz.ecommerce.room.MyDatabase
 import com.eggoz.ecommerce.room.RoomCart
 import com.eggoz.ecommerce.utils.Constants
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.address.adapter.AddressAdapter
+import com.eggoz.ecommerce.view.address.viewmodel.AddressRepository
+import com.eggoz.ecommerce.view.address.viewmodel.AddressViewModel
+import com.eggoz.ecommerce.view.address.viewmodel.AddressViewModelFactory
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,8 +37,7 @@ class AddressFragment : Fragment() {
 
     private lateinit var addressAdapter: AddressAdapter
     private lateinit var viewModel: AddressViewModel
-    private var mid = -1
-    private var userPreferences: UserPreferences? = null
+
     private lateinit var dialog: Loadinddialog
 
     private var totalamount = 0.0
@@ -74,13 +68,19 @@ class AddressFragment : Fragment() {
     }
 
     private fun init() {
+        val userPreferences = UserPreferences(requireContext())
+        val repository =
+            AddressRepository(userPreferences, MyDatabase.getInstance(context = requireContext()))
+        val viewmodelFat = AddressViewModelFactory(repository)
 
-        userPreferences = UserPreferences(requireContext())
-        viewModel = ViewModelProvider(this).get(AddressViewModel::class.java)
+
+        viewModel = ViewModelProvider(this, viewmodelFat).get(AddressViewModel::class.java)
 
         dialog = Loadinddialog()
+        if (!dialog.isShowing())
+            dialog.create(requireContext())
         lifecycleScope.launch {
-            mid = userPreferences!!.userid.first() ?: -1
+//            mid = userPreferences!!.userid.first() ?: -1
             val bundle: Bundle? = arguments
             if (bundle != null) {
                 ordertype = bundle.getString("ordertype", "")
@@ -100,10 +100,12 @@ class AddressFragment : Fragment() {
                     days = bundle.getIntegerArrayList("days") as ArrayList<Int>
                 }
             }
-            if (mid != -1)
-                addressList()
+            addressList()
         }
         binding.apply {
+
+            addressAdapter = AddressAdapter()
+            viewaddressAdapter = addressAdapter
             btnBack.setOnClickListener {
                 Navigation.findNavController(root)
                     .popBackStack()
@@ -138,8 +140,6 @@ class AddressFragment : Fragment() {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.getTokenforsubitem(
-                mid,
-                requireContext(),
                 totalamount,
                 addressid,
                 item_id,
@@ -152,21 +152,21 @@ class AddressFragment : Fragment() {
                 date = "11-11-2021"
             )
             viewModel.responTokenforsingle.observe(viewLifecycleOwner, {
-               // if (it.body()?.errorType == null) {
+                // if (it.body()?.errorType == null) {
 
-                    if (dialog.isShowing())
-                        dialog.dismiss()
-                    paymentcart(
-                        it.body()?.payload?.appId ?: "",
-                        it.body()?.payload?.orderId ?: "",
-                        it.body()?.payload?.orderAmount ?: 0.0,
-                        it.body()?.payload?.orderNote ?: "",
-                        it.body()?.payload?.customerName ?: "",
-                        it.body()?.payload?.customerPhone ?: "",
-                        it.body()?.payload?.customerEmail ?: "",
-                        it.body()?.payload?.notifyUrl ?: "",
-                        it.body()?.gatewayResponse?.cftoken ?: ""
-                    )
+                if (dialog.isShowing())
+                    dialog.dismiss()
+                paymentcart(
+                    it.body()?.payload?.appId ?: "",
+                    it.body()?.payload?.orderId ?: "",
+                    it.body()?.payload?.orderAmount ?: 0.0,
+                    it.body()?.payload?.orderNote ?: "",
+                    it.body()?.payload?.customerName ?: "",
+                    it.body()?.payload?.customerPhone ?: "",
+                    it.body()?.payload?.customerEmail ?: "",
+                    it.body()?.payload?.notifyUrl ?: "",
+                    it.body()?.gatewayResponse?.cftoken ?: ""
+                )
 
 
             })
@@ -184,8 +184,6 @@ class AddressFragment : Fragment() {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.getTokenforsingle(
-                mid,
-                requireContext(),
                 totalamount,
                 addressid,
                 item_id,
@@ -240,8 +238,6 @@ class AddressFragment : Fragment() {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.getcartToken(
-                mid,
-                requireContext(),
                 totalamount,
                 addressid,
                 cartlist,
@@ -309,9 +305,6 @@ class AddressFragment : Fragment() {
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
-            addressAdapter = AddressAdapter()
-            binding.addressAdapter=addressAdapter
-            viewModel.userAddress(mid, requireContext())
             viewModel.responAddress.observe(viewLifecycleOwner, {
 
                 if (dialog.isShowing())

@@ -86,8 +86,7 @@ class ProfileFragment : Fragment() {
         lifecycleScope.launch {
 
             viewModel.orderhistory(
-                customer = 3,
-                context = requireContext()
+                customer = 3
             ).observe(viewLifecycleOwner, {
 
                 if (dialog.isShowing())
@@ -126,7 +125,7 @@ class ProfileFragment : Fragment() {
                 }
             })
 
-            viewModel.user( requireContext()).observe(viewLifecycleOwner, {
+            viewModel.user().observe(viewLifecycleOwner, {
                 if (it?.errorType != null) {
                     if (it.errors != null)
                         if (it.errors!![0].message == "Invalid signature.")

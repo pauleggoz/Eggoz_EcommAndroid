@@ -79,7 +79,7 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
-            viewModel.user(requireContext()).observe(viewLifecycleOwner, {
+            viewModel.user().observe(viewLifecycleOwner, {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -110,7 +110,7 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
-            viewModel.deleteAddress(id, requireContext())
+            viewModel.deleteAddress(id)
                 .observe(viewLifecycleOwner, {
                 if (it.errorType == null) {
                     getUser()
