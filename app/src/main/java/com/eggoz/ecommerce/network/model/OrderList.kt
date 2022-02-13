@@ -5,11 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 data class OrderList(
     @SerializedName("results")
-    val results: List<Result>?= null
-
+    val results: List<OrderResult>? = null
 
 ) {
-    class Result(
+    class OrderResult(
         @SerializedName("code")
         val code: String,
         @SerializedName("customer")
@@ -25,7 +24,7 @@ data class OrderList(
         @SerializedName("date")
         val date: String,
         @SerializedName("delivery_date")
-        val deliveryDate: String ? = null,
+        val deliveryDate: String? = null,
         @SerializedName("desc")
         val desc: String,
         @SerializedName("deviated_amount")
@@ -96,14 +95,14 @@ data class OrderList(
             val totalItems: Int,
             @SerializedName("total_quantity")
             val totalQuantity: Int
-        ){
+        ) {
             class OrderItem(
                 @SerializedName("name")
                 val name: String,
                 @SerializedName("order_line_id")
                 val orderLineId: Int,
                 @SerializedName("price")
-                val price: Double,
+                val price: Double? = null,
                 @SerializedName("product_id")
                 val productId: Int,
                 @SerializedName("product_inlines")
@@ -122,7 +121,7 @@ data class OrderList(
                 val singleSkuRate: Double,
                 @SerializedName("sku")
                 val sku: Int
-            ){
+            ) {
                 class ProductInline(
                     @SerializedName("baseProduct")
                     val baseProduct: Int,
@@ -169,7 +168,7 @@ data class OrderList(
             val streetAddress: String,
             @SerializedName("user_addresses_user")
             val userAddressesUser: List<Int>
-        ){
+        ) {
             class City(
                 @SerializedName("city_name")
                 val cityName: String,
@@ -180,6 +179,7 @@ data class OrderList(
                 @SerializedName("state")
                 val state: String
             )
+
             class EcommerceSector(
                 @SerializedName("city")
                 val city: Int,

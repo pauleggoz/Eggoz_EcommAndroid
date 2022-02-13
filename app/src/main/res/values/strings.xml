@@ -140,4 +140,6 @@
     <string name="blog">Blogs</string>
     <string name="no_order_for_the_day">No order for the day</string>
     <string name="add_products">Add Products</string>
+    <string name="add_query">Add Query</string>
+    <string name="explain_issue">Explain Issue</string>
 </resources>

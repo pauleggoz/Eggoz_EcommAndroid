@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewOrderadapter"
+            type="com.eggoz.ecommerce.view.order.adapter.OrderListAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +16,19 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_data"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/s12"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recy_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                setAdapter="@{viewOrderadapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -25,6 +39,7 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/app_color2"
             app:cardCornerRadius="@dimen/s24"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/s32"
             app:layout_constraintStart_toStartOf="@+id/guideline_start"
             app:layout_constraintEnd_toEndOf="@+id/guideline_end"

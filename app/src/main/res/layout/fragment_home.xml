@@ -6,15 +6,15 @@
     <data>
 
         <variable
-            name="popadapter"
+            name="viewprodadapter"
             type="com.eggoz.ecommerce.view.home.adapter.ProductPopularAdapter" />
 
         <variable
-            name="subadapter"
+            name="viewsubadapter"
             type="com.eggoz.ecommerce.view.home.adapter.SubscriptionAdapter" />
 
         <variable
-            name="blogadapter"
+            name="viewblogadapter"
             type="com.eggoz.ecommerce.view.home.adapter.BlogsAdapter" />
     </data>
 
@@ -77,6 +77,12 @@
                     android:visibility="gone"
                     app:constraint_referenced_ids="week_calander,txtOrder_dateMonth,txtOrder_title" />
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/group_calender_click"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="txtOrder_dateMonth,img_calander" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txtOrder_dateMonth"
                     style="@style/textLarge"
@@ -89,6 +95,15 @@
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtOrder_title" />
+                <ImageView
+                    android:id="@+id/img_calander"
+                    android:layout_width="@dimen/s28"
+                    android:layout_height="@dimen/s28"
+                    android:src="@drawable/ic_baseline_calendar_today_24"
+                    app:layout_constraintTop_toBottomOf="@+id/txtOrder_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/s20"
+                    app:tint="@color/app_color" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/week_calander"
@@ -355,6 +370,30 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/pagger_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/s200"
+                    android:layout_marginTop="@dimen/s20"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/week_calander" />
+
+                <LinearLayout
+                    android:id="@+id/SliderDots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s8"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pagger_slider" />
+
+
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txtSubscription"
                     style="@style/textLarge"
@@ -368,7 +407,7 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/week_calander" />
+                    app:layout_constraintTop_toBottomOf="@+id/SliderDots" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txtSubscriptionseeall"
@@ -385,7 +424,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycle_subs"
-                    setAdapter="@{subadapter}"
+                    setAdapter="@{viewsubadapter}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/s16"
@@ -423,7 +462,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycle_pop"
-                    setAdapter="@{popadapter}"
+                    setAdapter="@{viewprodadapter}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/s16"
@@ -433,55 +472,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtPopularProducts" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/s2"
-                    android:layout_marginStart="@dimen/s20"
-                    android:layout_marginTop="@dimen/s40"
-                    android:layout_marginEnd="@dimen/s20"
-                    android:background="@color/app_color"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recycle_pop" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txtDoMorewithEggoz"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/white"
-                    android:paddingStart="@dimen/s16"
-                    android:paddingEnd="@dimen/s16"
-                    android:text="@string/DoMorewithEggoz"
-                    android:textColor="@color/app_color"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recycle_pop" />
-
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/pagger_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/s200"
-                    android:layout_marginTop="@dimen/s20"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDoMorewithEggoz" />
-
-                <LinearLayout
-                    android:id="@+id/SliderDots"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/s8"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pagger_slider" />
-
 
                 <View
                     android:layout_width="match_parent"
@@ -491,7 +481,7 @@
                     android:layout_marginEnd="@dimen/s20"
                     android:background="@color/app_color"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/SliderDots" />
+                    app:layout_constraintTop_toBottomOf="@+id/recycle_pop" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txt_blogs"
@@ -507,14 +497,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/SliderDots" />
+                    app:layout_constraintTop_toBottomOf="@+id/recycle_pop" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec_blog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/s16"
-                    setAdapter="@{blogadapter}"
+                    setAdapter="@{viewblogadapter}"
                     android:orientation="vertical"
                     tools:listitem="@layout/item_blogs"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -49,12 +49,21 @@
         tools:layout="@layout/fragment_home">
         <action android:id="@+id/action_nav_home_to_nav_product_detail"
             app:destination="@+id/nav_product_detail"/>
-
         <action android:id="@+id/action_nav_home_to_nav_product_popular"
             app:destination="@+id/nav_product_popular"/>
         <action android:id="@+id/action_nav_home_to_nav_web_search"
             app:destination="@+id/nav_web_search"/>
         <action android:id="@+id/action_nav_home_to_nav_date_detail"
+            app:destination="@+id/nav_date_detail"/>
+        <action android:id="@+id/action_nav_home_to_nav_my_calendar"
+            app:destination="@+id/nav_my_calendar"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_my_calendar"
+        android:name="com.eggoz.ecommerce.view.home.view.MyCalendarFragment"
+        android:label="@string/menu_products"
+        tools:layout="@layout/fragment_my_calendar">
+        <action android:id="@+id/action_nav_my_calendar_to_nav_date_detail"
             app:destination="@+id/nav_date_detail"/>
     </fragment>
     <fragment
@@ -123,6 +132,8 @@
             app:destination="@+id/nav_sigin1"/>
         <action android:id="@+id/action_nav_profile_to_nav_orderdetail"
             app:destination="@+id/nav_orderdetail"/>
+        <action android:id="@+id/action_nav_profile_to_nav_orderlist"
+            app:destination="@+id/nav_orderlist"/>
 
     </fragment>
 
@@ -141,6 +152,14 @@
         android:name="com.eggoz.ecommerce.view.subscribe.SubscribeDetailFragment"
         android:label="@string/menu_membership"
         tools:layout="@layout/fragment_subscribe_detail"/>
+    <fragment
+        android:id="@+id/nav_orderlist"
+        android:name="com.eggoz.ecommerce.view.order.view.OrderListFragment"
+        android:label="@string/menu_membership"
+        tools:layout="@layout/fragment_order_list">
+        <action android:id="@+id/action_nav_orderlist_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_subscribe"

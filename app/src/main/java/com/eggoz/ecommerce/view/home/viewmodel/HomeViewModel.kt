@@ -86,6 +86,7 @@ class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
 
         val responHomeSlider: MutableLiveData<HomeSlider> = MutableLiveData()
         viewModelScope.launch {
+            Log.d("data","token $token")
             repository.homeSlider(token = token)
                 .catch { e ->
 

@@ -2,31 +2,21 @@ package com.eggoz.ecommerce.view.wallet.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentWalletBinding
-import com.eggoz.ecommerce.network.model.Orderhistory
 import com.eggoz.ecommerce.utils.Loadinddialog
-import com.eggoz.ecommerce.view.home.viewmodel.HomeRepository
-import com.eggoz.ecommerce.view.home.viewmodel.HomeViewModel
-import com.eggoz.ecommerce.view.home.viewmodel.HomeViewModelFactory
 import com.eggoz.ecommerce.view.wallet.viewmodel.WalletViewModel
 import com.eggoz.ecommerce.view.wallet.adapter.PromoAdapter
 import com.eggoz.ecommerce.view.wallet.adapter.WalletHistoryAdapter
 import com.eggoz.ecommerce.view.wallet.viewmodel.WalletRepository
 import com.eggoz.ecommerce.view.wallet.viewmodel.WalletViewModelFactory
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
 
 class WalletFragment : Fragment() {

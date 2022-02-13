@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggoz.ecommerce.network.model.OrderList
-import com.eggoz.ecommerce.view.home.viewmodel.DetailDateRepository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.buffer
@@ -15,8 +14,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class DateDetailViewModel(private val repository: DetailDateRepository) : ViewModel() {
-    var date=""
+class MyCalendarViewModel(val repository: MyCalendarRepository): ViewModel() {
+
     private var city_id = -1
     private var user_id = -1
     private var token = ""
@@ -29,12 +28,11 @@ class DateDetailViewModel(private val repository: DetailDateRepository) : ViewMo
         }
     }
 
-
-    fun orderlist() : LiveData<OrderList> {
+    fun orderlist(start:String,end:String ) : LiveData<OrderList> {
 
         val responOrderList: MutableLiveData<OrderList> = MutableLiveData()
         viewModelScope.launch {
-            repository.orderList(token = token,user_id=user_id,date,date)
+            repository.orderList(token = token,user_id=user_id,start,end)
                 .catch { e ->
 
                     var errorResponse: OrderList?=null

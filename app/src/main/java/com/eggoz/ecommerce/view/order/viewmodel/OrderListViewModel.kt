@@ -1,11 +1,10 @@
-package com.eggoz.ecommerce.view.home.viewmodel
+package com.eggoz.ecommerce.view.order.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eggoz.ecommerce.network.model.OrderList
-import com.eggoz.ecommerce.view.home.viewmodel.DetailDateRepository
+import com.eggoz.ecommerce.network.model.Orderhistory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.buffer
@@ -15,44 +14,39 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class DateDetailViewModel(private val repository: DetailDateRepository) : ViewModel() {
-    var date=""
-    private var city_id = -1
+class OrderListViewModel(val repository: OrderListRepository): ViewModel() {
+
     private var user_id = -1
-    private var token = ""
+    private var authtoken = ""
 
     init {
         viewModelScope.launch {
-            city_id = repository.city_id.buffer().first() ?: -1
             user_id = repository.user_id.buffer().first() ?: -1
-            token = repository.token.buffer().first() ?: ""
+            authtoken = repository.auth_token.buffer().first() ?: ""
         }
     }
 
-
-    fun orderlist() : LiveData<OrderList> {
-
-        val responOrderList: MutableLiveData<OrderList> = MutableLiveData()
+    fun orderhistory(customer: Int): LiveData<Orderhistory> {
+        val responOrderhistory: MutableLiveData<Orderhistory> = MutableLiveData()
         viewModelScope.launch {
-            repository.orderList(token = token,user_id=user_id,date,date)
+            repository.orderhistory(customer = customer, token = authtoken)
                 .catch { e ->
 
-                    var errorResponse: OrderList?=null
-                    when(e){
+                    var errorResponse: Orderhistory? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
-                            val type = object : TypeToken<OrderList>() {}.type
+                            val type = object : TypeToken<Orderhistory>() {}.type
                             errorResponse = gson.fromJson(
                                 e.response()?.errorBody()!!.charStream(), type
                             )
                         }
                     }
-
-                    responOrderList.value=errorResponse!!
+                    responOrderhistory.value = errorResponse!!
                 }.collect { response ->
-                    responOrderList.value = response
+                    responOrderhistory.value = response
                 }
         }
-        return responOrderList
+        return responOrderhistory
     }
 }

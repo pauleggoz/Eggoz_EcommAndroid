@@ -21,6 +21,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.eggoz.ecommerce.R
+import com.eggoz.ecommerce.ViewModelFactory
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentHomeBinding
 import com.eggoz.ecommerce.network.model.HomeSlider
@@ -32,7 +33,6 @@ import com.eggoz.ecommerce.view.home.adapter.SliderAdapter
 import com.eggoz.ecommerce.view.home.adapter.SubscriptionAdapter
 import com.eggoz.ecommerce.view.home.viewmodel.HomeRepository
 import com.eggoz.ecommerce.view.home.viewmodel.HomeViewModel
-import com.eggoz.ecommerce.view.home.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.launch
 import java.text.DateFormatSymbols
 import java.text.SimpleDateFormat
@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
     private fun init() {
         val userPreferences = UserPreferences(requireContext())
         val repository = HomeRepository(userPreferences)
-        val viewmodelFat = HomeViewModelFactory(repository)
+        val viewmodelFat = ViewModelFactory(repository)
 
         c = Calendar.getInstance()
         sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -86,20 +86,30 @@ class HomeFragment : Fragment() {
         blogadapter = BlogsAdapter()
         viewModel.blogsresults.clear()
 
-        binding.popadapter = prodadapter
-        binding.subadapter = subadapter
-        binding.blogadapter = blogadapter
 
-        binding.txtPopularProductsseeall.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("type", "Popular")
-            Navigation.findNavController(binding.txtPopularProductsseeall)
-                .navigate(R.id.action_nav_home_to_nav_product_popular, bundle)
-        }
 
 
 
         binding.apply {
+            viewprodadapter = prodadapter
+            viewsubadapter = subadapter
+            viewblogadapter = blogadapter
+
+            txtPopularProductsseeall.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("type", "Popular")
+                Navigation.findNavController(txtPopularProductsseeall)
+                    .navigate(R.id.action_nav_home_to_nav_product_popular, bundle)
+            }
+            groupOrder.visibility = View.VISIBLE
+            txtOrderDateMonth.setOnClickListener {
+                Navigation.findNavController(txtPopularProductsseeall)
+                    .navigate(R.id.action_nav_home_to_nav_my_calendar)
+            }
+            imgCalander.setOnClickListener {
+                Navigation.findNavController(txtPopularProductsseeall)
+                    .navigate(R.id.action_nav_home_to_nav_my_calendar)
+            }
 
             root.isFocusableInTouchMode = true
             root.requestFocus()
@@ -167,11 +177,11 @@ class HomeFragment : Fragment() {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
-                it.results.let { orderlist ->
+                it.results?.let { orderlist ->
                     orderlist.let { inorderlist ->
-                        if (inorderlist?.isEmpty()!!)
-                            binding.groupOrder.visibility = View.GONE
-                        else {
+//                        if (inorderlist?.isEmpty()!!)
+//                            binding.groupOrder.visibility = View.GONE
+//                        else {
                             for (order in inorderlist) {
                                 order.deliveryDate?.let { ddate ->
                                     val currDate = sdfl.parse(ddate)
@@ -237,7 +247,7 @@ class HomeFragment : Fragment() {
 
                         }
 
-                    }
+//                    }
 
                 }
 
@@ -403,13 +413,11 @@ class HomeFragment : Fragment() {
             ).observe(viewLifecycleOwner, {
                 if (dialog.isShowing())
                     dialog.dismiss()
-                if (it.results != null) {
-                    if (it.results.isNotEmpty()) {
+                it.results?.let { sub->
+                    if (sub.isNotEmpty()) {
                         binding.txtSubscription.visibility = View.VISIBLE
-                        subadapter.submitList(it.results)
+                        subadapter.submitList(sub)
                     }else binding.txtSubscription.visibility = View.GONE
-                } else {
-                    binding.txtSubscription.visibility = View.GONE
                 }
             })
         }
@@ -424,7 +432,7 @@ class HomeFragment : Fragment() {
             viewModel.productList().observe(viewLifecycleOwner, {
                 if (dialog.isShowing())
                     dialog.dismiss()
-                it.results.let {
+                it.results?.let {
                     binding.apply {
                         prodadapter.submitList(it)
                     }

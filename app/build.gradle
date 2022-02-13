@@ -126,6 +126,7 @@ dependencies {
 
     //circleimage
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.applandeo:material-calendar-view:1.9.0-rc03'
 
 
 }

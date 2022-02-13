@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
+import com.eggoz.ecommerce.ViewModelFactory
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentProfileBinding
 import com.eggoz.ecommerce.network.model.OrderModel
@@ -42,7 +43,8 @@ class ProfileFragment : Fragment() {
     private fun initView() {
         val userPreferences = UserPreferences(requireContext())
         val repository = ProfileRepository(userPreferences)
-        val viewmodelFat = ProfileViewModelFactory(repository)
+//        val viewmodelFat = ProfileViewModelFactory(repository)
+        val viewmodelFat = ViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, viewmodelFat)[ProfileViewModel::class.java]
 
@@ -51,7 +53,12 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.apply {
             orderadapter = OrderAdapter()
-            binding.viewoderAdapter = orderadapter
+            viewoderAdapter = orderadapter
+
+            txtViewAll.setOnClickListener {
+                Navigation.findNavController(root)
+                    .navigate(R.id.action_nav_profile_to_nav_orderlist)
+            }
 
             layoutSubscribe.setOnClickListener {
                 Navigation.findNavController(root)
