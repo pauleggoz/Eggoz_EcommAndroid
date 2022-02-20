@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import com.cashfree.pg.CFPaymentService
+//import com.cashfree.pg.CFPaymentService
 import com.eggoz.ecommerce.MainActivity
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.data.UserPreferences
@@ -157,15 +157,10 @@ class AddressFragment : Fragment() {
                 if (dialog.isShowing())
                     dialog.dismiss()
                 paymentcart(
-                    it.body()?.payload?.appId ?: "",
-                    it.body()?.payload?.orderId ?: "",
-                    it.body()?.payload?.orderAmount ?: 0.0,
-                    it.body()?.payload?.orderNote ?: "",
-                    it.body()?.payload?.customerName ?: "",
-                    it.body()?.payload?.customerPhone ?: "",
-                    it.body()?.payload?.customerEmail ?: "",
-                    it.body()?.payload?.notifyUrl ?: "",
-                    it.body()?.gatewayResponse?.cftoken ?: ""
+                    it.body()?.txnid?:"",
+                    it.body()?.token?:"",
+                    it.body()?.surl?:"",
+                    it.body()?.furl?:""
                 )
 
 
@@ -196,15 +191,10 @@ class AddressFragment : Fragment() {
                     if (dialog.isShowing())
                         dialog.dismiss()
                     paymentcart(
-                        it.body()?.payload?.appId ?: "",
-                        it.body()?.payload?.orderId ?: "",
-                        it.body()?.payload?.orderAmount ?: 0.0,
-                        it.body()?.payload?.orderNote ?: "",
-                        it.body()?.payload?.customerName ?: "",
-                        it.body()?.payload?.customerPhone ?: "",
-                        it.body()?.payload?.customerEmail ?: "",
-                        it.body()?.payload?.notifyUrl ?: "",
-                        it.body()?.gatewayResponse?.cftoken ?: ""
+                        it.body()?.txnid?:"",
+                        it.body()?.token?:"",
+                        it.body()?.surl?:"",
+                        it.body()?.furl?:""
                     )
                 }
 
@@ -250,15 +240,10 @@ class AddressFragment : Fragment() {
                     if (dialog.isShowing())
                         dialog.dismiss()
                     paymentcart(
-                        it.body()?.payload?.appId ?: "",
-                        it.body()?.payload?.orderId ?: "",
-                        it.body()?.payload?.orderAmount ?: 0.0,
-                        it.body()?.payload?.orderNote ?: "",
-                        it.body()?.payload?.customerName ?: "",
-                        it.body()?.payload?.customerPhone ?: "",
-                        it.body()?.payload?.customerEmail ?: "",
-                        it.body()?.payload?.notifyUrl ?: "",
-                        it.body()?.gatewayResponse?.cftoken ?: ""
+                        it.body()?.txnid?:"",
+                        it.body()?.token?:"",
+                        it.body()?.surl?:"",
+                        it.body()?.furl?:""
                     )
                 }
 
@@ -267,16 +252,11 @@ class AddressFragment : Fragment() {
     }
 
     private fun paymentcart(
-        appId: String,
-        orderId: String,
-        orderAmount: Double,
-        orderNote: String,
-        customerName: String,
-        customerPhone: String,
-        customerEmail: String,
-        notifyUrl: String,
-        ctoken: String
-    ) {
+        txnid:String,
+    token:String,
+    surl:String,
+    furl:String
+    ) {/*
         val parms = HashMap<String, String>()
         parms.put("appId", appId)
         parms.put("orderId", orderId)
@@ -297,7 +277,7 @@ class AddressFragment : Fragment() {
         } catch (e: Exception) {
             Log.d("TAG", "paymentcart: ${e.message}")
 
-        }
+        }*/
 
     }
 

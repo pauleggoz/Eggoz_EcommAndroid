@@ -187,4 +187,10 @@ interface RetrofitApiService {
     suspend fun getBlog(
         @Query("page") customer: Int
     ): Blogs
+
+    @POST(Constants.ecommerce_payu_hash)
+    @FormUrlEncoded
+    suspend fun paymentHash(
+        @Field("hash_string") hashData: String
+    ): CartToken
 }

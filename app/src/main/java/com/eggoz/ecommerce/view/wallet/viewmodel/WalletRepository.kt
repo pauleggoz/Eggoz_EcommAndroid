@@ -52,4 +52,13 @@ class WalletRepository(private var userPreferences: UserPreferences) {
             .walletToken(paramsint = paramsint)
         emit(response)
     }.flowOn(Dispatchers.IO)
+
+    fun getPaymentHash(
+        token: String,
+        hashData: String
+    ): Flow<CartToken?> = flow {
+        val response = RetrofitClient().retrofitApiSerInterceptor(token = token)
+            .paymentHash(hashData = hashData)
+        emit(response)
+    }.flowOn(Dispatchers.IO)
 }

@@ -11,20 +11,18 @@ import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.ItemOrderBinding
 import com.eggoz.ecommerce.network.model.OrderModel
 
-class OrderAdapter : ListAdapter<OrderModel, OrderAdapter.OrderRecyclerViewHolder>(OrderCallBack()) {
+class OrderAdapter(val callback:(OrderModel) -> Unit) : ListAdapter<OrderModel, OrderAdapter.OrderRecyclerViewHolder>(OrderCallBack()) {
 
     class OrderRecyclerViewHolder(
         private val binding: ItemOrderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: OrderModel) {
+        fun bind(item: OrderModel,ccallback:(OrderModel) -> Unit) {
             binding.apply {
                 itemData=item
                 itemTitle="${item.orderitem.name} ${item.orderitem.sku} Pcs X ${item.orderitem.quantity}"
-                root.setOnClickListener { val bundle = Bundle()
-                    bundle.putString("id", item.orderid)
-                    Navigation.findNavController(root)
-                        .navigate(R.id.action_nav_profile_to_nav_orderdetail, bundle)
+                root.setOnClickListener {
+                    ccallback(item)
 
                 }
             }
@@ -38,7 +36,7 @@ class OrderAdapter : ListAdapter<OrderModel, OrderAdapter.OrderRecyclerViewHolde
 
     override fun onBindViewHolder(holder: OrderRecyclerViewHolder, position: Int) {
         val currentArticle = getItem(position)
-        holder.bind(currentArticle)
+        holder.bind(currentArticle,callback)
     }
 }
 

@@ -52,7 +52,12 @@ class ProfileFragment : Fragment() {
         dialog = Loadinddialog()
         binding.lifecycleOwner = this
         binding.apply {
-            orderadapter = OrderAdapter()
+            orderadapter = OrderAdapter(callback = {order->
+                val bundle = Bundle()
+                bundle.putString("id", order.orderid)
+                Navigation.findNavController(root)
+                    .navigate(R.id.action_nav_profile_to_nav_orderdetail, bundle)
+            })
             viewoderAdapter = orderadapter
 
             txtViewAll.setOnClickListener {

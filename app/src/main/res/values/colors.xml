@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="purple_200">#ff9000</color>-->
+    <!--    <color name="purple_200">#ff9000</color>-->
     <color name="purple_200">#FFCC00</color>
     <color name="purple_500">#FFCC00</color>
     <color name="purple_700">#FFCC00</color>
@@ -29,6 +29,12 @@
     <color name="gradient">#f5f3e7</color>
     <color name="grey_status">#CDD6DD</color>
     <color name="icon">#ACACAC</color>
+
+
+    <color name="one_payu_colorPrimary">#053bc1</color>
+    <color name="one_payu_colorPrimaryDark">#053bc1</color>
+    <color name="one_payu_colorAccent">#053bc1</color>
+    <color name="one_payu_baseTextColor">#ffffff</color>
 
 
 </resources>

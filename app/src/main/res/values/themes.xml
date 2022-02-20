@@ -1,6 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.EggozEcommerce" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.EggozEcommerce"
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<!--        parent="OnePayuTheme">-->
+
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item> <!-- Primary brand color. -->
@@ -21,4 +24,6 @@
         <item name="android:windowBackground">@drawable/logo1</item>
         <item name="statusBarBackground">@color/white</item>
     </style>
+
+
 </resources>

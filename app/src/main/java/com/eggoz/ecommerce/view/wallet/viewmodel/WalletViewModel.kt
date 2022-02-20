@@ -23,6 +23,7 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
     private var token = ""
     var walletBalanceval = 0.0
     var walletId = -1
+    var walletCount =0;
 
     init {
         viewModelScope.launch {
@@ -34,7 +35,6 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
 
     var responWallet: MutableLiveData<Wallet> = MutableLiveData()
     var responWalletPromo: MutableLiveData<WalletPromo> = MutableLiveData()
-    var responCartToken: MutableLiveData<CartToken> = MutableLiveData()
 
     private var _totalbal: MutableLiveData<Double> = MutableLiveData()
     val totalbal: LiveData<Double>
@@ -84,7 +84,8 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
         }
     }
 
-    fun getWalletToken( walletid: Int, selectpromoid: Int, amount: Int) {
+    fun getWalletToken( walletid: Int, selectpromoid: Int, amount: Int): MutableLiveData<CartToken> {
+        val responCartToken: MutableLiveData<CartToken> = MutableLiveData()
         viewModelScope.launch {
             repository.getWalletToken(
                 token = token,
@@ -109,6 +110,33 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
                     responCartToken.value = response
                 }
         }
+        return responCartToken
+    }
+
+    fun getPaymentHash( hashData: String): MutableLiveData<CartToken> {
+        val responCartToken: MutableLiveData<CartToken> = MutableLiveData()
+        viewModelScope.launch {
+            repository.getPaymentHash(
+                token = token,
+                hashData
+            ).catch { e ->
+
+                    var errorResponse: CartToken? = null
+                    when (e) {
+                        is HttpException -> {
+                            val gson = Gson()
+                            val type = object : TypeToken<CartToken>() {}.type
+                            errorResponse = gson.fromJson(
+                                e.response()?.errorBody()!!.charStream(), type
+                            )
+                        }
+                    }
+                    responCartToken.value = errorResponse!!
+                }.collect { response ->
+                    responCartToken.value = response
+                }
+        }
+        return responCartToken
     }
 
 

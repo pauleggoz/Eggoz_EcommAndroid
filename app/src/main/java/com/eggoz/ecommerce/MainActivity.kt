@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.cashfree.pg.CFPaymentService
+//import com.cashfree.pg.CFPaymentService
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.ActivityMainBinding
 import com.eggoz.ecommerce.mainactivityviewmodel.MainRepository
@@ -242,7 +242,6 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         //Same request code for all payment APIs.
         //Same request code for all payment APIs.
-        Log.d("TAG", "ReqCode : " + CFPaymentService.REQ_CODE)
         Log.d("TAG", "API Response : ")
         Log.d("TAG", "ordertype :$paymentType ")
         //Prints all extras. Replace with app logic.

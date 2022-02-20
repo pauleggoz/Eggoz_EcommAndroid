@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cashfree.pg.CFPaymentService
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.data.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentMembershipPlansBinding
@@ -227,8 +226,6 @@ class MembershipPlansFragment : Fragment(), MembershipCallback {
         parms.put("notifyUrl", "appId")
         val ptoken = "dasdadlasdla;s"
 
-        CFPaymentService.getCFPaymentServiceInstance()
-            .doPayment(requireActivity(), parms, ptoken, "TEST")
     }
 
     override fun selectmambership(id: Int, price: Double) {

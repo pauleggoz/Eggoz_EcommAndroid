@@ -7,75 +7,50 @@ import com.google.gson.annotations.SerializedName
 
 
 data class CartToken(
-    @SerializedName("gateway_response")
-    @Expose
-     val gatewayResponse: GatewayResponse? = null,
 
-    @SerializedName("payload")
-    @Expose
-     val payload: Payload? = null,
     @SerializedName("errors")
     @Expose
     var errors: List<Errors>? = null,
     @SerializedName("error_type")
     @Expose
-    var errorType: String? = null
-) {
-
-    class GatewayResponse(
-        @SerializedName("status")
-        @Expose
-         val status: String? = null,
-
-        @SerializedName("message")
-        @Expose
-         val message: String? = null,
-
-        @SerializedName("cftoken")
-        @Expose
-         val cftoken: String? = null
-    )
-
-    class Payload(
-        @SerializedName("appId")
-        @Expose
-         val appId: String? = null,
-
-        @SerializedName("orderId")
-        @Expose
-         val orderId: String? = null,
-
-        @SerializedName("orderAmount")
-        @Expose
-         val orderAmount: Double? = null,
-
-        @SerializedName("orderCurrency")
-        @Expose
-         val orderCurrency: String? = null,
-
-        @SerializedName("orderNote")
-        @Expose
-         val orderNote: String? = null,
-
-        @SerializedName("customerEmail")
-        @Expose
-         val customerEmail: String? = null,
-
-        @SerializedName("customerName")
-        @Expose
-         val customerName: String? = null,
-
-        @SerializedName("customerPhone")
-        @Expose
-         val customerPhone: String? = null,
-
-        @SerializedName("returnUrl")
-        @Expose
-         val returnUrl: String? = null,
-
-        @SerializedName("notifyUrl")
-        @Expose
-         val notifyUrl: String? = null
-    )
-
-}
+    var errorType: String? = null,
+    @SerializedName("txnid")
+    @Expose
+    var txnid: String? = null,
+    @SerializedName("token")
+    @Expose
+    var token: String? = null,
+    @SerializedName("error")
+    @Expose
+    var error: Boolean? = null,
+    @SerializedName("success")
+    @Expose
+    var success: Boolean? = null,
+    @SerializedName("surl")
+    @Expose
+    var surl: String? = null,
+    @SerializedName("furl")
+    @Expose
+    var furl: String? = null,
+    @SerializedName("productinfo")
+    @Expose
+    var productinfo: String? = null,
+    @SerializedName("firstname")
+    @Expose
+    var firstname: String? = null,
+    @SerializedName("email")
+    @Expose
+    var email: String? = null,
+    @SerializedName("amount")
+    @Expose
+    var amount: String? = null,
+    @SerializedName("merchant_key")
+    @Expose
+    var merchant_key: String? = null,
+    @SerializedName("phone")
+    @Expose
+    var phone: String? = null,
+    @SerializedName("hash")
+    @Expose
+    var hash: String? = null
+)

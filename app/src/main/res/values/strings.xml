@@ -142,4 +142,5 @@
     <string name="add_products">Add Products</string>
     <string name="add_query">Add Query</string>
     <string name="explain_issue">Explain Issue</string>
+    <string name="some_error_occurred">Error Occurred</string>
 </resources>
