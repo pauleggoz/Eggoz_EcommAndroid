@@ -1,7 +1,7 @@
 package com.eggoz.ecommerce.network.model
 
-data class OrderModel(val orderitem: Orderhistory.Result.OrderLines.OrderItem,
+data class OrderModel(val orderitem: OrderDetail.OrderLines.OrderItem,
         val orderdate : String,
-        val orderid : String,
+        val orderid : Int,
         val orderstatus : String) {
 }

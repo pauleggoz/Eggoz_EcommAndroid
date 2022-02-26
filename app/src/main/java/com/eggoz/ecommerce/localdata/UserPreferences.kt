@@ -1,4 +1,4 @@
-package com.eggoz.ecommerce.data
+package com.eggoz.ecommerce.localdata
 
 import android.content.Context
 import androidx.datastore.core.DataStore

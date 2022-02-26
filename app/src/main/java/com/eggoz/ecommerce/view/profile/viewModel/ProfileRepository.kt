@@ -1,7 +1,7 @@
 package com.eggoz.ecommerce.view.profile.viewModel
 
 import android.util.Log
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.network.model.Address
 import com.eggoz.ecommerce.network.model.CityData
 import com.eggoz.ecommerce.network.model.Orderhistory
@@ -20,6 +20,8 @@ class ProfileRepository(private var userPreferences: UserPreferences) {
     val user_id: Flow<Int?> by lazy { userPreferences.userid }
 
     val auth_token: Flow<String?> by lazy { userPreferences.authtoken }
+
+    val customer_id: Flow<Int?> by lazy { userPreferences.Customer_id }
 
 
     fun editUser(

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.databinding.ItemCartlistBinding
-import com.eggoz.ecommerce.room.RoomCart
+import com.eggoz.ecommerce.localdata.room.RoomCart
 
 class RoomCartAdapter(private val callback: (RoomCart, Int) -> Unit) :
     ListAdapter<RoomCart, RoomCartAdapter.RoomCartRecyclerViewHolder>(RoomCartCallBack()) {

@@ -194,6 +194,7 @@
             app:layout_constraintStart_toEndOf="@+id/guideline32s">
 
             <TextView
+                android:id="@+id/txt_referId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/url"

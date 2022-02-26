@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggoz.ecommerce.network.model.Address
-import com.eggoz.ecommerce.room.RoomCart
+import com.eggoz.ecommerce.localdata.room.RoomCart
 import com.eggoz.ecommerce.view.address.model.CartToken
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -24,20 +24,23 @@ class AddressViewModel(private val repository: AddressRepository) : ViewModel() 
     var responTokenforsingle: MutableLiveData<Response<CartToken>> = MutableLiveData()
     private var city_id = -1
     private var user_id = -1
-    private var token = ""
+    private var customer_id = -1
+    var payment_count = -1
+    var token = ""
 
     init {
         viewModelScope.launch {
             city_id = repository.city_id.buffer().first() ?: -1
             user_id = repository.user_id.buffer().first() ?: -1
             token = repository.token.buffer().first() ?: ""
+            customer_id = repository.customer_id.buffer().first() ?: -1
             userAddress()
         }
     }
 
     fun userAddress() {
         viewModelScope.launch {
-            repository.userAddress(id = user_id, token = token)
+            repository.userAddress(id = customer_id, token = token)
                 .catch { e ->
 
                     var errorResponse: Address? = null
@@ -147,17 +150,21 @@ class AddressViewModel(private val repository: AddressRepository) : ViewModel() 
         expiry_date: String,
         quantity: Int,
         subitem: Int,
-        days: ArrayList<Int>, date: String, pay_by_wallet: Boolean
+        days: ArrayList<Int>, date: String, pay_by_wallet: Boolean,
+         amount: Double,
     ) {
         viewModelScope.launch {
             repository.getTokenforsubitem(
-                customer = user_id,
+                customer = customer_id,
                 token = token,
-                totalamount = totalamount,
+                order_price_amount = totalamount,
                 addressid = addressid,
                 item_id = item_id,
                 date,
-                pay_by_wallet
+                pay_by_wallet,
+                amount =amount,
+                start_date =start_date,
+                expiry_date =expiry_date,
             )
                 .catch { e ->
 

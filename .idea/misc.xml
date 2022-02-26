@@ -3,6 +3,62 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/blackdot.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/buttonbackrad8.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/card_white.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/cartback.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/cartitemsmallborder.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/checkoutbackground.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/cornerbtn_background.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/current_active_dot.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/curvedback.xml" value="0.1815" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/curvedbackapplite.xml" value="0.1705" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/curvedbackborderonly.xml" value="0.1705" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/curvedbackgrayborder.xml" value="0.1705" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/curvedbacksmall.xml" value="0.1705" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/solid_cornerbtn_background.xml" value="0.1705" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/drawable/topcurve.xml" value="0.1705" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_add_money.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_add_query.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_address.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_address_input.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_cart_list.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_contact_us.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_date_detail.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_edit_profile.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_home.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_invitation_send.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_locality.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_manage_addersses.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_membership_plans.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_more_product.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_my_calendar.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_order_list.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_order_status.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_payment_sucessful.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_product.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_product_detail.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_profile.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_refer_and_earn.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_refer_with_friends.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_select_city.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_sigin2.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_sign_in1.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_splash.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_starter.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe_cost.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe_detail.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_wallet.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/fragment_web_search.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/item_address.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/item_cartlist.xml" value="0.1" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/item_custom_order.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/item_order.xml" value="0.1" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/item_order_inline.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/item_order_list.xml" value="0.18802083333333333" />
+        <entry key="..\:/Antino Projects/Android_Ecomm/app/src/main/res/layout/nav_header.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/active_dot.xml" value="0.2203125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/blackdot.xml" value="0.2203125" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/curvedback.xml" value="0.2203125" />
@@ -65,6 +121,11 @@
         <entry key="..\:/Users/Admin/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable/list_selector_background.xml" value="0.2203125" />
       </map>
     </option>
+  </component>
+  <component name="EntryPointsManager">
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="androidx.databinding.BindingAdapter" />
+    </list>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

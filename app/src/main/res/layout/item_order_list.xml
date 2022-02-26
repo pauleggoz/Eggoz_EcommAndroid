@@ -81,15 +81,6 @@
                     app:cardBackgroundColor="@color/app_color"
                     android:layout_marginEnd="@dimen/s8"
                     android:layout_marginBottom="@dimen/s8">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add_query"
-                        android:textColor="@color/white"
-                        android:layout_marginTop="@dimen/s8"
-                        android:layout_marginBottom="@dimen/s8"
-                        android:layout_marginStart="@dimen/s20"
-                        android:layout_marginEnd="@dimen/s20"/>
 
                 </androidx.cardview.widget.CardView>
 

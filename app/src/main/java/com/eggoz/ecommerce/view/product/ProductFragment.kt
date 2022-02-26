@@ -14,7 +14,7 @@ import androidx.navigation.Navigation
 import com.eggoz.ecommerce.MainActivity
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.FragmentProductBinding
-import com.eggoz.ecommerce.room.RoomCart
+import com.eggoz.ecommerce.localdata.room.RoomCart
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.utils.NetworkConnect
 import com.eggoz.ecommerce.view.cart.viewmodel.ProductViewModel

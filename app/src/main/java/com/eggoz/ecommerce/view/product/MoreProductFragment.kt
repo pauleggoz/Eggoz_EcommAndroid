@@ -2,7 +2,6 @@ package com.eggoz.ecommerce.view.product
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +14,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.R
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentMoreProductBinding
-import com.eggoz.ecommerce.databinding.FragmentProductBinding
 import com.eggoz.ecommerce.network.model.Products
-import com.eggoz.ecommerce.room.RoomCart
+import com.eggoz.ecommerce.localdata.room.RoomCart
 import com.eggoz.ecommerce.utils.Loadinddialog
-import com.eggoz.ecommerce.view.product.adapter.ProductAdapter
 import com.eggoz.ecommerce.view.product.adapter.ProductMoreAdapter
 import com.eggoz.ecommerce.view.product.callback.ProductCallback
 import kotlinx.coroutines.Dispatchers

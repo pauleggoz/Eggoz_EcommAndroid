@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentSigin2Binding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.MainViewModel
@@ -43,7 +43,7 @@ class Sigin2Fragment : Fragment() {
 
     private fun init() {
         dialog = Loadinddialog()
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         mobile = this.arguments?.getString("mobile", "") ?: ""
         otp = this.arguments?.getString("otp", "") ?: ""
@@ -94,34 +94,34 @@ class Sigin2Fragment : Fragment() {
                 otp = binding.otpInput.text.toString(),
                 loc_id = loc_id,
                 city_id = city_id
-            ).observe(viewLifecycleOwner, {
+            ).observe(viewLifecycleOwner) {
 
-                    var sas = it.toString();
+                var sas = it.toString();
 
-                    if (dialog.isShowing())
-                        dialog.dismiss()
+                if (dialog.isShowing())
+                    dialog.dismiss()
 
-                    if (it?.errorType != null) {
-                        Toast.makeText(requireContext(), it.errorType, Toast.LENGTH_SHORT)
-                            .show()
+                if (it?.errorType != null) {
+                    Toast.makeText(requireContext(), it.errorType, Toast.LENGTH_SHORT)
+                        .show()
 
-                    } else {
-                        lifecycleScope.launch {
-                            userPreferences!!.saveAuthtoke(token = it.token ?: "")
-                            userPreferences!!.saveCustomerid(id = it.user?.id ?: -1)
-                            if (it.user?.userProfile?.departmentProfiles?.size ?: 0 > 0)
-                                for (i in it.user?.userProfile?.departmentProfiles?.indices!!) {
-                                    if (it.user?.userProfile?.departmentProfiles!![i].customerProfile != null)
-                                        userPreferences!!.saveUserid(
-                                            id = it.user?.userProfile?.departmentProfiles!![i].customerProfile
-                                                ?: -1
-                                        )
-                                }
-                        }
-                        Navigation.findNavController(binding.root)
-                            .navigate(R.id.nav_home)
+                } else {
+                    lifecycleScope.launch {
+                        userPreferences!!.saveAuthtoke(token = it.token ?: "")
+                        userPreferences!!.saveCustomerid(id = it.user?.id ?: -1)
+                        if (it.user?.userProfile?.departmentProfiles?.size ?: 0 > 0)
+                            for (i in it.user?.userProfile?.departmentProfiles?.indices!!) {
+                                if (it.user?.userProfile?.departmentProfiles!![i].customerProfile != null)
+                                    userPreferences!!.saveUserid(
+                                        id = it.user?.userProfile?.departmentProfiles!![i].customerProfile
+                                            ?: -1
+                                    )
+                            }
                     }
-                })
+                    Navigation.findNavController(binding.root)
+                        .navigate(R.id.nav_home)
+                }
+            }
         }
 
 

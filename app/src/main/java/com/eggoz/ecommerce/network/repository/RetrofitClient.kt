@@ -2,7 +2,7 @@ package com.eggoz.ecommerce.network.repository
 
 import android.content.Context
 import android.util.Log
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.utils.Constants
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

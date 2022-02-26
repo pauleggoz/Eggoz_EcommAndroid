@@ -1,7 +1,7 @@
 package com.eggoz.ecommerce.view.cart.viewmodel
 
-import com.eggoz.ecommerce.room.CartDao
-import com.eggoz.ecommerce.room.RoomCart
+import com.eggoz.ecommerce.localdata.room.CartDao
+import com.eggoz.ecommerce.localdata.room.RoomCart
 import kotlinx.coroutines.flow.Flow
 
 class ProductRepository(private val cartdao: CartDao) {

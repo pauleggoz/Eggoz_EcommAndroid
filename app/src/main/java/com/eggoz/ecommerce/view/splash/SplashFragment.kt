@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentSplashBinding
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch

@@ -10,14 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.ViewModelFactory
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentProfileBinding
 import com.eggoz.ecommerce.network.model.OrderModel
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.profile.adapter.OrderAdapter
 import com.eggoz.ecommerce.view.profile.viewModel.ProfileRepository
 import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
-import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModelFactory
 import kotlinx.coroutines.launch
 
 
@@ -30,7 +29,6 @@ class ProfileFragment : Fragment() {
     private lateinit var viewModel: ProfileViewModel
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,9 +39,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initView() {
-        val userPreferences = UserPreferences(requireContext())
-        val repository = ProfileRepository(userPreferences)
-//        val viewmodelFat = ProfileViewModelFactory(repository)
+        val repository = ProfileRepository(UserPreferences(requireContext()))
         val viewmodelFat = ViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, viewmodelFat)[ProfileViewModel::class.java]
@@ -52,9 +48,9 @@ class ProfileFragment : Fragment() {
         dialog = Loadinddialog()
         binding.lifecycleOwner = this
         binding.apply {
-            orderadapter = OrderAdapter(callback = {order->
+            orderadapter = OrderAdapter(callback = { order ->
                 val bundle = Bundle()
-                bundle.putString("id", order.orderid)
+                bundle.putInt("id", order.orderid)
                 Navigation.findNavController(root)
                     .navigate(R.id.action_nav_profile_to_nav_orderdetail, bundle)
             })
@@ -97,9 +93,7 @@ class ProfileFragment : Fragment() {
             dialog.create(requireContext())
         lifecycleScope.launch {
 
-            viewModel.orderhistory(
-                customer = 3
-            ).observe(viewLifecycleOwner, {
+            viewModel.order.observe(viewLifecycleOwner) {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -120,14 +114,14 @@ class ProfileFragment : Fragment() {
                                         val order = OrderModel(
                                             it.results[i].orderLines?.orderItems!![j],
                                             it.results[i].generationDate ?: "",
-                                            it.results[i].orderId ?: "",
+                                            it.results[i].id ?: -1,
                                             it.results[i].status ?: ""
                                         )
                                         viewModel.ordermodel.add(order)
                                     }
                             }
                         }
-                        if (viewModel.ordermodel.size>0){
+                        if (viewModel.ordermodel.size > 0) {
                             binding.layoutPastOrders.visibility = View.VISIBLE
                             orderadapter.submitList(viewModel.ordermodel)
                         }
@@ -135,9 +129,9 @@ class ProfileFragment : Fragment() {
 
 
                 }
-            })
+            }
 
-            viewModel.user().observe(viewLifecycleOwner, {
+            viewModel.user.observe(viewLifecycleOwner) {
                 if (it?.errorType != null) {
                     if (it.errors != null)
                         if (it.errors!![0].message == "Invalid signature.")
@@ -146,7 +140,7 @@ class ProfileFragment : Fragment() {
 
                 } else {
                     binding.apply {
-                        personDetail=it
+                        personDetail = it
                         viewModel.name = it.name ?: ""
                         viewModel.email = it.email ?: ""
                         viewModel.mobile = it.phoneNo ?: ""
@@ -154,7 +148,7 @@ class ProfileFragment : Fragment() {
 
                     }
                 }
-            })
+            }
         }
     }
 

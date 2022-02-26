@@ -1,4 +1,4 @@
-package com.eggoz.ecommerce.room
+package com.eggoz.ecommerce.localdata.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

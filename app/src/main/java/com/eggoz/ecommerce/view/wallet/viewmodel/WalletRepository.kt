@@ -2,7 +2,7 @@ package com.eggoz.ecommerce.view.wallet.viewmodel
 
 import android.content.Context
 import android.util.Log
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.network.model.Wallet
 import com.eggoz.ecommerce.network.model.WalletPromo
 import com.eggoz.ecommerce.network.repository.RetrofitClient
@@ -53,12 +53,12 @@ class WalletRepository(private var userPreferences: UserPreferences) {
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    fun getPaymentHash(
+  /*  fun getPaymentHash(
         token: String,
         hashData: String
     ): Flow<CartToken?> = flow {
         val response = RetrofitClient().retrofitApiSerInterceptor(token = token)
             .paymentHash(hashData = hashData)
         emit(response)
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(Dispatchers.IO)*/
 }

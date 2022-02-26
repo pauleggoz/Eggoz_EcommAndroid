@@ -65,12 +65,17 @@
         tools:layout="@layout/fragment_my_calendar">
         <action android:id="@+id/action_nav_my_calendar_to_nav_date_detail"
             app:destination="@+id/nav_date_detail"/>
+        <action android:id="@+id/action_nav_my_calendar_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail"/>
     </fragment>
     <fragment
         android:id="@+id/nav_date_detail"
         android:name="com.eggoz.ecommerce.view.home.view.DateDetailFragment"
         android:label="@string/menu_products"
-        tools:layout="@layout/fragment_date_detail"/>
+        tools:layout="@layout/fragment_date_detail">
+        <action android:id="@+id/action_nav_date_detail_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail"/>
+    </fragment>
     <fragment
         android:id="@+id/nav_web_search"
         android:name="com.eggoz.ecommerce.view.web.view.WebSearchFragment"
@@ -113,6 +118,11 @@
 
 
     <fragment
+        android:id="@+id/nav_addQuery"
+        android:name="com.eggoz.ecommerce.view.order.view.AddQueryFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_add_query"/>
+    <fragment
         android:id="@+id/nav_addMoney"
         android:name="com.eggoz.ecommerce.view.wallet.view.AddMoneyFragment"
         android:label="@string/menu_profile"
@@ -141,7 +151,10 @@
         android:id="@+id/nav_orderdetail"
         android:name="com.eggoz.ecommerce.view.order.view.OrderStatusFragment"
         android:label="@string/menu_membership"
-        tools:layout="@layout/fragment_order_status"/>
+        tools:layout="@layout/fragment_order_status">
+        <action android:id="@+id/action_nav_orderdetail_to_nav_addQuery"
+        app:destination="@+id/nav_addQuery"/>
+    </fragment>
     <fragment
         android:id="@+id/nav_membership"
         android:name="com.eggoz.ecommerce.view.membershipPlans.MembershipPlansFragment"

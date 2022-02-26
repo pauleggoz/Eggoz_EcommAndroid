@@ -4,6 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewoderAdapter"
+            type="com.eggoz.ecommerce.view.profile.adapter.OrderAdapter" />
 
     </data>
 
@@ -32,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/myorders"
                     style="@style/textLarge"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/s8"
                     android:layout_marginStart="@dimen/s18"
                     app:layout_constraintTop_toBottomOf="@id/calander"
@@ -44,6 +48,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="@dimen/s18"
                     android:layout_marginEnd="@dimen/s18"
+                    setAdapter="@{viewoderAdapter}"
                     app:layout_constraintTop_toBottomOf="@+id/txt_myorders"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"/>

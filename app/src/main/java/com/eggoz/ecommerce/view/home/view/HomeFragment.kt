@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.ViewModelFactory
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentHomeBinding
 import com.eggoz.ecommerce.network.model.HomeSlider
 import com.eggoz.ecommerce.utils.Loadinddialog
@@ -173,7 +173,7 @@ class HomeFragment : Fragment() {
             val starteDate = sdf.parse(start)
             viewModel.orderlist(
                 start, end
-            ).observe(viewLifecycleOwner, {
+            ).observe(viewLifecycleOwner) {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -182,77 +182,77 @@ class HomeFragment : Fragment() {
 //                        if (inorderlist?.isEmpty()!!)
 //                            binding.groupOrder.visibility = View.GONE
 //                        else {
-                            for (order in inorderlist) {
-                                order.deliveryDate?.let { ddate ->
-                                    val currDate = sdfl.parse(ddate)
-                                    val diff1 = currDate.time - starteDate.time
+                        for (order in inorderlist) {
+                            order.deliveryDate?.let { ddate ->
+                                val currDate = sdfl.parse(ddate)
+                                val diff1 = currDate.time - starteDate.time
 
-                                    val date1 = ((diff1 / (1000 * 60 * 60 * 24))
-                                            % 365)
-                                    if (order.secondaryStatus.equals("created")) {
-                                        if (date1 == 0L)
-                                            binding.txtdate1.setBackgroundColor(
-                                                ContextCompat.getColor(
-                                                    requireContext(),
-                                                    R.color.app_color
-                                                )
+                                val date1 = ((diff1 / (1000 * 60 * 60 * 24))
+                                        % 365)
+                                if (order.secondaryStatus.equals("created")) {
+                                    if (date1 == 0L)
+                                        binding.txtdate1.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.app_color
                                             )
-                                        if (date1 == 1L)
-                                            binding.txtdate2.setBackgroundColor(
-                                                ContextCompat.getColor(
-                                                    requireContext(),
-                                                    R.color.app_color
-                                                )
+                                        )
+                                    if (date1 == 1L)
+                                        binding.txtdate2.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.app_color
                                             )
-                                        if (date1 == 2L)
-                                            binding.txtdate3.setBackgroundColor(
-                                                ContextCompat.getColor(
-                                                    requireContext(),
-                                                    R.color.app_color
-                                                )
+                                        )
+                                    if (date1 == 2L)
+                                        binding.txtdate3.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.app_color
                                             )
-                                        if (date1 == 3L)
-                                            binding.txtdate4.setBackgroundColor(
-                                                ContextCompat.getColor(
-                                                    requireContext(),
-                                                    R.color.app_color
-                                                )
+                                        )
+                                    if (date1 == 3L)
+                                        binding.txtdate4.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.app_color
                                             )
-                                        if (date1 == 4L)
-                                            binding.txtdate5.setBackgroundColor(
-                                                ContextCompat.getColor(
-                                                    requireContext(),
-                                                    R.color.app_color
-                                                )
+                                        )
+                                    if (date1 == 4L)
+                                        binding.txtdate5.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.app_color
                                             )
-                                        if (date1 == 5L)
-                                            binding.txtdate6.setBackgroundColor(
-                                                ContextCompat.getColor(
-                                                    requireContext(),
-                                                    R.color.app_color
-                                                )
+                                        )
+                                    if (date1 == 5L)
+                                        binding.txtdate6.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.app_color
                                             )
-                                        if (date1 == 6L)
-                                            binding.txtdate7.setBackgroundColor(
-                                                ContextCompat.getColor(
-                                                    requireContext(),
-                                                    R.color.app_color
-                                                )
+                                        )
+                                    if (date1 == 6L)
+                                        binding.txtdate7.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.app_color
                                             )
-                                    }
-
-                                    Log.d("TAG", "datediff: $date1")
+                                        )
                                 }
-                            }
 
+                                Log.d("TAG", "datediff: $date1")
+                            }
                         }
+
+                    }
 
 //                    }
 
                 }
 
 
-            })
+            }
         }
         orderCalander()
 
@@ -355,7 +355,7 @@ class HomeFragment : Fragment() {
 
     private fun apiCallfrist() {
 
-        network.observe(viewLifecycleOwner, {
+        network.observe(viewLifecycleOwner) {
             if (it) {
                 binding.layoutNoNetwork.visibility = View.GONE
                 binding.scrollLayoutData.visibility = View.VISIBLE
@@ -372,13 +372,13 @@ class HomeFragment : Fragment() {
                 binding.layoutNoNetwork.visibility = View.VISIBLE
                 binding.scrollLayoutData.visibility = View.GONE
             }
-        })
+        }
     }
 
     private fun blogs() {
 
         lifecycleScope.launch {
-            viewModel.blogs().observe(viewLifecycleOwner, {
+            viewModel.blogs().observe(viewLifecycleOwner) {
                 Log.d("TAG", "blogs: ${blogadapter.itemCount}")
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -389,7 +389,6 @@ class HomeFragment : Fragment() {
                 }
                 it.results?.let { blogList ->
                     if (blogList.isNotEmpty()) {
-                        binding.txtSubscription.visibility = View.VISIBLE
                         viewModel.blogsresults.addAll(blogList)
                         blogadapter.submitList(null)
                         blogadapter.submitList(viewModel.blogsresults)
@@ -397,7 +396,7 @@ class HomeFragment : Fragment() {
                         Log.d("TAG", "blogs: ${blogadapter.itemCount}")
                     }
                 }
-            })
+            }
         }
 
     }
@@ -408,18 +407,16 @@ class HomeFragment : Fragment() {
             dialog.create(requireContext())
 
         lifecycleScope.launch {
-            viewModel.getSubList(
-                userid = 3
-            ).observe(viewLifecycleOwner, {
+            viewModel.getSubList().observe(viewLifecycleOwner) {
                 if (dialog.isShowing())
                     dialog.dismiss()
-                it.results?.let { sub->
+                it.results?.let { sub ->
                     if (sub.isNotEmpty()) {
                         binding.txtSubscription.visibility = View.VISIBLE
                         subadapter.submitList(sub)
-                    }else binding.txtSubscription.visibility = View.GONE
+                    } else binding.txtSubscription.visibility = View.GONE
                 }
-            })
+            }
         }
 
     }
@@ -429,7 +426,7 @@ class HomeFragment : Fragment() {
             dialog.create(requireContext())
 
         lifecycleScope.launch {
-            viewModel.productList().observe(viewLifecycleOwner, {
+            viewModel.productList().observe(viewLifecycleOwner) {
                 if (dialog.isShowing())
                     dialog.dismiss()
                 it.results?.let {
@@ -437,7 +434,7 @@ class HomeFragment : Fragment() {
                         prodadapter.submitList(it)
                     }
                 }
-            })
+            }
         }
 
 
@@ -447,13 +444,13 @@ class HomeFragment : Fragment() {
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
-            viewModel.homeSlider().observe(viewLifecycleOwner, {
+            viewModel.homeSlider().observe(viewLifecycleOwner) {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
 
                 it.results?.let { it1 -> pageSlider(it1) }
-            })
+            }
         }
     }
 

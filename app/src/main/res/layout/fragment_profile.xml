@@ -39,7 +39,7 @@
             android:layout_height="@dimen/s56"
             android:layout_marginTop="@dimen/s14"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/applogo"
+            android:src="@drawable/logo1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

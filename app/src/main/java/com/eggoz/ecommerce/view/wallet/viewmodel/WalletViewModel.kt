@@ -20,7 +20,7 @@ import retrofit2.HttpException
 class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
     private var cityId = -1
     private var userId = -1
-    private var token = ""
+    var token = ""
     var walletBalanceval = 0.0
     var walletId = -1
     var walletCount =0;
@@ -113,7 +113,7 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
         return responCartToken
     }
 
-    fun getPaymentHash( hashData: String): MutableLiveData<CartToken> {
+   /* fun getPaymentHash( hashData: String): MutableLiveData<CartToken> {
         val responCartToken: MutableLiveData<CartToken> = MutableLiveData()
         viewModelScope.launch {
             repository.getPaymentHash(
@@ -138,6 +138,6 @@ class WalletViewModel(private val repository: WalletRepository) : ViewModel() {
         }
         return responCartToken
     }
-
+*/
 
 }

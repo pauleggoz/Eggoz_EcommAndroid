@@ -2,13 +2,13 @@ package com.eggoz.ecommerce.mainactivityviewmodel
 
 import android.os.Bundle
 import android.util.Log
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.network.model.Address
 import com.eggoz.ecommerce.network.model.Checkout
 import com.eggoz.ecommerce.network.model.TokenData
 import com.eggoz.ecommerce.network.repository.RetrofitClient
-import com.eggoz.ecommerce.room.CartDao
-import com.eggoz.ecommerce.room.MyDatabase
+import com.eggoz.ecommerce.localdata.room.CartDao
+import com.eggoz.ecommerce.localdata.room.MyDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,6 +19,8 @@ class MainRepository(private var userPreferences: UserPreferences,private var da
     val city_id: Flow<Int?> by lazy { userPreferences.city }
 
     val user_id: Flow<Int?> by lazy { userPreferences.userid }
+
+    val customer_id: Flow<Int?> by lazy { userPreferences.Customer_id }
 
     val token: Flow<String?> by lazy { userPreferences.authtoken }
 

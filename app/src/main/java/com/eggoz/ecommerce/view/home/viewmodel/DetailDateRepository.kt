@@ -1,6 +1,6 @@
 package com.eggoz.ecommerce.view.home.viewmodel
 
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.network.model.OrderList
 import com.eggoz.ecommerce.network.repository.RetrofitClient
 import kotlinx.coroutines.Dispatchers

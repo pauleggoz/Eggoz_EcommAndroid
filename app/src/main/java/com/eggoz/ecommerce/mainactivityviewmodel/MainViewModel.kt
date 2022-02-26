@@ -25,6 +25,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     private var city_id = -1
     private var user_id = -1
+    private var customer_id = -1
     private var token = ""
 
     init {
@@ -32,7 +33,8 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             city_id = repository.city_id.buffer().first() ?: -1
             user_id = repository.user_id.buffer().first() ?: -1
             token = repository.token.buffer().first() ?: ""
-            if (user_id != -1) {
+            customer_id = repository.customer_id.buffer().first() ?: -1
+            if (customer_id != -1) {
                 user()
             }
         }
@@ -40,7 +42,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun user() {
         viewModelScope.launch {
-            repository.userAddress(id = user_id, token = token)
+            repository.userAddress(id = customer_id, token = token)
                 .catch { e ->
 
                     var errorResponse: Address? = null

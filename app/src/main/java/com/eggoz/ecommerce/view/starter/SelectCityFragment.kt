@@ -1,7 +1,6 @@
 package com.eggoz.ecommerce.view.starter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentSelectCityBinding
 import com.eggoz.ecommerce.network.model.CityData
-import com.eggoz.ecommerce.room.RoomCart
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.MainViewModel
 import com.eggoz.ecommerce.view.starter.adapter.CityAdapter

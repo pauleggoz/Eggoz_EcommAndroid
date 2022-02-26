@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentSignIn1Binding
 import com.eggoz.ecommerce.utils.Constants.Companion.RESOLVE_HINT
 import com.eggoz.ecommerce.utils.Loadinddialog

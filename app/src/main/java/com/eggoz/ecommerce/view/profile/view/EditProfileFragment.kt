@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentEditProfileBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.utils.Validation
@@ -42,7 +42,7 @@ class EditProfileFragment : Fragment() {
     private fun initView() {
         userPreferences = UserPreferences(requireContext())
 
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
         dialog = Loadinddialog()
 
         lifecycleScope.launch {
@@ -93,7 +93,7 @@ class EditProfileFragment : Fragment() {
                 name = binding.edtName.text.toString(),
                 email = binding.edtEmail.text.toString(),
                 "+91" + binding.edtPhone.text.toString()
-            ).observe(viewLifecycleOwner, {
+            ).observe(viewLifecycleOwner) {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -107,7 +107,7 @@ class EditProfileFragment : Fragment() {
                             }
                     }
                 }
-            })
+            }
         }
     }
 

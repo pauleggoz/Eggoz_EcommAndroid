@@ -19,12 +19,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 //import com.cashfree.pg.CFPaymentService
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.ActivityMainBinding
 import com.eggoz.ecommerce.mainactivityviewmodel.MainRepository
 import com.eggoz.ecommerce.mainactivityviewmodel.MainViewModel
 import com.eggoz.ecommerce.mainactivityviewmodel.MainViewModelFactory
-import com.eggoz.ecommerce.room.MyDatabase
+import com.eggoz.ecommerce.localdata.room.MyDatabase
 import kotlinx.coroutines.launch
 
 
@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getData() {
 
-        viewModel.responUser.observe(this, {
+        viewModel.responUser.observe(this) {
             if (it?.errorType != null) {
                 if (it.errors != null)
                     if (it.errors!![0].message == "Invalid signature.") {
@@ -205,7 +205,7 @@ class MainActivity : AppCompatActivity() {
                 txt_person_mobile.text = it.phoneNo ?: ""
 
             }
-        })
+        }
     }
 
     private fun bottomNav() {

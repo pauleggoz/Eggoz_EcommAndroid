@@ -20,6 +20,8 @@ class OrderAdapter(val callback:(OrderModel) -> Unit) : ListAdapter<OrderModel, 
         fun bind(item: OrderModel,ccallback:(OrderModel) -> Unit) {
             binding.apply {
                 itemData=item
+                txtPrice.text="₹ ${(item.orderitem.quantity ?: 0.0) * (item.orderitem.price ?:0.0)}"
+
                 itemTitle="${item.orderitem.name} ${item.orderitem.sku} Pcs X ${item.orderitem.quantity}"
                 root.setOnClickListener {
                     ccallback(item)

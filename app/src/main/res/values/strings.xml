@@ -140,7 +140,11 @@
     <string name="blog">Blogs</string>
     <string name="no_order_for_the_day">No order for the day</string>
     <string name="add_products">Add Products</string>
-    <string name="add_query">Add Query</string>
     <string name="explain_issue">Explain Issue</string>
     <string name="some_error_occurred">Error Occurred</string>
+    <string name="order_id">Order Id:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="address">Address:</string>
+    <string name="delivery_time">Delivery Time:</string>
+    <string name="add_query">Add Query</string>
 </resources>

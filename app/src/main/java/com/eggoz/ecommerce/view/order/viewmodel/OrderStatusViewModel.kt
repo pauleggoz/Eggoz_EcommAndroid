@@ -1,11 +1,11 @@
-package com.eggoz.ecommerce.view.home.viewmodel
+package com.eggoz.ecommerce.view.order.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eggoz.ecommerce.network.model.OrderDetail
 import com.eggoz.ecommerce.network.model.OrderList
-import com.eggoz.ecommerce.view.home.viewmodel.DetailDateRepository
+import com.eggoz.ecommerce.network.model.Orderhistory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.buffer
@@ -15,43 +15,43 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class DateDetailViewModel(private val repository: DetailDateRepository) : ViewModel() {
-    var date=""
-    private var city_id = -1
+class OrderStatusViewModel(val repository:OrderStatusRepository): ViewModel() {
+
     private var user_id = -1
-    private var token = ""
+    public var order_id = -1
+    private var authtoken = ""
+    private var responOrderdetail: MutableLiveData<OrderDetail> = MutableLiveData()
+    val order get() = responOrderdetail
 
     init {
         viewModelScope.launch {
-            city_id = repository.city_id.buffer().first() ?: -1
             user_id = repository.user_id.buffer().first() ?: -1
-            token = repository.token.buffer().first() ?: ""
+            authtoken = repository.auth_token.buffer().first() ?: ""
+            order_id = repository.orderId
+            orderDetail()
         }
     }
 
 
-    fun orderlist() : LiveData<OrderList> {
-        val responOrderList: MutableLiveData<OrderList> = MutableLiveData()
+    private fun orderDetail() {
         viewModelScope.launch {
-            repository.orderList(token = token,user_id=user_id,date,date)
+            repository.orderDetail( token = authtoken)
                 .catch { e ->
 
-                    var errorResponse: OrderList?=null
-                    when(e){
+                    var errorResponse: OrderDetail? = null
+                    when (e) {
                         is HttpException -> {
                             val gson = Gson()
-                            val type = object : TypeToken<OrderList>() {}.type
+                            val type = object : TypeToken<OrderDetail>() {}.type
                             errorResponse = gson.fromJson(
                                 e.response()?.errorBody()!!.charStream(), type
                             )
                         }
                     }
-
-                    responOrderList.value=errorResponse!!
+                    responOrderdetail.value = errorResponse!!
                 }.collect { response ->
-                    responOrderList.value = response
+                    responOrderdetail.value = response
                 }
         }
-        return responOrderList
     }
 }

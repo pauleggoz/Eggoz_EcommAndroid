@@ -1,5 +1,6 @@
 package com.eggoz.ecommerce.view.order.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,13 +10,14 @@ import com.eggoz.ecommerce.databinding.ItemCustomOrderBinding
 import com.eggoz.ecommerce.network.model.OrderDetail
 import com.eggoz.ecommerce.network.model.OrderList
 
-class OrderAdapter(val callback: (OrderDetail) -> (Unit)) : ListAdapter<OrderDetail, OrderAdapter.OrderRecyclerViewHolder>(OrderCallBack()) {
+class OrderListAdapter(val callback: (OrderDetail) -> (Unit)) : ListAdapter<OrderDetail, OrderListAdapter.OrderRecyclerViewHolder>(OrderListCallBack()) {
 
 
     class OrderRecyclerViewHolder(
         private val binding: ItemCustomOrderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(item: OrderDetail, callback: (OrderDetail) -> Unit) {
             binding.apply {
                 itemData=item
@@ -38,7 +40,7 @@ class OrderAdapter(val callback: (OrderDetail) -> (Unit)) : ListAdapter<OrderDet
     }
 }
 
-class OrderCallBack : DiffUtil.ItemCallback<OrderDetail>() {
+class OrderListCallBack : DiffUtil.ItemCallback<OrderDetail>() {
     override fun areItemsTheSame(oldItem: OrderDetail, newItem: OrderDetail): Boolean =
         oldItem == newItem
 

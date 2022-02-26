@@ -1,13 +1,12 @@
 package com.eggoz.ecommerce.view.address.viewmodel
 
-import android.content.Context
 import android.util.Log
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.network.model.Address
 import com.eggoz.ecommerce.network.repository.RetrofitClient
-import com.eggoz.ecommerce.room.CartDao
-import com.eggoz.ecommerce.room.MyDatabase
-import com.eggoz.ecommerce.room.RoomCart
+import com.eggoz.ecommerce.localdata.room.CartDao
+import com.eggoz.ecommerce.localdata.room.MyDatabase
+import com.eggoz.ecommerce.localdata.room.RoomCart
 import com.eggoz.ecommerce.view.address.model.CartToken
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -24,6 +23,8 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
     val user_id: Flow<Int?> by lazy { userPreferences.userid }
 
     val token: Flow<String?> by lazy { userPreferences.authtoken }
+
+    val customer_id: Flow<Int?> by lazy { userPreferences.Customer_id }
 
     var cartdao: CartDao = myDatabase.deatailcart
 
@@ -77,7 +78,7 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
         }
         paramsarray["cart_products"] = flockarray
 
-        Log.d("TAG", "getcartToken: ${cartlist.size}  ${flockarray.size()}")
+        Log.d("TAG", "getcartToken: ${cartlist.size}  $paramsstring $paramsdouble $paramsarray $paramsint $paramsbolean")
         val response = RetrofitClient().retrofitApiSerInterceptor(token = token).getcartToken(
             paramsstring = paramsstring,
             paramsdouble = paramsdouble,
@@ -142,11 +143,15 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
     fun getTokenforsubitem(
         customer: Int,
         token: String,
-        totalamount: Double,
+        order_price_amount: Double,
         addressid: Int,
         item_id: Int,
         date: String,
-        pay_by_wallet: Boolean
+        pay_by_wallet: Boolean,
+        amount: Double,
+        start_date: String,
+        expiry_date: String,
+
     ): Flow<Response<CartToken>> = flow {
 
 
@@ -157,21 +162,21 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
         val paramsarrInt: MutableMap<String, ArrayList<Int>> = HashMap()
         val paramsjobj: MutableMap<String, JsonObject> = HashMap()
 
-        paramsint["customer"] = -1
-        paramsint["order_price_amount"] = 0
-        paramsint["shipping_address"] = -1
-        paramsint["amount"] = -1
+        paramsint["customer"] = customer
+        paramsint["order_price_amount"] = order_price_amount.toInt()
+        paramsint["shipping_address"] = addressid
+        paramsint["amount"] = amount.toInt()
 
         paramsarrInt["days"] = ArrayList()
 
-        paramsstring["start_date"] = ""
-        paramsstring["expiry_date"] = ""
+        paramsstring["start_date"] = start_date
+        paramsstring["expiry_date"] = expiry_date
 
         paramsarrStrng["dates"] = ArrayList()
 
         paramsint["wallet"] = -1
         paramsint["subscription"] = -1
-        paramsbolean["pay_by_wallet"] = false
+        paramsbolean["pay_by_wallet"] = pay_by_wallet
 
 
         paramsstring["slot"] = ""

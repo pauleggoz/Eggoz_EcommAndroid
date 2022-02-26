@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggoz.ecommerce.network.model.OrderList
+import com.eggoz.ecommerce.network.model.OrderModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.buffer
@@ -19,6 +20,7 @@ class MyCalendarViewModel(val repository: MyCalendarRepository): ViewModel() {
     private var city_id = -1
     private var user_id = -1
     private var token = ""
+    val ordermodel = ArrayList<OrderModel>()
 
     init {
         viewModelScope.launch {

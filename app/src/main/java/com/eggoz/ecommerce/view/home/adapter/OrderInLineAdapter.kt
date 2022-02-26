@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.databinding.ItemOrderInlineBinding
-import com.eggoz.ecommerce.network.model.OrderList
+import com.eggoz.ecommerce.network.model.OrderDetail
+import com.eggoz.ecommerce.network.model.Orderhistory
 
-class OrderInLineAdapter : ListAdapter<OrderList.OrderResult.OrderLines.OrderItem, OrderInLineAdapter.OrderInlineRecyclerViewHolder>(OrderInlineCallBack()) {
+class OrderInLineAdapter : ListAdapter<OrderDetail.OrderLines.OrderItem, OrderInLineAdapter.OrderInlineRecyclerViewHolder>(OrderInlineCallBack()) {
 
     class OrderInlineRecyclerViewHolder(
         private val binding: ItemOrderInlineBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: OrderList.OrderResult.OrderLines.OrderItem) {
+        fun bind(item: OrderDetail.OrderLines.OrderItem) {
 //            val df = DecimalFormat("#.##")
 //            val price = df.format(item.price ?: 0.00)
             binding.apply {
                 itemData=item
-                txtPrice.text="₹ ${item.price}"
             }
         }
     }
@@ -33,13 +33,16 @@ class OrderInLineAdapter : ListAdapter<OrderList.OrderResult.OrderLines.OrderIte
         val currentArticle = getItem(position)
         holder.bind(currentArticle)
     }
+
+
 }
 
-class OrderInlineCallBack : DiffUtil.ItemCallback<OrderList.OrderResult.OrderLines.OrderItem>() {
-    override fun areItemsTheSame(oldItem: OrderList.OrderResult.OrderLines.OrderItem, newItem: OrderList.OrderResult.OrderLines.OrderItem): Boolean =
+class OrderInlineCallBack : DiffUtil.ItemCallback<OrderDetail.OrderLines.OrderItem>() {
+    override fun areItemsTheSame(oldItem: OrderDetail.OrderLines.OrderItem, newItem: OrderDetail.OrderLines.OrderItem): Boolean =
         oldItem == newItem
 
-    override fun areContentsTheSame(oldItem: OrderList.OrderResult.OrderLines.OrderItem, newItem: OrderList.OrderResult.OrderLines.OrderItem): Boolean =
+    
+    override fun areContentsTheSame(oldItem: OrderDetail.OrderLines.OrderItem, newItem: OrderDetail.OrderLines.OrderItem): Boolean =
         oldItem.quantity == newItem.quantity
 
 }

@@ -59,10 +59,10 @@ class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
         return responProduct
     }
 
-    fun getSubList(userid: Int) :LiveData<Sublist> {
+    fun getSubList() :LiveData<Sublist> {
         val responSublist: MutableLiveData<Sublist> = MutableLiveData()
         viewModelScope.launch {
-            repository.getSubList(userid = userid,token=token)
+            repository.getSubList(userid = user_id,token=token)
                 .catch { e ->
                     var errorResponse: Sublist?=null
                     when(e){

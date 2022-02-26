@@ -10,7 +10,7 @@ class Constants {
         const val DB_NAME = "EggozCart"
 
 
-//        const val cashFree_Server = "TEST"
+        //        const val cashFree_Server = "TEST"
         const val payU_IsProduction = false
 
 
@@ -40,5 +40,7 @@ class Constants {
         const val ecommerce_order_list = "order/ecommerce_order/"
         const val ecommerce_blogs = "ecommerce/app-blogs/"
         const val ecommerce_payu_hash = "payu/generate_second_hash/"
+        const val ecommerce_orderbyid = "order/{id}/"
+        const val ecommerce_referral_code= "ecommerce/customer_membership/get_user_referral_code/"
     }
 }

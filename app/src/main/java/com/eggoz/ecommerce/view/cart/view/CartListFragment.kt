@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.FragmentCartListBinding
-import com.eggoz.ecommerce.room.MyDatabase
-import com.eggoz.ecommerce.room.RoomCart
+import com.eggoz.ecommerce.localdata.room.MyDatabase
+import com.eggoz.ecommerce.localdata.room.RoomCart
 import com.eggoz.ecommerce.view.cart.adapter.RoomCartAdapter
 import com.eggoz.ecommerce.view.cart.viewmodel.CartProductViewModel
 import com.eggoz.ecommerce.view.cart.viewmodel.CartViewModelFactory

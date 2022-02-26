@@ -8,7 +8,7 @@
 
         <variable
             name="itemData"
-            type="com.eggoz.ecommerce.room.RoomCart" />
+            type="com.eggoz.ecommerce.localdata.room.RoomCart" />
 
         <variable
             name="qntval"

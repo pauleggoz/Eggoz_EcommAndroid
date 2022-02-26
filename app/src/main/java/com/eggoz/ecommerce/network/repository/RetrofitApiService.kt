@@ -1,5 +1,6 @@
 package com.eggoz.ecommerce.network.repository
 
+import androidx.room.Index
 import com.eggoz.ecommerce.network.model.*
 import com.eggoz.ecommerce.utils.Constants
 import com.eggoz.ecommerce.view.membershipPlans.model.Membership
@@ -9,6 +10,7 @@ import com.eggoz.ecommerce.view.address.model.CartToken
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -190,7 +192,16 @@ interface RetrofitApiService {
 
     @POST(Constants.ecommerce_payu_hash)
     @FormUrlEncoded
-    suspend fun paymentHash(
+    fun paymentHash(
         @Field("hash_string") hashData: String
-    ): CartToken
+    ): Call<CartToken>
+
+
+    @GET(Constants.ecommerce_orderbyid)
+    suspend fun orderDetail(
+        @Path("id") id: Int
+    ): OrderDetail
+
+    @GET(Constants.ecommerce_referral_code)
+    suspend fun referAndEarn(): ReferAndEarn
 }

@@ -47,4 +47,5 @@
     <dimen name="s145">145dp</dimen>
     <dimen name="s240">240dp</dimen>
     <dimen name="s92">92dp</dimen>
+    <dimen name="s68">68dp</dimen>
 </resources>

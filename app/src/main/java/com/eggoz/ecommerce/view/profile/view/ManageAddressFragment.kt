@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eggoz.ecommerce.R
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentManageAdderssesBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
@@ -79,7 +79,7 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
-            viewModel.user().observe(viewLifecycleOwner, {
+            viewModel.user.observe(viewLifecycleOwner) {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -100,7 +100,7 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
                             }
                         }
                 }
-            })
+            }
         }
     }
 
@@ -111,13 +111,13 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.deleteAddress(id)
-                .observe(viewLifecycleOwner, {
-                if (it.errorType == null) {
-                    getUser()
+                .observe(viewLifecycleOwner) {
+                    if (it.errorType == null) {
+                        getUser()
+                    }
+                    if (dialog.isShowing())
+                        dialog.dismiss()
                 }
-                if (dialog.isShowing())
-                    dialog.dismiss()
-            })
         }
     }
 

@@ -2,7 +2,6 @@ package com.eggoz.ecommerce.utils
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -41,6 +40,7 @@ object CustomBindingUtils {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:setCount", "bind:postval"], requireAll = false)
     fun TextView.bindText(value: Int?, postval: String?) {
@@ -50,6 +50,7 @@ object CustomBindingUtils {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:weight", "bind:weightval"], requireAll = false)
     fun TextView.bindweightText(weight: String?, weightval: String?) {
@@ -58,36 +59,40 @@ object CustomBindingUtils {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:pre", "bind:post"], requireAll = false)
     fun TextView.bindpriceText(pre: String?, post: String?) {
         this.run {
             val df = DecimalFormat("#.##")
             val price = df.format(post?.toDouble() ?: 0.00)
-            this.text = "$pre ${price}"
+            this.text = "$pre $price"
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:premat", "bind:postmat"], requireAll = false)
     fun MaterialTextView.bindpriceText(premat: String?, postmat: Double?) {
         this.run {
             val df = DecimalFormat("#.##")
             val price = df.format(postmat ?: 0.00)
-            this.text = "$premat ${price}"
+            this.text = "$premat $price"
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:itemcurr", "bind:itemprice"], requireAll = false)
     fun MaterialTextView.bindpriceText(itemcurr: String?, itemprice: String?) {
         this.run {
             val df = DecimalFormat("#.##")
             val price = df.format(itemprice?.toDouble() ?: 0.00)
-            this.text = "$itemcurr ${price}"
+            this.text = "$itemcurr $price"
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:iteamName", "bind:iteamCount", "bind:iteamval"],requireAll = false)
     fun MaterialTextView.bindpriceText(iteamName: String?, iteamCount: Int?, iteamval: String) {
@@ -96,6 +101,7 @@ object CustomBindingUtils {
         }
     }
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:itemDate"], requireAll = false)
     fun MaterialTextView.bindpriceText(iteamName: String?) {
@@ -109,14 +115,6 @@ object CustomBindingUtils {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    @JvmStatic
-    @BindingAdapter(value = ["bind:orderItemQnt", "bind:orderItemPrice"],requireAll = false)
-    fun TextView.bindpriceText(orderItemQnt: Int?, orderItemPrice: Double?) {
-        this.run {
-            this.text = "₹ ${(orderItemQnt?.toDouble() ?: 0.0) * (orderItemPrice?:0.0)}"
-        }
-    }
 
 
     @SuppressLint("SimpleDateFormat")
@@ -140,6 +138,7 @@ object CustomBindingUtils {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:setPrice"],requireAll = false)
     fun TextView.bindsetPriceText(price: String?) {
@@ -148,6 +147,7 @@ object CustomBindingUtils {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter(value = ["bind:setDisPrice"],requireAll = false)
     fun TextView.bindsetDisPriceText(disprice: String?) {
@@ -156,7 +156,7 @@ object CustomBindingUtils {
             val disPrice= disprice?.toDouble()?.plus(dis) ?:0.0
             this.paintFlags =
                 this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            this.text = "₹ ${disPrice}"
+            this.text = "₹ $disPrice"
         }
     }
 

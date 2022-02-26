@@ -13,11 +13,13 @@ import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.ViewModelFactory
-import com.eggoz.ecommerce.data.UserPreferences
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentMyCalendarBinding
+import com.eggoz.ecommerce.network.model.OrderModel
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.home.viewmodel.MyCalendarRepository
 import com.eggoz.ecommerce.view.home.viewmodel.MyCalendarViewModel
+import com.eggoz.ecommerce.view.profile.adapter.OrderAdapter
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,9 +30,11 @@ import kotlin.collections.HashSet
 class MyCalendarFragment : Fragment() {
     private var _binding: FragmentMyCalendarBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var orderadapter: OrderAdapter
     private lateinit var viewModel: MyCalendarViewModel
 
-    val eventshash: HashSet<EventDay> = HashSet()
+    private val eventshash: HashSet<EventDay> = HashSet()
     val event: ArrayList<EventDay> = ArrayList()
     private lateinit var sdf: SimpleDateFormat
     private lateinit var min: Calendar
@@ -63,12 +67,22 @@ class MyCalendarFragment : Fragment() {
         min = Calendar.getInstance()
         max = Calendar.getInstance()
 
+
+
         min.add(Calendar.MONTH, -1)
         min.set(Calendar.DAY_OF_MONTH, min.getActualMinimum(Calendar.DATE))
         max.add(Calendar.MONTH, 1)
         max.set(Calendar.DAY_OF_MONTH, max.getActualMaximum(Calendar.DATE))
 
         binding.apply {
+            orderadapter = OrderAdapter(callback = {order->
+                val bundle = Bundle()
+                bundle.putInt("id", order.orderid)
+                Navigation.findNavController(calander)
+                    .navigate(R.id.action_nav_my_calendar_to_nav_orderdetail, bundle)
+            })
+            viewoderAdapter = orderadapter
+
             calander.setMinimumDate(min)
             calander.setMaximumDate(max)
             calander.setOnDayClickListener(object : OnDayClickListener {
@@ -89,16 +103,17 @@ class MyCalendarFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.orderlist(
                 sdf.format(min.time), sdf.format(max.time)
-            ).observe(viewLifecycleOwner, {
+            ).observe(viewLifecycleOwner) {
 
                 if (loadingdialog.isShowing())
                     loadingdialog.dismiss()
                 it.results?.let { orderlist ->
+                    viewModel.ordermodel.clear()
                     orderlist.let { inorderlist ->
                         for (order in inorderlist) {
                             order.deliveryDate?.let { ddate ->
-                                val currDate:Date = sdfl.parse(ddate)
-                                val cc:Calendar = Calendar.getInstance()
+                                val currDate: Date = sdfl.parse(ddate)
+                                val cc: Calendar = Calendar.getInstance()
                                 cc.time = currDate
                                 eventshash.add(
                                     EventDay(
@@ -114,13 +129,33 @@ class MyCalendarFragment : Fragment() {
                             event.addAll(eventshash)
                             Log.d("TAG", "getOrder: ${eventshash.size} ${event.size}")
                             binding.calander.setEvents(event)
-                        }catch (ex:Exception) {
+                        } catch (ex: Exception) {
                             ex.printStackTrace()
                         }
 
                     }
+
+
+                    for (i in it.results.indices) {
+                        if (it.results[i].orderLines != null) {
+                            if (it.results[i].orderLines?.orderItems != null)
+                                for (j in it.results[i].orderLines?.orderItems?.indices!!) {
+                                    val order = OrderModel(
+                                        it.results[i].orderLines?.orderItems!![j],
+                                        it.results[i].generationDate ?: "",
+                                        it.results[i].id ?: -1,
+                                        it.results[i].status ?: ""
+                                    )
+                                    viewModel.ordermodel.add(order)
+                                }
+                        }
+                    }
+                    if (viewModel.ordermodel.size>0) {
+                        orderadapter.submitList(viewModel.ordermodel)
+                        binding.txtMyorders.visibility = View.VISIBLE
+                    }
                 }
-            })
+            }
         }
     }
 }

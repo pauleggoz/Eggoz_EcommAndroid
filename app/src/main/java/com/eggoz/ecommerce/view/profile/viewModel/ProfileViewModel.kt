@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eggoz.ecommerce.databinding.FragmentProfileBinding
 import com.eggoz.ecommerce.network.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -24,20 +25,29 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     val ordermodel = ArrayList<OrderModel>()
 
     private var user_id = -1
+    private var customer_id = -1
     private var authtoken = ""
+
+
+    private var responUser: MutableLiveData<Address> = MutableLiveData()
+    val user get() = responUser
+    private var responOrderhistory: MutableLiveData<Orderhistory> = MutableLiveData()
+    val order get() = responOrderhistory
 
     init {
         viewModelScope.launch {
             user_id = repository.user_id.buffer().first() ?: -1
             authtoken = repository.auth_token.buffer().first() ?: ""
+            customer_id = repository.customer_id.buffer().first() ?: -1
+            user()
+            orderhistory()
         }
     }
 
 
-    fun orderhistory(customer: Int): LiveData<Orderhistory> {
-        val responOrderhistory: MutableLiveData<Orderhistory> = MutableLiveData()
+    private fun orderhistory(){
         viewModelScope.launch {
-            repository.orderhistory(customer = customer, token = authtoken)
+            repository.orderhistory(customer = user_id, token = authtoken)
                 .catch { e ->
 
                     var errorResponse: Orderhistory? = null
@@ -55,13 +65,11 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                     responOrderhistory.value = response
                 }
         }
-        return responOrderhistory
     }
 
-    fun user(): LiveData<Address> {
-        val responUser: MutableLiveData<Address> = MutableLiveData()
+    private fun user() {
         viewModelScope.launch {
-            repository.userAddress(id = user_id, token = authtoken)
+            repository.userAddress(id = customer_id, token = authtoken)
                 .catch { e ->
 
                     var errorResponse: Address? = null
@@ -80,7 +88,6 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                     responUser.value = response
                 }
         }
-        return responUser
     }
 
     fun deleteAddress(id: Int) :LiveData<Otpgenerate>{
@@ -132,8 +139,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                 State = State,
                 Pincode = Pincode,
                 token = authtoken
-            )
-                .catch { e ->
+            ).catch { e ->
 
                     var errorResponse: Address? = null
                     when (e) {
@@ -180,8 +186,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                 State = State,
                 Pincode = Pincode,
                 token = authtoken
-            )
-                .catch { e ->
+            ).catch { e ->
 
                     var errorResponse: Address? = null
                     when (e) {
