@@ -82,6 +82,10 @@ class ProfileFragment : Fragment() {
                 Navigation.findNavController(root)
                     .navigate(R.id.nav_membership)
             }
+            layoutRegion.setOnClickListener {
+                Navigation.findNavController(root)
+                    .navigate(R.id.action_nav_profile_to_nav_city)
+            }
 
         }
         getData()

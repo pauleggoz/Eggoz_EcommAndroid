@@ -1,45 +1,44 @@
 package com.eggoz.ecommerce.view.address.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.eggoz.ecommerce.databinding.ItemAddressBinding
 import com.eggoz.ecommerce.network.model.Address
+import com.eggoz.ecommerce.network.model.CityData
 
-class AddressAdapter : ListAdapter<Address.AAddress, AddressAdapter.AddressRecyclerViewHolder>(AddressCallBack()),Opetion {
-    var lastCheckedPosition: Int = 0
+class AddressAdapter(private val mycallback: (Address.AAddress?, Int) -> Unit) :
+    ListAdapter<Address.AAddress, AddressAdapter.AddressRecyclerViewHolder>(AddressCallBack()),
+    Opetion {
+    var lastSeletedLoc: Int = 0
 
     class AddressRecyclerViewHolder(
         private val binding: ItemAddressBinding,
-        private var callback:AddressAdapter,
-        private val lastCheckedPosition: Int
+        private val fcallback: (Address.AAddress?, Int) -> Unit,
+        private var callback: AddressAdapter
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Address.AAddress, currentPos: Int) {
             binding.apply {
-                root.setOnClickListener {
-                    callback.reset(currentPos)
-                }
+
                 itemData = item
-                viewlastCheck=lastCheckedPosition
-                viewcurrentPos=currentPos
 
+                addSelect.isChecked = item.isSelected
 
-//                addSelect.isChecked = lastCheckedPosition == position
+                /*if (item.isSelected)
+                    txtDefault.visibility = View.VISIBLE*/
 
-//                addSelect.text = itemData?.addressName ?: ""
+                addSelect.setOnCheckedChangeListener { compoundButton, b ->
+                    if (b) {
+                        callback.reset(currentPos)
 
-                /*txtAddress.text =
-                    "${itemData?.name ?: ""} ${itemData?.buildingAddress ?: ""} ${itemData?.streetAddress ?: ""} ${item?.landmark ?: ""} ${item?.city?.cityName ?: ""} " +
-                            "${itemData?.ecommerceSector ?: ""} ${itemData?.pinCode ?: ""}"
-*/
-
-//                if (lastCheckedPosition == currentPos)
-//                    txtDefault.visibility = View.VISIBLE
-//                else
-//                    txtDefault.visibility = View.GONE
+                        fcallback(item, currentPos)
+                        addSelect.isSelected = item.isSelected == true
+                    }
+                }
 
 
             }
@@ -48,23 +47,23 @@ class AddressAdapter : ListAdapter<Address.AAddress, AddressAdapter.AddressRecyc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressRecyclerViewHolder {
         val binding = ItemAddressBinding.inflate(LayoutInflater.from(parent.context))
-        return AddressRecyclerViewHolder(binding,this,lastCheckedPosition)
+        return AddressRecyclerViewHolder(binding, fcallback = mycallback, this)
     }
 
     override fun onBindViewHolder(holder: AddressRecyclerViewHolder, position: Int) {
         val currentArticle = getItem(position)
-        holder.bind(currentArticle,position)
+        holder.bind(currentArticle, position)
     }
 
     override fun reset(position: Int) {
-        val copyOfLastCheckedPosition = lastCheckedPosition
-        lastCheckedPosition = position
-        notifyItemChanged(copyOfLastCheckedPosition)
-        notifyItemChanged(lastCheckedPosition)
+        currentList[lastSeletedLoc]?.isSelected = false
+        notifyItemChanged(lastSeletedLoc)
+        lastSeletedLoc = position
+        currentList[position]?.isSelected = true
     }
 }
 
-interface Opetion{
+interface Opetion {
     fun reset(position: Int)
 }
 
@@ -76,70 +75,3 @@ class AddressCallBack : DiffUtil.ItemCallback<Address.AAddress>() {
         oldItem.isSelected == newItem.isSelected
 
 }
-
-
-/*(
-    private var addresses: List<Address.AAddress?>
-) : RecyclerView.Adapter<AddressAdapter.ViewHolder>() {
-    private lateinit var context: Context
-    private lateinit var listItem: View
-    private var lastCheckedPosition: Int = 0
-
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        val itemBinding: ItemAddressBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            R.layout.item_address, parent, false
-        )
-        listItem = itemBinding.root
-        context = itemBinding.root.context
-        return ViewHolder(itemBinding)
-    }
-
-
-    override fun getItemCount(): Int {
-        return if (addresses != null) {
-            addresses.size
-        } else {
-            0
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        listItem.setOnClickListener {
-            val copyOfLastCheckedPosition = lastCheckedPosition
-            lastCheckedPosition = position
-            notifyItemChanged(copyOfLastCheckedPosition)
-            notifyItemChanged(lastCheckedPosition)
-        }
-
-        holder.binding.apply {
-            addSelect.isChecked = lastCheckedPosition == position
-
-            addSelect.text = addresses[position]?.addressName ?: ""
-
-            txtAddress.text =
-                "${addresses[position]?.name ?: ""} ${addresses[position]?.buildingAddress ?: ""} ${addresses[position]?.streetAddress ?: ""} ${addresses[position]?.landmark ?: ""} ${addresses[position]?.city?.cityName ?: ""} " +
-                        "${addresses[position]?.ecommerceSector ?: ""} ${addresses[position]?.pinCode ?: ""}"
-
-            if (lastCheckedPosition == position)
-                txtDefault.visibility = View.VISIBLE
-            else
-                txtDefault.visibility = View.GONE
-
-        }
-    }
-
-
-    class ViewHolder(itemBinding: ItemAddressBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
-        val binding: ItemAddressBinding = itemBinding
-
-    }
-
-}*/

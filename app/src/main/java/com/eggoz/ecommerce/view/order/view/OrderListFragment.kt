@@ -69,7 +69,6 @@ class OrderListFragment : Fragment() {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
-//                orderlistadapter.submitList(null)
                 orderlistadapter.submitList(it.results)
 
                 if (it?.errorType != null) {

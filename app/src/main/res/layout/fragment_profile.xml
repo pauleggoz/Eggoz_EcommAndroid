@@ -348,6 +348,45 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_Region"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/s16"
+                    android:layout_marginEnd="@dimen/s16"
+                    android:paddingTop="@dimen/s16"
+                    android:paddingBottom="@dimen/s16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_Terms_Conditions">
+
+                    <ImageView
+                        android:id="@+id/icon_region"
+                        android:layout_width="@dimen/s24"
+                        android:layout_height="@dimen/s24"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/legal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/s12"
+                        android:fontFamily="@font/spartanmedium"
+                        android:text="@string/change_region"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toEndOf="@+id/icon_region"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/icon_region_arrow"
+                        android:layout_width="@dimen/s24"
+                        android:layout_height="@dimen/s24"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_past_orders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -356,7 +395,7 @@
                     android:paddingBottom="@dimen/s14"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_Terms_Conditions">
+                    app:layout_constraintTop_toBottomOf="@+id/layout_Region">
 
                     <TextView
                         android:layout_width="wrap_content"

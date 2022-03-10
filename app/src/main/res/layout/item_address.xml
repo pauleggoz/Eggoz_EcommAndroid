@@ -10,13 +10,7 @@
             name="itemData"
             type="com.eggoz.ecommerce.network.model.Address.AAddress" />
 
-        <variable
-            name="viewlastCheck"
-            type="Integer" />
 
-        <variable
-            name="viewcurrentPos"
-            type="Integer" />
     </data>
 
     <RelativeLayout
@@ -34,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/s16"
-                android:checked="@{viewlastCheck == viewcurrentPos}"
                 android:fontFamily="@font/spartansemibold"
                 android:text="@{itemData.addressName ?? ``}"
                 app:buttonTint="@color/app_color"
@@ -52,7 +45,7 @@
                 android:text="@string/default1"
                 android:textColor="@color/black"
                 android:textSize="@dimen/s12"
-                android:visibility="@{viewlastCheck == viewcurrentPos ? View.VISIBLE : View.GONE}"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/add_select"
                 app:layout_constraintStart_toEndOf="@+id/add_select"
                 app:layout_constraintTop_toTopOf="@+id/add_select" />

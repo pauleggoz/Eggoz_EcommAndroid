@@ -19,6 +19,10 @@ import retrofit2.HttpException
 
 class MainViewModel : ViewModel() {
 
+    var cities: List<CityData.Result.City>? =ArrayList()
+
+    var selectedLoc=0
+
     fun Login(mobile: String) :LiveData<Otpgenerate> {
         val responOtpgenerate: MutableLiveData<Otpgenerate> = MutableLiveData()
         viewModelScope.launch {

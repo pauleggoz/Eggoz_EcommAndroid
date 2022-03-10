@@ -1,13 +1,10 @@
 package com.eggoz.ecommerce.view.profile.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.eggoz.ecommerce.R
 import com.eggoz.ecommerce.databinding.ItemOrderBinding
 import com.eggoz.ecommerce.network.model.OrderModel
 

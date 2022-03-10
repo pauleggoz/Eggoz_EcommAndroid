@@ -33,10 +33,13 @@
             />
         <TextView
             android:id="@+id/txt_address"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Space it park Gurugram"
             android:layout_marginTop="@dimen/s4"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/s42"
+            android:layout_marginEnd="@dimen/s42"
             android:fontFamily="@font/spartansemibold"
             app:layout_constraintTop_toBottomOf="@+id/img_loc"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/s8"
             android:gravity="center"
-            android:text=" Saturdy-Sunday\n 9 Am-12 pm"
+            android:text=" saturday-Sunday\n 9 Am-12 pm"
             app:layout_constraintTop_toBottomOf="@+id/txt_time1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

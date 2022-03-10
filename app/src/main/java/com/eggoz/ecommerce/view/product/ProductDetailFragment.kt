@@ -77,8 +77,9 @@ class ProductDetailFragment : Fragment() {
 
 
         dialog = Loadinddialog()
+
         userPreferences = UserPreferences(requireContext())
-        viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         item_id = this.arguments?.getInt("id", -1) ?: -1
 
 
@@ -91,7 +92,7 @@ class ProductDetailFragment : Fragment() {
                 bundle.putString("ordertype", "single")
                 Navigation.findNavController(binding.root)
                     .navigate(R.id.action_nav_product_detail_to_nav_address_list, bundle)
-            }else Toast.makeText(requireContext(),"Somthing went wrong",Toast.LENGTH_SHORT).show()
+            }else Toast.makeText(requireContext(),"Something went wrong",Toast.LENGTH_SHORT).show()
         }
 
 
@@ -145,7 +146,7 @@ class ProductDetailFragment : Fragment() {
         viewModel.productItembyid(
             id = item_id
         )
-        viewModel.responProductbyid.observe(viewLifecycleOwner, {
+        viewModel.responProductbyid.observe(viewLifecycleOwner) {
 
             if (dialog.isShowing())
                 dialog.dismiss()
@@ -158,10 +159,10 @@ class ProductDetailFragment : Fragment() {
                 binding.txtItemTitle.text = it.name!! + " " + it.description!!
 
                 val df = DecimalFormat("#.##")
-                val  price=df.format(it.ecommercePrice?.toDouble() ?:0.00)
+                val price = df.format(it.ecommercePrice?.toDouble() ?: 0.00)
                 binding.txtPrice.text = "₹ ${price}"
                 binding.txtPrice.text = "₹ ${price}"
-                itemprice=it.ecommercePrice?.toDouble() ?:0.00
+                itemprice = it.ecommercePrice?.toDouble() ?: 0.00
 
                 binding.txtItemDes.text = ""
                 if (it.productDescriptions != null)
@@ -179,12 +180,20 @@ class ProductDetailFragment : Fragment() {
                     for (i in it.productInformations.indices) {
                         if (it.productInformations[i].productInformationLine != null)
                             for (j in it.productInformations[i].productInformationLine?.indices!!) {
-                                NutritionInformation.add("${it.productInformations[i].productInformationLine!![j].name}: ${String.format("%.2f",it.productInformations[i].productInformationLine!![j].infoValue.toString().toFloat())} ${it.productInformations[i].productInformationLine!![j].type}")
+                                NutritionInformation.add(
+                                    "${it.productInformations[i].productInformationLine!![j].name}: ${
+                                        String.format(
+                                            "%.2f",
+                                            it.productInformations[i].productInformationLine!![j].infoValue.toString()
+                                                .toFloat()
+                                        )
+                                    } ${it.productInformations[i].productInformationLine!![j].type}"
+                                )
 
                             }
 
                     }
-                if (it.productSpecifications!=null)
+                if (it.productSpecifications != null)
                     for (i in it.productSpecifications.indices) {
                         if (it.productSpecifications[i].specification != null)
                             specification.add(
@@ -193,11 +202,11 @@ class ProductDetailFragment : Fragment() {
 
                     }
 
-                imageurl.add(it.productImage ?:"")
+                imageurl.add(it.productImage ?: "")
 
                 Glide.with(requireActivity())
                     .asBitmap()
-                    .load(it.productImage ?:"")
+                    .load(it.productImage ?: "")
                     .centerInside()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.logo1)
@@ -211,7 +220,7 @@ class ProductDetailFragment : Fragment() {
 
             }
 
-        })
+        }
     }
 
 /*

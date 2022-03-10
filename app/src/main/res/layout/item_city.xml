@@ -23,6 +23,7 @@
             android:paddingLeft="@dimen/s16"
             android:paddingRight="@dimen/s16"
             android:src="@drawable/logo1"
+            setImageUrl="@{itemdata.zone_image}"
             android:backgroundTint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

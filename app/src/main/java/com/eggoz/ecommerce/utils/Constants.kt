@@ -23,7 +23,7 @@ class Constants {
         const val ecommerce_productbyid = "product/ecommerce/{id}/"
         const val ecommerce_wallet = "ecommerce/customer_wallet/"
         const val ecommerce_walletpromo = "ecommerce/recharge_voucher/"
-        const val ecommerce_order = "order/"
+        const val ecommerce_order = "order/ecommerce_order/"
         const val ecommerce_useraddress = "users/{id}/"
         const val ecommerce_deleteaddress = "users/delete_address/"
         const val ecommerce_address = "users/add_address/"
@@ -42,5 +42,9 @@ class Constants {
         const val ecommerce_payu_hash = "payu/generate_second_hash/"
         const val ecommerce_orderbyid = "order/{id}/"
         const val ecommerce_referral_code= "ecommerce/customer_membership/get_user_referral_code/"
+        const val ecommerce_products_list_with_given_ids= "product/ecommerce/products_list_with_given_ids/"
+        const val ecommerce_customer_referral= "ecommerce/customer_subscriptions/customer_referral/"
+        const val ecommerce_contact_us= "api/feedback/contact_us/"
+        const val ecommerce_feedback= "api/feedback/"
     }
 }

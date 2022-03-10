@@ -38,7 +38,7 @@ class SelectCityFragment : Fragment() {
 
     private fun init() {
         dialog = Loadinddialog()
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         userPreferences = UserPreferences(requireContext())
 
         getCity()
@@ -50,13 +50,6 @@ class SelectCityFragment : Fragment() {
                     return@setOnKeyListener true
                 } else false
             }
-
-          /*  reccity.apply {
-                setHasFixedSize(true)
-                layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.HORIZONTAL, false)
-                itemAnimator = DefaultItemAnimator()
-                isNestedScrollingEnabled = false
-            }*/
         }
     }
 
@@ -73,21 +66,20 @@ class SelectCityFragment : Fragment() {
                 }
             binding.viewadapter=cityadapter
 
-            viewModel.getCity().observe(viewLifecycleOwner,
-                {
+            viewModel.getCity().observe(viewLifecycleOwner) {
 
-                    if (dialog.isShowing())
-                        dialog.dismiss()
-                    if (it?.errorType != null) {
-                        Toast.makeText(requireContext(), it.errorType, Toast.LENGTH_SHORT).show()
+                if (dialog.isShowing())
+                    dialog.dismiss()
+                if (it?.errorType != null) {
+                    Toast.makeText(requireContext(), it.errorType, Toast.LENGTH_SHORT).show()
 
-                    } else {
-                        it.let {
-                            cityadapter.submitList(it.results)
-                        }
-
+                } else {
+                    it.let {
+                        cityadapter.submitList(it.results)
                     }
-                })
+
+                }
+            }
         }
     }
 

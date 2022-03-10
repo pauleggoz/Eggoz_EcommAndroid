@@ -2,12 +2,14 @@ package com.eggoz.ecommerce.view.address.viewmodel
 
 import android.util.Log
 import com.eggoz.ecommerce.localdata.UserPreferences
-import com.eggoz.ecommerce.network.model.Address
-import com.eggoz.ecommerce.network.repository.RetrofitClient
 import com.eggoz.ecommerce.localdata.room.CartDao
 import com.eggoz.ecommerce.localdata.room.MyDatabase
 import com.eggoz.ecommerce.localdata.room.RoomCart
+import com.eggoz.ecommerce.network.model.Address
+import com.eggoz.ecommerce.network.model.Wallet
+import com.eggoz.ecommerce.network.repository.RetrofitClient
 import com.eggoz.ecommerce.view.address.model.CartToken
+import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
+
 
 class AddressRepository(private var userPreferences: UserPreferences, myDatabase: MyDatabase) {
 
@@ -35,6 +38,10 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
         Log.d("data", response.toString())
         emit(response)
     }.flowOn(Dispatchers.IO)
+
+    fun getCart():Flow<List<RoomCart>>? {
+        return cartdao.getAll2()
+    }
 
 
     fun getcartToken(
@@ -78,7 +85,10 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
         }
         paramsarray["cart_products"] = flockarray
 
-        Log.d("TAG", "getcartToken: ${cartlist.size}  $paramsstring $paramsdouble $paramsarray $paramsint $paramsbolean")
+        Log.d(
+            "TAG",
+            "getcartToken: ${cartlist.size}  $paramsstring $paramsdouble $paramsarray $paramsint $paramsbolean"
+        )
         val response = RetrofitClient().retrofitApiSerInterceptor(token = token).getcartToken(
             paramsstring = paramsstring,
             paramsdouble = paramsdouble,
@@ -112,19 +122,16 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
 
         paramsbolean["pay_by_wallet"] = pay_by_wallet
 
-
         paramsdouble["amount"] = 0.0
         paramsdouble["discount_amount"] = 0.0
         paramsdouble["order_price_amount"] = totalamount
 
         val flockarray = JsonArray()
-
         val cart = JsonObject()
         cart.addProperty("product", item_id)
         cart.addProperty("quantity", 1)
         cart.addProperty("single_sku_mrp", totalamount * 1.25)
         cart.addProperty("single_sku_rate", totalamount)
-
         flockarray.add(cart)
 
         paramsarray["cart_products"] = flockarray
@@ -143,62 +150,82 @@ class AddressRepository(private var userPreferences: UserPreferences, myDatabase
     fun getTokenforsubitem(
         customer: Int,
         token: String,
-        order_price_amount: Double,
+        amount: Double,
         addressid: Int,
         item_id: Int,
-        date: String,
         pay_by_wallet: Boolean,
-        amount: Double,
         start_date: String,
         expiry_date: String,
+        days: ArrayList<Int>,
+        dates: ArrayList<String>,
+        slot: String,
+        qnt: Int,
+        walletId: Int,
+        subId:Int
 
     ): Flow<Response<CartToken>> = flow {
 
-
         val paramsstring: MutableMap<String, String> = HashMap()
+        val paramsarray: MutableMap<String, JsonObject> = HashMap()
+        val paramsdouble: MutableMap<String, Double> = HashMap()
         val paramsint: MutableMap<String, Int> = HashMap()
         val paramsbolean: MutableMap<String, Boolean> = HashMap()
-        val paramsarrStrng: MutableMap<String, ArrayList<String>> = HashMap()
-        val paramsarrInt: MutableMap<String, ArrayList<Int>> = HashMap()
-        val paramsjobj: MutableMap<String, JsonObject> = HashMap()
+        val paramsarraydates: MutableMap<String, String> = HashMap()
 
-        paramsint["customer"] = customer
-        paramsint["order_price_amount"] = order_price_amount.toInt()
-        paramsint["shipping_address"] = addressid
-        paramsint["amount"] = amount.toInt()
 
-        paramsarrInt["days"] = ArrayList()
-
+        paramsstring["discount_name"] = ""
         paramsstring["start_date"] = start_date
         paramsstring["expiry_date"] = expiry_date
+        paramsstring["slot"] = slot
 
-        paramsarrStrng["dates"] = ArrayList()
+        paramsint["customer"] = customer
+        paramsint["shipping_address"] = addressid
+        paramsint["subscription"] = subId
+        paramsint["wallet"] = walletId
 
-        paramsint["wallet"] = -1
-        paramsint["subscription"] = -1
+
         paramsbolean["pay_by_wallet"] = pay_by_wallet
 
-
-        paramsstring["slot"] = ""
+        paramsdouble["amount"] = amount * qnt
+        paramsdouble["discount_amount"] = 0.0
+        paramsdouble["order_price_amount"] = 0.0
 
         val cart = JsonObject()
-        cart.addProperty("product", -1)
-        cart.addProperty("quantity", -1)
-        cart.addProperty("single_sku_mrp", -1)
-        cart.addProperty("single_sku_rate", -1)
+        cart.addProperty("product", item_id)
+        cart.addProperty("quantity", qnt)
+        cart.addProperty("single_sku_mrp", amount * 1.25)
+        cart.addProperty("single_sku_rate", amount)
+
+        paramsarray["cart_product"] = cart
+
+        val arrayDate = Gson().toJson(dates)
+        val arrayDays = Gson().toJson(days)
 
 
-        paramsjobj["cart_product"] = cart
+        paramsarraydates["dates"] = arrayDate
+        paramsarraydates["days"] = arrayDays
+
+        Log.d(
+            "getTokenforsubitem",
+            "paramsstring $paramsstring paramsint $paramsint paramsbolean $paramsbolean" +
+                    "paramsarray $paramsarray paramsdouble $paramsdouble paramsarraydates $paramsarraydates" +
+                    " token $token" )
 
 
         val response = RetrofitClient().retrofitApiSerInterceptor(token = token).getsubToken(
             paramsstring = paramsstring,
-            paramsarrStrng = paramsarrStrng,
-            paramsarrInt = paramsarrInt,
             paramsint = paramsint,
             paramsbolean = paramsbolean,
-            paramsjobj = paramsjobj
+            paramsarray,
+            paramsdouble,
+            paramsarraydates
         )
+        emit(response)
+    }.flowOn(Dispatchers.IO)
+
+    fun wallet(customer: Int): Flow<Wallet> = flow {
+        val response = RetrofitClient().retrofitApiSerwithoutInterceptor.wallet(customer = customer)
+        Log.d("data", "wallet ${response}")
         emit(response)
     }.flowOn(Dispatchers.IO)
 }

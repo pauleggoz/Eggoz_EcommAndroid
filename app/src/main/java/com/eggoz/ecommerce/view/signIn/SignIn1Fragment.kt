@@ -30,7 +30,6 @@ class SignIn1Fragment : Fragment() {
     private val binding get() = _binding!!
 
 
-    private var number = ""
     private lateinit var viewModel: MainViewModel
     private var userPreferences: UserPreferences? = null
 
@@ -50,7 +49,7 @@ class SignIn1Fragment : Fragment() {
     private fun init() {
         userPreferences = UserPreferences(requireContext())
         dialog = Loadinddialog()
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         lifecycleScope.launch {
             userPreferences!!.saveAuthtoke("")
         }
@@ -129,9 +128,8 @@ class SignIn1Fragment : Fragment() {
         if (requestCode == RESOLVE_HINT) {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 val credential: Credential = data?.getParcelableExtra(Credential.EXTRA_KEY)!!
-                number = credential.id.replace(oldValue = "+91", newValue = "")
-                binding.edtMobileNo.setText(number)
-//                apiCall(number)
+                binding.edtMobileNo.setText(credential.id.replace(oldValue = "+91", newValue = ""))
+                validation()
             }
         }
     }

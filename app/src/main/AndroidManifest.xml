@@ -6,8 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <permission android:name="android.permission.CALL_PRIVILEGED"
+        android:protectionLevel="signature|privileged" />
 
     <application
         android:name="com.eggoz.ecommerce.MyApplication"

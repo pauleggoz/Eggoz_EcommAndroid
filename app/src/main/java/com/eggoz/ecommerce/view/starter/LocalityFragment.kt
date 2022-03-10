@@ -17,6 +17,7 @@ import com.eggoz.ecommerce.databinding.FragmentLocalityBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.MainViewModel
 import com.eggoz.ecommerce.view.starter.adapter.LocAdapter
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -47,9 +48,11 @@ class LocalityFragment : Fragment() {
 
     private fun init() {
         dialog = Loadinddialog()
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         mid = this.arguments?.getInt("id", -1) ?: -1
         userPreferences = UserPreferences(requireContext())
+
+        val auth_token: Flow<String?> by lazy { userPreferences!!.authtoken }
 
         if (mid == -1)
             userPreferencesdata()
@@ -65,19 +68,28 @@ class LocalityFragment : Fragment() {
                     return@setOnKeyListener true
                 } else false
             }
-            locAdapter = LocAdapter { sector->
-                Log.d("TAG", "init: ")
+            locAdapter = LocAdapter { sector, current ->
                 locid = sector?.id ?: -1
+
+                viewModel.cities!![0].ecommerceSectors!![viewModel.selectedLoc].isSelected = false
+                viewModel.cities!![0].ecommerceSectors!![current].isSelected = true
+                viewModel.selectedLoc = current
+
+                locAdapter.submitList(viewModel.cities!![0].ecommerceSectors)
             }
-            viewlocAdapter=locAdapter
+            viewlocAdapter = locAdapter
 
 
             btnSubmit.setOnClickListener {
                 if (locid != -1) {
                     lifecycleScope.launch {
                         userPreferences!!.saveloc(loc = locid)
-                        Navigation.findNavController(root)
-                            .navigate(R.id.nav_sigin1)
+                        if ((auth_token.buffer().first() ?: "").isEmpty())
+                            Navigation.findNavController(root)
+                                .navigate(R.id.nav_sigin1)
+                        else
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.nav_home)
                     }
                 } else {
                     Toast.makeText(requireContext(), "Select valid locality", Toast.LENGTH_SHORT)
@@ -101,7 +113,7 @@ class LocalityFragment : Fragment() {
             if (!dialog.isShowing())
                 dialog.create(requireContext())
 
-            viewModel.getLocality(id = id).observe(viewLifecycleOwner, {
+            viewModel.getLocality(id = id).observe(viewLifecycleOwner) {
 
                 if (dialog.isShowing())
                     dialog.dismiss()
@@ -110,28 +122,22 @@ class LocalityFragment : Fragment() {
                     Toast.makeText(requireContext(), it.errorType, Toast.LENGTH_SHORT).show()
 
                 } else {
-
-                    it?.cities.let { city->
-                        city!![0].ecommerceSectors.let { ecomSec->
-                            if (ecomSec!!.isNotEmpty())
+                    it?.cities?.let { city ->
+                        viewModel.cities = city
+                        viewModel.cities!![0].ecommerceSectors.let { ecomSec ->
+                            if (ecomSec!!.isNotEmpty()) {
                                 locid = ecomSec[0].id ?: -1
+                                ecomSec[0].isSelected = true
+                            }
                             locAdapter.submitList(ecomSec)
 
                         }
 
                     }
 
-            /*        if (it?.cities != null) {
-                        if (it.cities!![0].ecommerceSectors != null) {
-                            if (it.cities!![0].ecommerceSectors!!.isNotEmpty())
-                            locid = it.cities!![0].ecommerceSectors!![0].id ?: -1
-                            locAdapter.submitList(it.cities!![0].ecommerceSectors!!)
-//                            locAdapter.reset(locAdapter.itemCount)
-                        }
-                    }*/
 
                 }
-            })
+            }
         }
     }
 

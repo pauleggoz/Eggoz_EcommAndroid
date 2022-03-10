@@ -8,79 +8,108 @@
         android:id="@+id/nav_splash"
         android:name="com.eggoz.ecommerce.view.splash.SplashFragment"
         android:label="@string/splash"
-        tools:layout="@layout/fragment_splash"/>
+        tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/nav_starter"
         android:name="com.eggoz.ecommerce.view.starter.StarterFragment"
         android:label="@string/splash"
-        tools:layout="@layout/fragment_starter"/>
+        tools:layout="@layout/fragment_starter" />
     <fragment
         android:id="@+id/nav_sigin1"
         android:name="com.eggoz.ecommerce.view.signIn.SignIn1Fragment"
         android:label="@string/splash"
-        tools:layout="@layout/fragment_sign_in1"/>
+        tools:layout="@layout/fragment_sign_in1" />
     <fragment
         android:id="@+id/nav_city"
         android:name="com.eggoz.ecommerce.view.starter.SelectCityFragment"
         android:label="@string/splash"
-        tools:layout="@layout/fragment_select_city">
-    </fragment>
+        tools:layout="@layout/fragment_select_city"/>
     <fragment
         android:id="@+id/nav_loc"
         android:name="com.eggoz.ecommerce.view.starter.LocalityFragment"
         android:label="@string/splash"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_locality"/>
+        tools:layout="@layout/fragment_locality" />
     <fragment
         android:id="@+id/nav_contact_us"
         android:name="com.eggoz.ecommerce.view.contactus.view.ContactUsFragment"
         android:label="contact_us"
         app:popUpToInclusive="true"
-        tools:layout="@layout/fragment_contact_us"/>
+        tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/nav_faq"
+        android:name="com.eggoz.ecommerce.view.faq.view.FaqFragment"
+        android:label="contact_us"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_faq" />
+    <fragment
+        android:id="@+id/nav_help_support"
+        android:name="com.eggoz.ecommerce.view.help_support.view.HelpSupportFragment"
+        android:label="contact_us"
+        app:popUpToInclusive="true"
+        tools:layout="@layout/fragment_help_support">
+        <action
+            android:id="@+id/action_nav_help_support_to_nav_faq"
+            app:destination="@+id/nav_faq" />
+    </fragment>
     <fragment
         android:id="@+id/nav_sigin2"
         android:name="com.eggoz.ecommerce.view.signIn.Sigin2Fragment"
         android:label="@string/splash"
-        tools:layout="@layout/fragment_sigin2"/>
+        tools:layout="@layout/fragment_sigin2" />
+    <fragment
+        android:id="@+id/nav_updatereferandearn"
+        android:name="com.eggoz.ecommerce.view.referAndEarn.view.UpdateUserReferFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_update_user_refer" />
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.eggoz.ecommerce.view.home.view.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
-        <action android:id="@+id/action_nav_home_to_nav_product_detail"
-            app:destination="@+id/nav_product_detail"/>
-        <action android:id="@+id/action_nav_home_to_nav_product_popular"
-            app:destination="@+id/nav_product_popular"/>
-        <action android:id="@+id/action_nav_home_to_nav_web_search"
-            app:destination="@+id/nav_web_search"/>
-        <action android:id="@+id/action_nav_home_to_nav_date_detail"
-            app:destination="@+id/nav_date_detail"/>
-        <action android:id="@+id/action_nav_home_to_nav_my_calendar"
-            app:destination="@+id/nav_my_calendar"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_product_detail"
+            app:destination="@+id/nav_product_detail" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_product_popular"
+            app:destination="@+id/nav_product_popular" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_web_search"
+            app:destination="@+id/nav_web_search" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_date_detail"
+            app:destination="@+id/nav_date_detail" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_my_calendar"
+            app:destination="@+id/nav_my_calendar" />
     </fragment>
     <fragment
         android:id="@+id/nav_my_calendar"
         android:name="com.eggoz.ecommerce.view.home.view.MyCalendarFragment"
         android:label="@string/menu_products"
         tools:layout="@layout/fragment_my_calendar">
-        <action android:id="@+id/action_nav_my_calendar_to_nav_date_detail"
-            app:destination="@+id/nav_date_detail"/>
-        <action android:id="@+id/action_nav_my_calendar_to_nav_orderdetail"
-            app:destination="@+id/nav_orderdetail"/>
+        <action
+            android:id="@+id/action_nav_my_calendar_to_nav_date_detail"
+            app:destination="@+id/nav_date_detail" />
+        <action
+            android:id="@+id/action_nav_my_calendar_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail" />
     </fragment>
     <fragment
         android:id="@+id/nav_date_detail"
         android:name="com.eggoz.ecommerce.view.home.view.DateDetailFragment"
         android:label="@string/menu_products"
         tools:layout="@layout/fragment_date_detail">
-        <action android:id="@+id/action_nav_date_detail_to_nav_orderdetail"
-            app:destination="@+id/nav_orderdetail"/>
+        <action
+            android:id="@+id/action_nav_date_detail_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail" />
     </fragment>
     <fragment
         android:id="@+id/nav_web_search"
         android:name="com.eggoz.ecommerce.view.web.view.WebSearchFragment"
         android:label="@string/menu_products"
-        tools:layout="@layout/fragment_web_search"/>
+        tools:layout="@layout/fragment_web_search" />
 
     <fragment
         android:id="@+id/nav_product_popular"
@@ -88,19 +117,25 @@
         android:label="@string/menu_products"
         tools:layout="@layout/fragment_more_product">
 
-        <action android:id="@+id/action_nav_product_popular_to_nav_cart_list"
-            app:destination="@+id/nav_cart_list"/>
+        <action
+            android:id="@+id/action_nav_product_popular_to_nav_cart_list"
+            app:destination="@+id/nav_cart_list" />
     </fragment>
     <fragment
         android:id="@+id/nav_product"
         android:name="com.eggoz.ecommerce.view.product.ProductFragment"
         android:label="@string/menu_products"
         tools:layout="@layout/fragment_product">
-        <action android:id="@+id/action_nav_product_to_nav_product_detail"
-            app:destination="@+id/nav_product_detail"/>
+        <action
+            android:id="@+id/action_nav_product_to_nav_product_detail"
+            app:destination="@+id/nav_product_detail" />
 
-        <action android:id="@+id/action_nav_product_to_nav_cart_list"
-            app:destination="@+id/nav_cart_list"/>
+        <action
+            android:id="@+id/action_nav_product_to_nav_cart_list"
+            app:destination="@+id/nav_cart_list" />
+        <action
+            android:id="@+id/action_nav_product_to_nav_subscribe"
+            app:destination="@+id/nav_subscribe" />
     </fragment>
 
 
@@ -109,24 +144,25 @@
         android:name="com.eggoz.ecommerce.view.wallet.view.WalletFragment"
         android:label="@string/menu_wallet"
         tools:layout="@layout/fragment_wallet">
-        <action android:id="@+id/action_nav_wallet_to_nav_sigin1"
-            app:destination="@+id/nav_sigin1"/>
-        <action android:id="@+id/action_nav_wallet_to_nav_addmoney"
-            app:destination="@+id/nav_addMoney"/>
+        <action
+            android:id="@+id/action_nav_wallet_to_nav_sigin1"
+            app:destination="@+id/nav_sigin1" />
+        <action
+            android:id="@+id/action_nav_wallet_to_nav_addmoney"
+            app:destination="@+id/nav_addMoney" />
     </fragment>
-
 
 
     <fragment
         android:id="@+id/nav_addQuery"
         android:name="com.eggoz.ecommerce.view.order.view.AddQueryFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_add_query"/>
+        tools:layout="@layout/fragment_add_query" />
     <fragment
         android:id="@+id/nav_addMoney"
         android:name="com.eggoz.ecommerce.view.wallet.view.AddMoneyFragment"
         android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_add_money"/>
+        tools:layout="@layout/fragment_add_money" />
 
 
     <fragment
@@ -134,16 +170,24 @@
         android:name="com.eggoz.ecommerce.view.profile.view.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile">
-        <action android:id="@+id/action_nav_profile_detail_to_nav_edt_profile"
-            app:destination="@+id/nav_edt_profile"/>
-        <action android:id="@+id/action_nav_profile_detail_to_nav_manageAddress"
-            app:destination="@+id/nav_manageAddress"/>
-        <action android:id="@+id/action_nav_profile_to_nav_sigin1"
-            app:destination="@+id/nav_sigin1"/>
-        <action android:id="@+id/action_nav_profile_to_nav_orderdetail"
-            app:destination="@+id/nav_orderdetail"/>
-        <action android:id="@+id/action_nav_profile_to_nav_orderlist"
-            app:destination="@+id/nav_orderlist"/>
+        <action
+            android:id="@+id/action_nav_profile_detail_to_nav_edt_profile"
+            app:destination="@+id/nav_edt_profile" />
+        <action
+            android:id="@+id/action_nav_profile_detail_to_nav_manageAddress"
+            app:destination="@+id/nav_manageAddress" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_sigin1"
+            app:destination="@+id/nav_sigin1" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_orderlist"
+            app:destination="@+id/nav_orderlist" />
+        <action
+            android:id="@+id/action_nav_profile_to_nav_city"
+            app:destination="@+id/nav_city" />
 
     </fragment>
 
@@ -152,26 +196,28 @@
         android:name="com.eggoz.ecommerce.view.order.view.OrderStatusFragment"
         android:label="@string/menu_membership"
         tools:layout="@layout/fragment_order_status">
-        <action android:id="@+id/action_nav_orderdetail_to_nav_addQuery"
-        app:destination="@+id/nav_addQuery"/>
+        <action
+            android:id="@+id/action_nav_orderdetail_to_nav_addQuery"
+            app:destination="@+id/nav_addQuery" />
     </fragment>
     <fragment
         android:id="@+id/nav_membership"
         android:name="com.eggoz.ecommerce.view.membershipPlans.MembershipPlansFragment"
         android:label="@string/menu_membership"
-        tools:layout="@layout/fragment_membership_plans"/>
+        tools:layout="@layout/fragment_membership_plans" />
     <fragment
         android:id="@+id/nav_subscribeinfro"
         android:name="com.eggoz.ecommerce.view.subscribe.SubscribeDetailFragment"
         android:label="@string/menu_membership"
-        tools:layout="@layout/fragment_subscribe_detail"/>
+        tools:layout="@layout/fragment_subscribe_detail" />
     <fragment
         android:id="@+id/nav_orderlist"
         android:name="com.eggoz.ecommerce.view.order.view.OrderListFragment"
         android:label="@string/menu_membership"
         tools:layout="@layout/fragment_order_list">
-        <action android:id="@+id/action_nav_orderlist_to_nav_orderdetail"
-            app:destination="@+id/nav_orderdetail"/>
+        <action
+            android:id="@+id/action_nav_orderlist_to_nav_orderdetail"
+            app:destination="@+id/nav_orderdetail" />
     </fragment>
 
     <fragment
@@ -180,8 +226,9 @@
         android:label="@string/menu_membership"
         tools:layout="@layout/fragment_subscribe">
 
-        <action android:id="@+id/action_nav_subscribe_to_nav_address_list"
-            app:destination="@+id/nav_address_list"/>
+        <action
+            android:id="@+id/action_nav_subscribe_to_nav_address_list"
+            app:destination="@+id/nav_address_list" />
     </fragment>
 
 
@@ -190,11 +237,13 @@
         android:name="com.eggoz.ecommerce.view.product.ProductDetailFragment"
         android:label="@string/menu_itemdetail"
         tools:layout="@layout/fragment_product_detail">
-        <action android:id="@+id/action_nav_product_detail_to_nav_product_detail"
-            app:destination="@+id/nav_product_detail"/>
+        <action
+            android:id="@+id/action_nav_product_detail_to_nav_product_detail"
+            app:destination="@+id/nav_product_detail" />
 
-        <action android:id="@+id/action_nav_product_detail_to_nav_address_list"
-            app:destination="@+id/nav_address_list"/>
+        <action
+            android:id="@+id/action_nav_product_detail_to_nav_address_list"
+            app:destination="@+id/nav_address_list" />
     </fragment>
     <fragment
         android:id="@+id/nav_cart_list"
@@ -202,18 +251,21 @@
         android:label="@string/menu_cart"
         tools:layout="@layout/fragment_cart_list">
 
-        <action android:id="@+id/action_nav_cart_list_to_nav_address_list"
-            app:destination="@+id/nav_address_list"/>
+        <action
+            android:id="@+id/action_nav_cart_list_to_nav_address_list"
+            app:destination="@+id/nav_address_list" />
     </fragment>
     <fragment
         android:id="@+id/nav_address_list"
         android:name="com.eggoz.ecommerce.view.address.AddressFragment"
         android:label="@string/menu_address"
         tools:layout="@layout/fragment_address">
-        <action android:id="@+id/action_nav_address_list_to_nav_sigin1"
-            app:destination="@+id/nav_sigin1"/>
-        <action android:id="@+id/action_nav_address_list_to_nav_manageAddress"
-            app:destination="@+id/nav_manageAddress"/>
+        <action
+            android:id="@+id/action_nav_address_list_to_nav_sigin1"
+            app:destination="@+id/nav_sigin1" />
+        <action
+            android:id="@+id/action_nav_address_list_to_nav_manageAddress"
+            app:destination="@+id/nav_manageAddress" />
     </fragment>
 
     <fragment
@@ -221,48 +273,45 @@
         android:name="com.eggoz.ecommerce.view.referAndEarn.view.ReferAndEarnFragment"
         android:label="@string/menu_address"
         tools:layout="@layout/fragment_refer_and_earn">
-        <action android:id="@+id/action_nav_referearn_to_nav_referearnwithfriends"
-            app:destination="@+id/nav_referearnwithfriends"/>
+        <action
+            android:id="@+id/action_nav_referearn_to_nav_referearnwithfriends"
+            app:destination="@+id/nav_referearnwithfriends" />
     </fragment>
     <fragment
         android:id="@+id/nav_referearnwithfriends"
         android:name="com.eggoz.ecommerce.view.referAndEarn.view.ReferWithFriendsFragment"
         android:label="@string/menu_address"
         tools:layout="@layout/fragment_refer_with_friends">
-        <action android:id="@+id/action_nav_referearnwithfriends_to_nav_invitation_send"
-            app:destination="@+id/nav_invitation_send"/>
+        <action
+            android:id="@+id/action_nav_referearnwithfriends_to_nav_invitation_send"
+            app:destination="@+id/nav_invitation_send" />
     </fragment>
     <fragment
         android:id="@+id/nav_invitation_send"
         android:name="com.eggoz.ecommerce.view.referAndEarn.view.InvitationSendFragment"
         android:label="@string/menu_address"
-        tools:layout="@layout/fragment_invitation_send">
-    </fragment>
+        tools:layout="@layout/fragment_invitation_send"/>
     <fragment
         android:id="@+id/nav_manageAddress"
         android:name="com.eggoz.ecommerce.view.profile.view.ManageAddressFragment"
         android:label="@string/menu_address"
         tools:layout="@layout/fragment_manage_addersses">
-        <action android:id="@+id/action_nav_manageAddress_to_nav_inputAddress"
-            app:destination="@+id/nav_inputAddress"/>
+        <action
+            android:id="@+id/action_nav_manageAddress_to_nav_inputAddress"
+            app:destination="@+id/nav_inputAddress" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_inputAddress"
         android:name="com.eggoz.ecommerce.view.profile.view.AddressInputFragment"
         android:label="@string/menu_address"
-        tools:layout="@layout/fragment_address_input">
-    </fragment>
+        tools:layout="@layout/fragment_address_input"/>
 
     <fragment
         android:id="@+id/nav_edt_profile"
         android:name="com.eggoz.ecommerce.view.profile.view.EditProfileFragment"
         android:label="@string/menu_address"
-        tools:layout="@layout/fragment_edit_profile">
-    </fragment>
-
-
-
+        tools:layout="@layout/fragment_edit_profile"/>
 
 
 </navigation>

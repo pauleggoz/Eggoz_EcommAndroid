@@ -1,6 +1,6 @@
 package com.eggoz.ecommerce.view.address
 
-//import com.cashfree.pg.CFPaymentService
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
+import com.eggoz.ecommerce.ViewModelFactory
 import com.eggoz.ecommerce.databinding.FragmentAddressBinding
 import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.localdata.room.MyDatabase
@@ -22,10 +23,10 @@ import com.eggoz.ecommerce.network.repository.RetrofitClient
 import com.eggoz.ecommerce.utils.Constants
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.view.address.adapter.AddressAdapter
+import com.eggoz.ecommerce.view.address.bottomsheet.PaymentOptionBottomSheet
 import com.eggoz.ecommerce.view.address.model.CartToken
 import com.eggoz.ecommerce.view.address.viewmodel.AddressRepository
 import com.eggoz.ecommerce.view.address.viewmodel.AddressViewModel
-import com.eggoz.ecommerce.view.address.viewmodel.AddressViewModelFactory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.payu.base.models.ErrorResponse
@@ -34,7 +35,6 @@ import com.payu.checkoutpro.PayUCheckoutPro
 import com.payu.checkoutpro.utils.PayUCheckoutProConstants
 import com.payu.ui.model.listeners.PayUCheckoutProListener
 import com.payu.ui.model.listeners.PayUHashGenerationListener
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -46,96 +46,114 @@ import java.util.*
 
 class AddressFragment : Fragment() {
 
-    private var _binding: FragmentAddressBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAddressBinding
 
     private lateinit var addressAdapter: AddressAdapter
     private lateinit var viewModel: AddressViewModel
 
     private lateinit var dialog: Loadinddialog
 
-    private var totalamount = 0.0
-    private var ordertype = ""
-    private var addressid = -1
-    private lateinit var job: Job
     private var cartlist: ArrayList<RoomCart> = ArrayList()
 
-    private var item_id: Int = -1
-
-
-    private var start_date = ""
-    private var expiry_date = ""
-    private var quantity = ""
-    private var subitem = "-1"
-    private var days: ArrayList<Int>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentAddressBinding.inflate(inflater, container, false)
+        binding = FragmentAddressBinding.inflate(inflater, container, false)
 
-        init()
 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
     private fun init() {
-        val userPreferences = UserPreferences(requireContext())
         val repository =
-            AddressRepository(userPreferences, MyDatabase.getInstance(context = requireContext()))
-        val viewmodelFat = AddressViewModelFactory(repository)
+            AddressRepository(
+                UserPreferences(requireContext()),
+                MyDatabase.getInstance(context = requireContext())
+            )
+        val viewmodelFat = ViewModelFactory(repository)
 
-
-        viewModel = ViewModelProvider(this, viewmodelFat).get(AddressViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewmodelFat)[AddressViewModel::class.java]
 
         dialog = Loadinddialog()
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
-//            mid = userPreferences!!.userid.first() ?: -1
             val bundle: Bundle? = arguments
             if (bundle != null) {
-                ordertype = bundle.getString("ordertype", "")
-                if (ordertype == "cart") {
-                    totalamount = bundle.getDouble("amount", 0.0)
+                viewModel.ordertype = bundle.getString("ordertype", "")
+                when (viewModel.ordertype) {
+                    "cart" -> {
+                        viewModel.totalamount = bundle.getDouble("amount", 0.0)
 
-                } else if (ordertype == "single") {
-                    totalamount = bundle.getDouble("amount", 0.0)
-                    item_id = bundle.getInt("product", -1)
+                    }
+                    "single" -> {
+                        viewModel.totalamount = bundle.getDouble("amount", 0.0)
+                        viewModel.item_id = bundle.getInt("product", -1)
 
-                } else if (ordertype == "subitem") {
-                    totalamount = bundle.getDouble("amount", 0.0)
-                    start_date = bundle.getString("start_date", "")
-                    expiry_date = bundle.getString("expiry_date", "")
-                    quantity = bundle.getString("quantity", "0")
-                    subitem = bundle.getString("product", "0")
-                    days = bundle.getIntegerArrayList("days") as ArrayList<Int>
+                    }
+                    "subitem" -> {
+
+                        viewModel.totalamount = bundle.getDouble("totalamount", 0.0)
+                        viewModel.start_date = bundle.getString("start_date", "")
+                        viewModel.expiry_date = bundle.getString("expiry_date", "")
+                        viewModel.quantity = bundle.getString("quantity", "0")
+                        viewModel.subitem = bundle.getString("product", "0")
+                        viewModel.schduleTime = bundle.getString("schduleTime", "0")
+                        viewModel.days = bundle.getIntegerArrayList("days") as ArrayList<Int>
+                        viewModel.dates = bundle.getStringArrayList("dates") as ArrayList<String>
+
+                        viewModel.amount = bundle.getDouble("amount", 0.0)
+                        viewModel.slot = bundle.getString("slot", "")
+                        viewModel.qnt = bundle.getInt("qnt", -1)
+                        viewModel.item_id = bundle.getInt("item_id", -1)
+                        viewModel.subId = bundle.getInt("subId", -1)
+                    }
                 }
             }
             addressList()
         }
         binding.apply {
 
-            addressAdapter = AddressAdapter()
+            addressAdapter = AddressAdapter {iteam,current->
+
+                viewModel.addressid=iteam?.id ?:-1
+                viewModel.addresses[viewModel.selectedLoc].isSelected =false
+                viewModel.addresses[current].isSelected =true
+                viewModel.selectedLoc=current
+
+                addressAdapter.submitList(viewModel.addresses)
+
+            }
             viewaddressAdapter = addressAdapter
             btnBack.setOnClickListener {
                 Navigation.findNavController(root)
                     .popBackStack()
             }
             btnSubmit.setOnClickListener {
-                when (ordertype) {
-                    "cart" -> {
-                        getTokenforcart()
+                PaymentOptionBottomSheet { isWallet ->
+                    when (viewModel.ordertype) {
+                        "cart" -> {
+                            viewModel.isCart = true
+                            getTokenforcart(isWallet)
+                        }
+                        "single" -> {
+                            viewModel.isCart = false
+                            getTokenforsingle(isWallet)
+                        }
+                        "subitem" -> {
+                            viewModel.isCart = false
+                            getTokenforsubitem(isWallet)
+                        }
                     }
-                    "single" -> {
-                        getTokenforsingle()
-                    }
-                    "subitem" -> {
-                        getTokenforsubitem()
-                    }
-                }
+                }.show(childFragmentManager, "paymentoption")
             }
 
             txtAddAddress.setOnClickListener {
@@ -147,52 +165,56 @@ class AddressFragment : Fragment() {
 
     }
 
-    private fun getTokenforsubitem() {
 
-        expiry_date = getArguments()?.getString("expiry_date", "") ?: ""
-        quantity = getArguments()?.getString("quantity", "0") ?: "0"
-        subitem = getArguments()?.getString("product", "0") ?: "0"
-        days = arguments?.getIntegerArrayList("days") as ArrayList<Int>
+
+    private fun getTokenforsubitem(payByWallet: Boolean) {
+
 
         if (!dialog.isShowing())
             dialog.create(requireContext())
         lifecycleScope.launch {
-            viewModel.getTokenforsubitem(
-                totalamount,
-                addressid,
-                item_id,
-                start_date,
-                expiry_date,
-                quantity.toInt(),
-                subitem.toInt(),
-                days!!,
-                pay_by_wallet = false,
-                date = "11-11-2021"
-            )
-            viewModel.responTokenforsingle.observe(viewLifecycleOwner) {
-                // if (it.body()?.errorType == null) {
 
-                if (dialog.isShowing())
-                    dialog.dismiss()
-                paymentcart(
-                    it.body()?.phone ?: "",
-                    it.body()?.token ?: "",
-                    it.body()?.txnid ?: "",
-                    it.body()?.furl ?: "",
-                    it.body()?.surl ?: "",
-                    it.body()?.productinfo ?: "",
-                    it.body()?.firstname ?: "",
-                    it.body()?.email ?: "",
-                    it.body()?.amount ?: "",
-                    it.body()?.merchant_key ?: ""
-                )
+             viewModel.getTokenforsubitem(
+                 pay_by_wallet = payByWallet
+             )
+             viewModel.responTokenforsub.observe(viewLifecycleOwner) {
+
+                 if (dialog.isShowing())
+                     dialog.dismiss()
+
+                 it.body()?.errorType?.let { _errorty->
+                     Toast.makeText(
+                         requireContext(),
+                        "${ it.body()?.errorType} ${ it.body()?.errors?.get(0)?.message} ${ it.body()?.errors?.get(0)?.field} ",
+                         Toast.LENGTH_SHORT
+                     ).show()
+
+                 }
 
 
-            }
+                 it.body()?.hash.let { _has->
+                     paymentcart(
+                         it.body()?.phone ?: "",
+                         it.body()?.token ?: "",
+                         it.body()?.txnid ?: "",
+                         it.body()?.furl ?: "",
+                         it.body()?.surl ?: "",
+                         it.body()?.productinfo ?: "",
+                         it.body()?.firstname ?: "",
+                         it.body()?.email ?: "",
+                         it.body()?.amount ?: "",
+                         it.body()?.merchant_key ?: ""
+                     )
+                 }
+
+
+
+             }
         }
     }
 
-    private fun getTokenforsingle() {
+    @SuppressLint("SimpleDateFormat")
+    private fun getTokenforsingle(pay_by_wallet: Boolean) {
 
 
         val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
@@ -203,11 +225,8 @@ class AddressFragment : Fragment() {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.getTokenforsingle(
-                totalamount,
-                addressid,
-                item_id,
                 date,
-                pay_by_wallet = false
+                pay_by_wallet = pay_by_wallet
             )
             viewModel.responTokenforsingle.observe(viewLifecycleOwner) {
                 if (it.body()?.errorType == null) {
@@ -235,8 +254,8 @@ class AddressFragment : Fragment() {
 
     private fun getCartlist() {
 
-        job = lifecycleScope.launch {
-            viewModel.getCart2().collect {
+        lifecycleScope.launch {
+            viewModel.getCart().collect {
                 Log.d("TAG", "getCartlist: size ${it.size}")
                 if (it.isNotEmpty()) {
                     cartlist.addAll(it)
@@ -248,7 +267,8 @@ class AddressFragment : Fragment() {
         }
     }
 
-    private fun getTokenforcart() {
+    @SuppressLint("SimpleDateFormat")
+    private fun getTokenforcart(pay_by_wallet: Boolean) {
 
         val simpleDateFormat = SimpleDateFormat("dd-MM-yyyy")
         val date = simpleDateFormat.format(Date())
@@ -258,11 +278,9 @@ class AddressFragment : Fragment() {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.getcartToken(
-                totalamount,
-                addressid,
                 cartlist,
                 date,
-                pay_by_wallet = false
+                pay_by_wallet = pay_by_wallet
             )
             viewModel.responCartToken.observe(viewLifecycleOwner) {
                 if (it.body()?.errorType == null) {
@@ -320,13 +338,10 @@ class AddressFragment : Fragment() {
 
                 override fun onPaymentSuccess(response: Any) {
                     response as HashMap<*, *>
-                    val payUResponse = response[PayUCheckoutProConstants.CP_PAYU_RESPONSE]
-                    val merchantResponse = response[PayUCheckoutProConstants.CP_MERCHANT_RESPONSE]
-                    /*  Toast.makeText(
-                          requireContext(),
-                          "$payUResponse $merchantResponse",
-                          Toast.LENGTH_SHORT
-                      ).show()*/
+//                    val payUResponse = response[PayUCheckoutProConstants.CP_PAYU_RESPONSE]
+//                    val merchantResponse = response[PayUCheckoutProConstants.CP_MERCHANT_RESPONSE]
+                    if (viewModel.isCart)
+                        viewModel.CartClear()
                     Navigation.findNavController(binding.root)
                         .popBackStack()
                 }
@@ -335,7 +350,9 @@ class AddressFragment : Fragment() {
                 override fun onPaymentFailure(response: Any) {
                     response as HashMap<*, *>
                     val payUResponse = response[PayUCheckoutProConstants.CP_PAYU_RESPONSE]
-                    val merchantResponse = response[PayUCheckoutProConstants.CP_MERCHANT_RESPONSE]
+//                    val merchantResponse = response[PayUCheckoutProConstants.CP_MERCHANT_RESPONSE]
+
+                    Toast.makeText(requireContext(), "$payUResponse", Toast.LENGTH_LONG).show()
                 }
 
 
@@ -345,11 +362,11 @@ class AddressFragment : Fragment() {
 
 
                 override fun onError(errorResponse: ErrorResponse) {
-                    val errorMessage: String
-                    if (errorResponse.errorMessage != null && errorResponse.errorMessage!!.isNotEmpty())
-                        errorMessage = errorResponse.errorMessage!!
-                    else
-                        errorMessage = resources.getString(R.string.some_error_occurred)
+                    val errorMessage: String =
+                        if (errorResponse.errorMessage != null && errorResponse.errorMessage!!.isNotEmpty())
+                            errorResponse.errorMessage!!
+                        else
+                            resources.getString(R.string.some_error_occurred)
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
 
@@ -376,7 +393,7 @@ class AddressFragment : Fragment() {
                             viewModel.payment_count++
                             if (!TextUtils.isEmpty(token)) {
                                 val hashMap: HashMap<String, String?> = HashMap()
-                                hashMap[hashName!!] = token!!
+                                hashMap[hashName!!] = token
                                 Log.d("TAG", "generateHash:2 $token")
                                 hashGenerationListener.onHashGenerated(hashMap)
 
@@ -392,7 +409,7 @@ class AddressFragment : Fragment() {
                                 ) {
                                     try {
                                         if (response.isSuccessful) {
-                                            val data = response.body();
+                                            val data = response.body()
                                             if (!TextUtils.isEmpty(data?.hash)) {
                                                 val hashMap: HashMap<String, String?> = HashMap()
                                                 hashMap[hashName!!] = data?.hash
@@ -405,6 +422,13 @@ class AddressFragment : Fragment() {
                                                 response.errorBody()!!.charStream(),
                                                 type
                                             )
+                                            errorRes?.errors?.let {
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    it[0].message,
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
                                         }
                                     } catch (e: Exception) {
                                         e.printStackTrace()
@@ -444,13 +468,11 @@ class AddressFragment : Fragment() {
 
                 } else {
                     if (it.addresses != null) {
-//                        addressAdapter = AddressAdapter(it.addresses)
                         binding.apply {
-                            if (it.addresses != null)
-                                addressid = it.addresses[0].id ?: -1
-                            addressAdapter?.submitList(it.addresses)
-//                            recAddress.adapter = addressAdapter
-//                            (recAddress.adapter as AddressAdapter).notifyDataSetChanged()
+                            viewModel.addressid = it.addresses[0].id ?: -1
+                            viewModel.addresses=it.addresses
+                            viewModel.addresses[0].isSelected=true
+                            addressAdapter.submitList(viewModel.addresses)
                         }
                     }
                 }
@@ -459,9 +481,9 @@ class AddressFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
+   /* override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        job.cancel()
-    }
+//        job.cancel()
+    }*/
 }

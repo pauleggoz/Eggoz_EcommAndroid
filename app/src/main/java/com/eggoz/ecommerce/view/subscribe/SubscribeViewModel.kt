@@ -23,6 +23,10 @@ class SubscribeViewModel : ViewModel() {
     var responsemembershiprecharge: MutableLiveData<Response<ResponseBody>?> = MutableLiveData()
     var responseSubscribe: MutableLiveData<Subscribe?> = MutableLiveData()
 
+    var item_id:Int =-1
+    var price: Double = 0.0
+    var subId: Int = -1
+
     fun productList(city: Int, is_available: Int) {
         viewModelScope.launch {
             Retrofithit().productList(city = city, is_available = is_available)

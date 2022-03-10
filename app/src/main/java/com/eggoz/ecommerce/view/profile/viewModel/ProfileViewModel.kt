@@ -113,6 +113,10 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         return responOtpgenerate
     }
 
+    suspend fun saveToken(token:String){
+        repository.userPreferences!!.saveAuthtoke(token = token)
+    }
+
     fun addAddress(
         user_id: Int,
         addressName: String,

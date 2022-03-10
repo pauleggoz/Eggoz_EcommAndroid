@@ -72,6 +72,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txt_title">
 
+<!--                    <RadioGroup-->
+<!--                        android:id="@+id/radio_plan"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
+
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recloc"
                         setAdapter="@{viewlocAdapter}"
@@ -82,6 +88,8 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:spanCount="1"
                         tools:listitem="@layout/item_loc" />
+
+<!--                    </RadioGroup>-->
 
                 </RelativeLayout>
 

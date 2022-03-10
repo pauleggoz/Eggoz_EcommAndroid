@@ -14,10 +14,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
+import com.eggoz.ecommerce.ViewModelFactory
 import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentAddressInputBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.utils.Validation
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileRepository
 import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.first
@@ -62,7 +64,11 @@ class AddressInputFragment : Fragment() {
     }
 
     private fun initView() {
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        val repository = ProfileRepository(UserPreferences(requireContext()))
+        val viewmodelFat = ViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, viewmodelFat)[ProfileViewModel::class.java]
+
         userPreferences = UserPreferences(requireContext())
         dialog = Loadinddialog()
 

@@ -20,7 +20,7 @@
     <string name="menu_products">Products</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_wallet">Wallet</string>
-    <string name="SelectyourCity">Select your City</string>
+    <string name="SelectyourCity">Select your Zone</string>
     <string name="SelectyourLocality">Select your Locality</string>
     <string name="next">Next</string>
     <string name="AllProducts">All Products</string>
@@ -61,7 +61,7 @@
     <string name="Checkout">Place Order</string>
     <string name="my_account">My Account</string>
     <string name="edit">EDIT</string>
-    <string name="manage_addresses">Manage Addresses</string>
+    <string name="manage_addresses">Manage addresses</string>
     <string name="payment_methods">Payment Methods</string>
     <string name="faqs">FAQs</string>
     <string name="legal_terms_conditions"><![CDATA[Legal, Terms & Conditions]]></string>
@@ -147,4 +147,19 @@
     <string name="address">Address:</string>
     <string name="delivery_time">Delivery Time:</string>
     <string name="add_query">Add Query</string>
+    <string name="change_region">Change Region</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="card_upi_banking">Card/Upi/Banking</string>
+    <string name="referal_code">Referal Code</string>
+    <string name="hint_referal_code">Enter Referal Code</string>
+    <string name="hint_add_message">Add Message</string>
+    <string name="search_help">Search Help</string>
+    <string name="send_a_message">Send a Message</string>
+    <string name="first_name">First Name</string>
+    <string name="hint_enter_name">Enter First Name</string>
+    <string name="hint_last_name">Enter Last Name</string>
+    <string name="hint_phone">Enter Phone No.</string>
+    <string name="hint_message">Enter Message</string>
+    <string name="last_name">Last Name</string>
+    <string name="message">Message</string>
 </resources>

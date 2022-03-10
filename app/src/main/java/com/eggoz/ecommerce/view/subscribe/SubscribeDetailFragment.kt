@@ -67,7 +67,7 @@ class SubscribeDetailFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.getSubscribe(requireContext())
         }
-        viewModel.responseSubscribe.observe(viewLifecycleOwner, {
+        viewModel.responseSubscribe.observe(viewLifecycleOwner) {
 
             if (dialog.isShowing())
                 dialog.dismiss()
@@ -88,7 +88,7 @@ class SubscribeDetailFragment : Fragment() {
 
 
             }
-        })
+        }
     }
     override fun onStop() {
         super.onStop()

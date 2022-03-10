@@ -18,7 +18,10 @@ data class Otpverify(
     var errors: List<Error>? = null,
     @SerializedName("error_type")
     @Expose
-    var errorType: String? = null
+    var errorType: String? = null,
+    @SerializedName("existing_user")
+    @Expose
+    var existing_user: Boolean? = null
 ) {
     class User(
         @SerializedName("id")

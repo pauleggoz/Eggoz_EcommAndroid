@@ -30,6 +30,9 @@ data class CityData(
         @SerializedName("zone_name")
         @Expose
         var zoneName: String? = null,
+        @SerializedName("zone_image")
+        @Expose
+        var zone_image: String? = null,
         @SerializedName("cities")
         @Expose
         var cities: List<City>? = null,
@@ -70,7 +73,8 @@ data class CityData(
                 var city: Int? = null,
                 @SerializedName("cluster")
                 @Expose
-                var cluster: Any? = null
+                var cluster: Any? = null,
+                var isSelected: Boolean = false
             )
         }
     }

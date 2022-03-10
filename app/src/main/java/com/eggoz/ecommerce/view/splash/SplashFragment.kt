@@ -28,10 +28,7 @@ class SplashFragment : Fragment() {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-/*
-        val bundle = Bundle()
-        bundle.putString("screen_name", name.get(position))
-        bundle.putString("city_name", city)*/
+
         @Suppress("DEPRECATION")
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
 

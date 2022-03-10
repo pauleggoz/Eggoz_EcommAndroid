@@ -24,6 +24,9 @@ interface CartDao {
     @Query("update cart set quantaty=:qnt, price= :price where id= :mid")
     suspend fun updateCart(mid:Int,qnt:Int,price:String)
 
+    @Query("update cart set price= :price where id= :mid")
+    suspend fun updateCartPrice(mid:Int,price:String)
+
     @Query("update cart set quantaty=:qnt where id= :mid")
     suspend fun updateQnt(mid:Int,qnt:Int)
 

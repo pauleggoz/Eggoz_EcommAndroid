@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils"/>
+
+        <import type="com.eggoz.ecommerce.utils.CustomBindingUtils" />
+
         <variable
             name="adapter"
             type="com.eggoz.ecommerce.view.product.adapter.ProductAdapter" />
+
         <variable
             name="price"
-            type="Double"/>
+            type="Double" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,12 +35,12 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/s150"
-                    android:src="@drawable/background"
+                    android:contentDescription="@string/app_name"
                     android:scaleType="fitXY"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/background"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:contentDescription="@string/app_name" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/img_top"
@@ -77,6 +80,7 @@
                     android:gravity="start"
                     android:text="@string/SortFilter"
                     android:textColor="@color/black"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -87,17 +91,17 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recProducts"
+                    setAdapter="@{adapter}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/s34"
                     android:paddingBottom="@dimen/s48"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2"
-                    setAdapter="@{adapter}"
-                    tools:listitem="@layout/item_product"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_title"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_product" />
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/shimmer_view_container"
@@ -172,15 +176,15 @@
                 android:layout_marginTop="@dimen/s12"
                 android:fontFamily="@font/spartanbold"
                 android:gravity="start"
-                bind:premat="@{`₹`}"
-                bind:postmat="@{price}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/s12"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/txt_item"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                bind:postmat="@{price}"
+                bind:premat="@{`₹`}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_charge"
@@ -204,9 +208,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/s16"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:drawableEnd="@drawable/ic_baseline_shopping_cart_24"
                 android:fontFamily="@font/spartanbold"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
                 android:text="@string/VIEWCART"
                 android:textColor="@color/white"
@@ -222,16 +226,16 @@
             android:id="@+id/layout_noNetwork"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/s150"
-                android:src="@drawable/background"
+                android:contentDescription="@string/app_name"
                 android:scaleType="fitXY"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/background"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="@string/app_name" />
-
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
@@ -239,8 +243,8 @@
                 android:layout_width="@dimen/s56"
                 android:layout_height="@dimen/s56"
                 android:layout_marginTop="@dimen/s14"
-                android:src="@drawable/logo1"
                 android:contentDescription="@string/app_name"
+                android:src="@drawable/logo1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -249,34 +253,32 @@
                 android:id="@+id/signal"
                 android:layout_width="@dimen/s56"
                 android:layout_height="@dimen/s56"
+                android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_baseline_wifi_off_24"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:contentDescription="@string/app_name" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_reload"
+                style="@style/textsmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/s32"
+                android:background="@drawable/curvedbackborderonly"
                 android:paddingStart="@dimen/s16"
+                android:paddingTop="@dimen/s8"
                 android:paddingEnd="@dimen/s16"
                 android:paddingBottom="@dimen/s8"
-                android:paddingTop="@dimen/s8"
                 android:text="@string/reload"
-                style="@style/textsmall"
                 android:textColor="@color/app_color"
-                android:background="@drawable/curvedbackborderonly"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signal" />
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

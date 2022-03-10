@@ -8,6 +8,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
@@ -62,6 +63,7 @@ class HomeFragment : Fragment() {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         init()
+
         return binding.root
     }
 
@@ -170,6 +172,7 @@ class HomeFragment : Fragment() {
 
 
         lifecycleScope.launch {
+
             val starteDate = sdf.parse(start)
             viewModel.orderlist(
                 start, end
@@ -179,9 +182,6 @@ class HomeFragment : Fragment() {
                     dialog.dismiss()
                 it.results?.let { orderlist ->
                     orderlist.let { inorderlist ->
-//                        if (inorderlist?.isEmpty()!!)
-//                            binding.groupOrder.visibility = View.GONE
-//                        else {
                         for (order in inorderlist) {
                             order.deliveryDate?.let { ddate ->
                                 val currDate = sdfl.parse(ddate)
@@ -484,6 +484,7 @@ class HomeFragment : Fragment() {
 
         dotscount = viewPagerAdapter.count
         dots = arrayOfNulls(dotscount)
+        binding.SliderDots.removeAllViews()
         for (i in 0 until dotscount) {
             dots[i] = ImageView(requireContext())
             dots[i]?.setImageDrawable(

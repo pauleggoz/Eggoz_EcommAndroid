@@ -1,12 +1,11 @@
 package com.eggoz.ecommerce.network.repository
 
-import androidx.room.Index
 import com.eggoz.ecommerce.network.model.*
 import com.eggoz.ecommerce.utils.Constants
+import com.eggoz.ecommerce.view.address.model.CartToken
 import com.eggoz.ecommerce.view.membershipPlans.model.Membership
 import com.eggoz.ecommerce.view.membershipPlans.model.MembershipRecharge
 import com.eggoz.ecommerce.view.subscribe.model.Subscribe
-import com.eggoz.ecommerce.view.address.model.CartToken
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
@@ -124,6 +123,7 @@ interface RetrofitApiService {
 
     @GET(Constants.ecommerce_subscriptions)
     suspend fun getSubscribe(
+        @Query("is_visible") is_visible: Int
     ): Subscribe
 
 
@@ -152,12 +152,24 @@ interface RetrofitApiService {
     @FormUrlEncoded
     suspend fun getsubToken(
         @FieldMap paramsstring: Map<String, String>,
-        @FieldMap paramsarrStrng: Map<String, ArrayList<String>>,
-        @FieldMap paramsarrInt: Map<String, ArrayList<Int>>,
         @FieldMap paramsint: Map<String, Int>,
         @FieldMap paramsbolean: Map<String, Boolean>,
-        @FieldMap paramsjobj: Map<String, JsonObject>
+        @FieldMap paramsarray: Map<String, JsonObject>,
+        @FieldMap paramsdouble: Map<String, Double>,
+        @FieldMap paramsdoubledates: Map<String, String>
     ): Response<CartToken>
+
+    @POST(Constants.ecommerce_cartToken)
+    @FormUrlEncoded
+    fun getsubToken2(
+        @FieldMap paramsstring: Map<String, String>,
+        @FieldMap paramsint: Map<String, Int>,
+        @FieldMap paramsbolean: Map<String, Boolean>,
+        @FieldMap paramsarray: Map<String, JsonArray>,
+        @FieldMap paramsdouble: Map<String, Double>,
+        @Field("dates") paramsarrStrng:ArrayList<String>,
+        @Field("days") paramsarrInt:ArrayList<Int>
+    ): Call<CartToken>
 
     @GET(Constants.ecommerce_homeslider)
     suspend fun homeSlider(): HomeSlider
@@ -203,5 +215,34 @@ interface RetrofitApiService {
     ): OrderDetail
 
     @GET(Constants.ecommerce_referral_code)
-    suspend fun referAndEarn(): ReferAndEarn
+    suspend fun referAndEarn(): ReferAndEarn2
+
+    @GET(Constants.ecommerce_products_list_with_given_ids)
+    suspend fun getCartList(
+        @Query("ids") id: String
+    ): CartResponse
+
+    @POST(Constants.ecommerce_customer_referral)
+    @FormUrlEncoded
+    suspend fun updateReferal(
+        @Field("referral_code") referral_code: String,
+        @Field("customer_email") customer_email: String,
+        @Field("customer_name") customer_name: String,
+    ): ReferAndEarn
+
+    @GET(Constants.ecommerce_contact_us)
+    suspend fun getContactUs(): ContactusModel
+
+    @FormUrlEncoded
+    @POST(Constants.ecommerce_feedback)
+    suspend fun faq(
+        @Field("email") email: String,
+        @Field("first_name") first_name: String,
+        @Field("last_name") last_name: String,
+        @Field("phone") phone: String,
+        @Field("message") message: String,
+        @Field("query_type") query_type: String,
+        @Field("is_resolved") is_resolved: Boolean
+    ): UserProfileModel
+
 }

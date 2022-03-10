@@ -1,5 +1,6 @@
 package com.eggoz.ecommerce.view.order.viewmodel
 
+import android.util.Log
 import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.network.model.Orderhistory
 import com.eggoz.ecommerce.network.repository.RetrofitClient
@@ -18,6 +19,7 @@ class OrderListRepository(private var userPreferences: UserPreferences) {
     val auth_token: Flow<String?> by lazy { userPreferences.authtoken }
 
     fun orderhistory(customer: Int, token: String): Flow<Orderhistory?> = flow {
+        Log.d("TAG", "orderhistory: $customer $token")
         val response = RetrofitClient().retrofitApiSerInterceptor(token = token)
             .orderHistory(customer = customer)
         emit(response)

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,149 +12,259 @@
             name="itemData"
             type="com.eggoz.ecommerce.network.model.OrderDetail" />
 
+        <variable
+            name="itemAdapter"
+            type="com.eggoz.ecommerce.view.order.adapter.OrderItemAdapter" />
+
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <!--
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/s12"
+                    android:elevation="@dimen/s2"
+                    app:cardBackgroundColor="@color/app_color2"
+                    app:cardCornerRadius="@dimen/s8">
 
-        <androidx.cardview.widget.CardView
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/s8">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="@dimen/s8" />
+
+                        <TextView
+                            android:id="@+id/txt_orderid_title"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s8"
+                            android:text="@string/order_id"
+                            app:layout_constraintStart_toStartOf="@id/guideline_start"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt_price"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s8"
+                            android:layout_marginEnd="@dimen/s8"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt_orderid"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s6"
+                            android:layout_marginTop="@dimen/s8"
+                            android:text="@{itemData.orderId}"
+                            android:textColor="@color/gray"
+                            app:layout_constraintStart_toEndOf="@+id/txt_orderid_title"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt_orderqnt_title"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s2"
+                            android:text="@string/quantity"
+                            app:layout_constraintStart_toStartOf="@id/guideline_start"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_orderid_title" />
+
+                        <TextView
+                            android:id="@+id/txt_orderqnt"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s6"
+                            android:layout_marginTop="@dimen/s2"
+                            android:textColor="@color/gray"
+                            app:layout_constraintStart_toEndOf="@+id/txt_orderqnt_title"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_orderid_title" />
+
+                        <TextView
+                            android:id="@+id/txt_orderaddress_title"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s2"
+                            android:text="@string/address"
+                            app:layout_constraintStart_toStartOf="@id/guideline_start"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_orderqnt_title" />
+
+
+                        <TextView
+                            android:id="@+id/txt_orderaddress"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s6"
+                            android:layout_marginTop="@dimen/s2"
+                            android:text="@{itemData.customerAddress.addressName+` `+itemData.customerAddress.buildingAddress+` `+itemData.customerAddress.city.cityName+` `+itemData.customerAddress.pinCode}"
+                            android:textColor="@color/gray"
+                            app:layout_constraintStart_toEndOf="@+id/txt_orderaddress_title"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_orderqnt_title" />
+
+                        <TextView
+                            android:id="@+id/txt_orderdeliverytime_title"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/s2"
+                            android:text="@string/delivery_time"
+                            app:layout_constraintStart_toStartOf="@id/guideline_start"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_orderaddress" />
+
+                        <TextView
+                            android:id="@+id/txt_orderdeliverytime"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s6"
+                            android:text="@string/menu_wallet"
+                            android:layout_marginTop="@dimen/s2"
+                            android:textColor="@color/gray"
+                            app:layout_constraintStart_toEndOf="@+id/txt_orderdeliverytime_title"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_orderaddress" />
+
+                        <TextView
+                            android:id="@+id/txt_order_status"
+                            style="@style/textLarge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/cartitemsmallborder"
+                            android:padding="@dimen/s8"
+                            android:layout_marginTop="@dimen/s6"
+                            android:layout_marginEnd="@dimen/s12"
+                            android:text="@{itemData.status}"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_orderdeliverytime" />
+
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>-->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/s12"
-            android:elevation="@dimen/s2"
-            app:cardBackgroundColor="@color/app_color2"
-            app:cardCornerRadius="@dimen/s8">
+            android:layout_marginStart="@dimen/s8"
+            android:layout_marginTop="@dimen/s8"
+            android:layout_marginEnd="@dimen/s8"
+            android:layout_marginBottom="@dimen/s8"
+            android:background="@drawable/curvedgrayborder">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/txt_order_id"
+                style="@style/text20"
+                android:layout_width="@dimen/s0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s8"
+                android:text="@{itemData.orderId}"
+                app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_order_address"
+                style="@style/textsmallregular"
+                android:layout_width="@dimen/s0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s8"
+                android:textColor="@color/gray"
+                android:text="@{itemData.customerAddress.addressName+` `+itemData.customerAddress.buildingAddress+` `+itemData.customerAddress.city.cityName+` `+itemData.customerAddress.pinCode}"
+                app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/txt_order_id" />
+
+
+            <View
+                android:id="@+id/view_dev1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/s1"
+                android:layout_marginTop="@dimen/s8"
+                android:background="@color/gray_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_order_address" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_orderItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/s8">
+                android:layout_margin="@dimen/s8"
+                setAdapter="@{itemAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_dev1" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="@dimen/s8" />
-
-                <TextView
-                    android:id="@+id/txt_orderid_title"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/s8"
-                    android:text="@string/order_id"
-                    app:layout_constraintStart_toStartOf="@id/guideline_start"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt_price"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/s8"
-                    android:layout_marginEnd="@dimen/s8"
-                    android:text="@{itemData.orderPriceAmount}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt_orderid"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/s6"
-                    android:layout_marginTop="@dimen/s8"
-                    android:text="@{itemData.orderId}"
-                    android:textColor="@color/gray"
-                    app:layout_constraintStart_toEndOf="@+id/txt_orderid_title"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/txt_orderqnt_title"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/s2"
-                    android:text="@string/quantity"
-                    app:layout_constraintStart_toStartOf="@id/guideline_start"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_orderid_title" />
-
-                <TextView
-                    android:id="@+id/txt_orderqnt"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/s6"
-                    android:layout_marginTop="@dimen/s2"
-                    android:textColor="@color/gray"
-                    app:layout_constraintStart_toEndOf="@+id/txt_orderqnt_title"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_orderid_title" />
-
-                <TextView
-                    android:id="@+id/txt_orderaddress_title"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/s2"
-                    android:text="@string/address"
-                    app:layout_constraintStart_toStartOf="@id/guideline_start"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_orderqnt_title" />
-
-
-                <TextView
-                    android:id="@+id/txt_orderaddress"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/s6"
-                    android:layout_marginTop="@dimen/s2"
-                    android:text="@{itemData.customerAddress.addressName+` `+itemData.customerAddress.buildingAddress+` `+itemData.customerAddress.city.cityName+` `+itemData.customerAddress.pinCode}"
-                    android:textColor="@color/gray"
-                    app:layout_constraintStart_toEndOf="@+id/txt_orderaddress_title"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_orderqnt_title" />
-
-                <TextView
-                    android:id="@+id/txt_orderdeliverytime_title"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/s2"
-                    android:text="@string/delivery_time"
-                    app:layout_constraintStart_toStartOf="@id/guideline_start"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_orderaddress" />
-
-                <TextView
-                    android:id="@+id/txt_orderdeliverytime"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/s6"
-                    android:layout_marginTop="@dimen/s2"
-                    android:textColor="@color/gray"
-                    app:layout_constraintStart_toEndOf="@+id/txt_orderdeliverytime_title"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_orderaddress" />
-
-                <TextView
-                    android:id="@+id/txt_order_status"
-                    style="@style/textLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/cartitemsmallborder"
-                    android:padding="@dimen/s8"
-                    android:layout_marginTop="@dimen/s6"
-                    android:layout_marginEnd="@dimen/s12"
-                    android:text="@{itemData.status}"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_orderdeliverytime" />
+            <View
+                android:id="@+id/view_dev_rec"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/s1"
+                android:background="@color/gray"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rec_orderItem"/>
+            <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="@dimen/s0"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/guideline_start"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintTop_toBottomOf="@+id/view_dev_rec"
+                android:layout_marginTop="@dimen/s8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/s8"
+                style="@style/texts14"
+                android:textColor="@color/gray"
+                />
+            <TextView
+                android:id="@+id/txt_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/view_dev_rec"
+                android:layout_marginTop="@dimen/s8"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                style="@style/texts14"
+                android:textColor="@color/black"/>
 
 
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/s8" />
 
-        </androidx.cardview.widget.CardView>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/s8" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 </layout>

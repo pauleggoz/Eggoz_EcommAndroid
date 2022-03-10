@@ -62,7 +62,7 @@ class ReferWithFriendsFragment : Fragment() {
         viewModel.referAndEarn.observe(viewLifecycleOwner) {
             if (dialog.isShowing())
                 dialog.dismiss()
-            it.customerReferralCode.let { rId->
+            it.customerReferralCode?.let { rId->
                 binding.txtReferId.text = rId
             }
         }

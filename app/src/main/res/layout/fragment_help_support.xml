@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="faqAdapter"
+            type="com.eggoz.ecommerce.view.help_support.adapter.FaqAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.help_support.view.HelpSupportFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nest"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lay_bottom">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txt_title"
+                    style="@style/textLarge"
+                    android:layout_width="@dimen/s0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s18"
+                    android:text="We’re here to help you with anything and everything on Eggoz"
+                    android:textColor="@color/gray_2"
+                    android:textSize="@dimen/s24"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_start"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_des"
+                    style="@style/textLargemedium"
+                    android:layout_width="@dimen/s0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s8"
+                    android:text="Wikipedia is the best thing ever. Anyone in the world can write anything they want about any subject. So you know you are getting the best possible information."
+                    android:textColor="@color/gray_2"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_start"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_title" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edt_search_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s8"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_start"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_des">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/search_help"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txt_titleFAQ"
+                    style="@style/text20"
+                    android:layout_width="@dimen/s0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s18"
+                    android:text="FAQ"
+                    android:textColor="@color/gray_2"
+                    android:textSize="@dimen/s24"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_start"
+                    app:layout_constraintTop_toBottomOf="@+id/edt_search_layout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    setAdapter="@{faqAdapter}"
+                    android:layout_width="@dimen/s0"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s8"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                    app:layout_constraintStart_toStartOf="@id/guideline_start"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titleFAQ" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/s18" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/s18" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lay_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/s1"
+                android:background="@color/gray_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/txt_need_help"
+                style="@style/text20"
+                android:layout_width="@dimen/s0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s24"
+                android:text="Still Stuck ? Help is mail away"
+                android:textColor="@color/gray_2"
+                android:gravity="center"
+                android:textSize="@dimen/s16"
+                android:paddingBottom="@dimen/s18"
+                android:layout_marginBottom="@dimen/s18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_sendmessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/s45"
+                android:layout_marginEnd="@dimen/s45"
+                android:background="@drawable/buttonbackrad8"
+                app:cardElevation="@dimen/s0"
+                app:cardUseCompatPadding="true"
+                android:layout_marginBottom="@dimen/s12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_need_help"
+                android:focusable="true">
+                <TextView
+                    android:id="@+id/txt_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/s8"
+                    style="@style/textLarge"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/send_a_message" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

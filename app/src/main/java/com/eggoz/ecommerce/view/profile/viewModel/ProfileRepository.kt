@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class ProfileRepository(private var userPreferences: UserPreferences) {
+class ProfileRepository(var userPreferences: UserPreferences) {
 
     val city_id: Flow<Int?> by lazy { userPreferences.city }
 

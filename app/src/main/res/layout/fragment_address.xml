@@ -84,7 +84,6 @@
                     android:paddingBottom="@dimen/s48"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical"
-                    app:spanCount="1"
                     setAdapter="@{viewaddressAdapter}"
                     tools:listitem="@layout/item_address"
                     android:layout_marginTop="@dimen/s35"

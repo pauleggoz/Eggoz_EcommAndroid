@@ -2,25 +2,24 @@ package com.eggoz.ecommerce.view.profile.view
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eggoz.ecommerce.R
-import com.eggoz.ecommerce.localdata.UserPreferences
+import com.eggoz.ecommerce.ViewModelFactory
 import com.eggoz.ecommerce.databinding.FragmentManageAdderssesBinding
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.utils.Loadinddialog
-import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
 import com.eggoz.ecommerce.view.profile.adapter.ManageAdderssesAdapter
 import com.eggoz.ecommerce.view.profile.viewModel.ProfileRepository
-import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModelFactory
-import kotlinx.coroutines.flow.first
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
 import kotlinx.coroutines.launch
 
 
@@ -44,9 +43,8 @@ class ManageAddressFragment : Fragment(), ManageAdderssesAdapter.callback {
     }
 
     private fun initView() {
-        val userPreferences = UserPreferences(requireContext())
-        val repository = ProfileRepository(userPreferences)
-        val viewmodelFat = ProfileViewModelFactory(repository)
+        val repository = ProfileRepository(UserPreferences(requireContext()))
+        val viewmodelFat = ViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, viewmodelFat)[ProfileViewModel::class.java]
 

@@ -1,20 +1,21 @@
 package com.eggoz.ecommerce.view.profile.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import com.eggoz.ecommerce.localdata.UserPreferences
+import com.eggoz.ecommerce.ViewModelFactory
 import com.eggoz.ecommerce.databinding.FragmentEditProfileBinding
+import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.utils.Loadinddialog
 import com.eggoz.ecommerce.utils.Validation
+import com.eggoz.ecommerce.view.profile.viewModel.ProfileRepository
 import com.eggoz.ecommerce.view.profile.viewModel.ProfileViewModel
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 
@@ -24,7 +25,6 @@ class EditProfileFragment : Fragment() {
 
 
     private lateinit var dialog: Loadinddialog
-    private var userPreferences: UserPreferences? = null
     private lateinit var viewModel: ProfileViewModel
 
     private var userid: Int = -1
@@ -40,14 +40,13 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun initView() {
-        userPreferences = UserPreferences(requireContext())
 
-        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        val repository = ProfileRepository(UserPreferences(requireContext()))
+        val viewmodelFat = ViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, viewmodelFat)[ProfileViewModel::class.java]
         dialog = Loadinddialog()
 
-        lifecycleScope.launch {
-            userid = userPreferences!!.Customer_id.first() ?: -1
-        }
         binding.apply {
             btnBack.setOnClickListener {
                 Navigation.findNavController(binding.root)
@@ -68,7 +67,7 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    fun submit() {
+    private fun submit() {
         if (Validation.emptyField(
                 binding.edtName,
                 binding.edtNameLayout,
@@ -101,7 +100,7 @@ class EditProfileFragment : Fragment() {
                     lifecycleScope.launch {
                         if (it.userTokenData != null)
                             if (it.userTokenData.token != null) {
-                                userPreferences!!.saveAuthtoke(token = it.userTokenData.token ?: "")
+                                viewModel.saveToken(token = it.userTokenData.token)
                                 Navigation.findNavController(binding.txtBtn)
                                     .popBackStack()
                             }

@@ -22,6 +22,11 @@
             android:title="@string/your_order" />
         <item
             android:orderInCategory="0"
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:title="@string/menu_cart" />
+        <item
+            android:orderInCategory="0"
             android:id="@+id/nav_subscription"
             android:icon="@drawable/ic_baseline_person_outline_24"
             android:title="@string/Subscription" />

@@ -44,9 +44,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         cartdao.updateCart(mid = id,qnt = qnt,price = price)
     }
 
-    suspend fun CartSize():Int {
-       return cartdao.Cartsize()
-    }
     suspend fun deleteCart(id: Int) {
         cartdao.deletebyid(mid = id)
     }

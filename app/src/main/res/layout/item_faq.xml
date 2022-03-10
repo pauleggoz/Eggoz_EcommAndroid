@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s1"
+            android:background="@color/gray_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/txt_titleFAQ"
+            style="@style/text20"
+            android:layout_width="@dimen/s0"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/s18"
+            android:text="What is Eggoz?"
+            android:textColor="@color/gray_2"
+            android:textSize="@dimen/s18"
+            android:paddingBottom="@dimen/s18"
+            android:layout_marginBottom="@dimen/s18"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_faq"
+            android:layout_width="@dimen/s24"
+            android:layout_height="@dimen/s24"
+            android:src="@drawable/ic_baseline_add_24"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/s18"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            />
+
+        <TextView
+            android:id="@+id/txt_des"
+            style="@style/texts14"
+            android:layout_width="@dimen/s0"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Wikipedia is the best thing ever. Anyone in the world can write anything they want about any subject. So you know you are getting the best possible information."
+            android:textColor="@color/gray_2"
+            android:layout_marginBottom="@dimen/s18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@+id/txt_titleFAQ"/>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/s18" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/s18" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

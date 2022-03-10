@@ -50,15 +50,18 @@ class ProductFragment : Fragment(), ProductCallback {
 
     private fun init() {
         network = NetworkConnect(requireContext())
-        viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         dialog = Loadinddialog()
 
         getCart()
 
         prodList()
 
+        prodadapter = ProductAdapter(mycallback = this@ProductFragment)
+
         binding.apply {
-            txtCart.setOnClickListener {
+            binding.adapter = prodadapter
+            binding.consCart.setOnClickListener {
                 Navigation.findNavController(root)
                     .navigate(R.id.action_nav_product_to_nav_cart_list)
             }
@@ -180,8 +183,6 @@ class ProductFragment : Fragment(), ProductCallback {
             dialog.create(requireContext())
         lifecycleScope.launch {
             viewModel.productList(is_available = 1)
-            prodadapter = ProductAdapter(mycallback = this@ProductFragment)
-            binding.adapter = prodadapter
             viewModel.responProduct.observe(viewLifecycleOwner, Observer {
                 cartshow()
                 if (dialog.isShowing())

@@ -251,7 +251,7 @@
                         android:layout_height="wrap_content"
                         android:stepSize="1"
                         android:value="50"
-                        android:valueFrom="0"
+                        android:valueFrom="1"
                         android:valueTo="5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/txt_title_BoxUnit" />
@@ -416,7 +416,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/s16"
                             android:fontFamily="@font/spartansemibold"
-                            android:text="Once in two Weekly"
+                            android:text="Twice in a Week"
                             app:buttonTint="@color/app_color"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -566,6 +566,113 @@
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/checSaturday" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_check2dayys"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_title_days">
+
+
+                        <CheckBox
+                            android:id="@+id/chec2Monday"
+                            style="@style/textLargemedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s16"
+                            android:fontFamily="@font/spartansemibold"
+                            android:text="Monday"
+                            app:buttonTint="@color/app_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <CheckBox
+                            android:id="@+id/chec2Tuesday"
+                            style="@style/textLargemedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s16"
+                            android:fontFamily="@font/spartansemibold"
+                            android:text="Tuesday"
+                            app:buttonTint="@color/app_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chec2Monday" />
+
+                        <CheckBox
+                            android:id="@+id/chec2Wednesday"
+                            style="@style/textLargemedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s16"
+                            android:fontFamily="@font/spartansemibold"
+                            android:text="Wednesday"
+                            app:buttonTint="@color/app_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chec2Tuesday" />
+
+                        <CheckBox
+                            android:id="@+id/chec2Thursday"
+                            style="@style/textLargemedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s16"
+                            android:fontFamily="@font/spartansemibold"
+                            android:text="Thursday"
+                            app:buttonTint="@color/app_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chec2Wednesday" />
+
+                        <CheckBox
+                            android:id="@+id/chec2Friday"
+                            style="@style/textLargemedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s16"
+                            android:fontFamily="@font/spartansemibold"
+                            android:text="Friday"
+                            app:buttonTint="@color/app_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chec2Thursday" />
+
+                        <CheckBox
+                            android:id="@+id/chec2Saturday"
+                            style="@style/textLargemedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s16"
+                            android:fontFamily="@font/spartansemibold"
+                            android:text="Saturday"
+                            app:buttonTint="@color/app_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chec2Friday" />
+
+                        <CheckBox
+                            android:id="@+id/chec2Sunday"
+                            style="@style/textLargemedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/s16"
+                            android:fontFamily="@font/spartansemibold"
+                            android:text="Sunday"
+                            app:buttonTint="@color/app_color"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chec2Saturday" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -737,22 +844,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <RadioButton
-                            android:id="@+id/loc_powerpack"
-                            style="@style/textLargemedium"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/s16"
-                            android:layout_marginEnd="@dimen/s16"
-                            android:fontFamily="@font/spartansemibold"
-                            android:text="Power Pack (4 weeks,only if total eggs per week > 50)"
-                            app:buttonTint="@color/app_color"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-
                     </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -824,6 +915,19 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <com.applandeo.materialcalendarview.CalendarView
+                        android:id="@+id/calander"
+                        app:headerColor="@color/app_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/s54"
+                        android:layout_marginTop="@dimen/s18"
+                        android:layout_marginEnd="@dimen/s54"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edt_end_date_layout"/>
+
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btn_Submit"
                         android:layout_width="match_parent"
@@ -841,7 +945,7 @@
                         app:cardUseCompatPadding="true"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/edt_end_date_layout">
+                        app:layout_constraintTop_toBottomOf="@+id/calander">
 
                         <TextView
                             android:id="@+id/txt_btn"

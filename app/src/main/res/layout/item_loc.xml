@@ -10,13 +10,6 @@
             name="itemdata"
             type="com.eggoz.ecommerce.network.model.CityData.Result.City.EcommerceSector" />
 
-        <variable
-            name="seletedPos"
-            type="Integer" />
-
-        <variable
-            name="viewcurrentPos"
-            type="Integer" />
 
     </data>
 
@@ -34,7 +27,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/s16"
-                android:checked="@{seletedPos==viewcurrentPos}"
                 android:fontFamily="@font/spartansemibold"
                 android:text="@{itemdata.sectorName ?? ``}"
                 app:buttonTint="@color/app_color"
@@ -42,7 +34,20 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
+        <!--    <CheckBox
+                android:id="@+id/loc_select"
+                style="@style/textLargemedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s16"
+                android:fontFamily="@font/spartansemibold"
+                android:text="@{itemdata.sectorName ?? ``}"
+                app:buttonTint="@color/app_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 </layout>

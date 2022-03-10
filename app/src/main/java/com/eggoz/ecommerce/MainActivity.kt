@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txt_person_name: TextView
     private lateinit var txt_person_mobile: TextView
 
-    var totalamount = 0.0
     var paymentType = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,8 +80,7 @@ class MainActivity : AppCompatActivity() {
         if (binding.drawerlayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerlayout.closeDrawer(GravityCompat.START)
         } else {
-            val des = navController.currentDestination?.id ?: -1
-            when (des) {
+            when (navController.currentDestination?.id ?: -1) {
 
                 R.id.nav_home -> {
                     loc = 0
@@ -117,21 +115,22 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         val userPreferences = UserPreferences(this)
 
-        val repository = MainRepository(userPreferences, MyDatabase.getInstance(context = application))
+        val repository =
+            MainRepository(userPreferences, MyDatabase.getInstance(context = application))
         val viewmodelFat = MainViewModelFactory(repository)
 
-        viewModel = ViewModelProvider(this,viewmodelFat).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewmodelFat)[MainViewModel::class.java]
         binding.btmNav.menu.findItem(R.id.nav_botomhome).isChecked = true
-        var versionName: String? =null
+        var versionName: String? = null
         try {
             versionName = packageManager.getPackageInfo(packageName, 0).toString()
-            binding.versionName=versionName
+            binding.versionName = versionName
         } catch (e: Exception) {
-            binding.versionName=versionName
+            binding.versionName = versionName
             e.printStackTrace()
         }
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_home -> {
                     loc = 0
@@ -264,19 +263,17 @@ class MainActivity : AppCompatActivity() {
                     conformPaymentCart(bundle)
                 else if (ordertype == "wallet" && txStatus == "SUCCESS")
                     conformPaymentWallet(bundle)
-                else
-                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun conformPaymentCart(bundle: Bundle) {
+    private fun conformPaymentCart(bundle: Bundle) {
         lifecycleScope.launch {
             lifecycleScope.launch {
 
-                viewModel.conformPaymentCart( bundle)
+                viewModel.conformPaymentCart(bundle)
                 viewModel.responCheckout.observe(this@MainActivity, Observer {
                     if (it.errorType == null) {
                         if (paymentType == "cart")
@@ -308,12 +305,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun conformPaymentWallet(bundle: Bundle) {
+    private fun conformPaymentWallet(bundle: Bundle) {
         lifecycleScope.launch {
             lifecycleScope.launch {
 
-                viewModel.conformPaymentWallet( bundle)
-                viewModel.responCheckoutWallet.observe(this@MainActivity, Observer {
+                viewModel.conformPaymentWallet(bundle)
+                viewModel.responCheckoutWallet.observe(this@MainActivity) {
                     if (it.errorType == null) {
                         Log.d("TAG", "conformPaymentWallet: ${it.sign}  ${it.signData?.signature}")
                         if (paymentType == "wallet")
@@ -334,13 +331,13 @@ class MainActivity : AppCompatActivity() {
                                 ).show()
                             }
                     }
-                })
+                }
             }
 
         }
     }
 
-    fun sideNaveClick() {
+    private fun sideNaveClick() {
         binding.navView.setNavigationItemSelectedListener { item ->
 
             when (item.itemId) {
@@ -359,10 +356,15 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.nav_product)
                 }
                 R.id.nav_order -> {
+                    navController.navigate(R.id.nav_orderlist)
+
+                }
+                R.id.nav_cart -> {
+                    navController.navigate(R.id.nav_cart_list)
 
                 }
                 R.id.nav_subscription -> {
-
+                    navController.navigate(R.id.nav_subscribeinfro)
                 }
                 R.id.nav_referearn -> {
                     binding.btmNav.visibility = View.GONE
@@ -383,16 +385,17 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.nav_contact_us)
                 }
                 R.id.nav_side_FAQs -> {
+                    navController.navigate(R.id.nav_faq)
 
                 }
                 R.id.nav_side_help_support -> {
-
+                    navController.navigate(R.id.nav_help_support)
                 }
                 R.id.nav_side_Logout -> {
                     AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Log Out")
                         .setMessage("Are you sure you want to logout ?")
-                        .setPositiveButton("Yes") { dialog, which ->
+                        .setPositiveButton("Yes") { _, _ ->
                             lifecycleScope.launch {
                                 viewModel.userDataClear()
                                 navController.navigate(R.id.nav_city)

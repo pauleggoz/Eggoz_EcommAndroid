@@ -41,17 +41,25 @@ class ProductAdapter(val mycallback: ProductFragment) :
                         .navigate(R.id.action_nav_product_to_nav_product_detail, bundle)
                 }
                 btnSubsc.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putInt("id", item.id ?: -1)
+                    bundle.putDouble("price", item.ecommercePrice?.toDouble() ?: 0.0)
                     Navigation.findNavController(root)
-                        .navigate(R.id.nav_subscribe)
+                        .navigate(R.id.action_nav_product_to_nav_subscribe,bundle)
                 }
 
-                if (!(item.isStockAvailableOnline == true)) {
-                    imgOderStatus.setImageResource(R.drawable.outofstock)
-                } else if (item.isPrimeOnline == true) {
-                    imgOderStatus.setImageResource(R.drawable.prime)
-                } else if (item.isNewOnline == true) {
-                    imgOderStatus.setImageResource(R.drawable.newpro)
-                } else imgOderStatus.visibility = View.GONE
+                when {
+                    item.isStockAvailableOnline != true -> {
+                        imgOderStatus.setImageResource(R.drawable.outofstock)
+                    }
+                    item.isPrimeOnline == true -> {
+                        imgOderStatus.setImageResource(R.drawable.prime)
+                    }
+                    item.isNewOnline == true -> {
+                        imgOderStatus.setImageResource(R.drawable.newpro)
+                    }
+                    else -> imgOderStatus.visibility = View.GONE
+                }
 
                 qnt = mycallback.qntCart(item.id ?: -1)
 

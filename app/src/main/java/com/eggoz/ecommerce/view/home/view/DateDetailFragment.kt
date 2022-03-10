@@ -53,6 +53,10 @@ class DateDetailFragment : Fragment() {
         }
         binding.apply {
             viewOrderadapter = adapter
+            btnNoOrder.setOnClickListener {
+                Navigation.findNavController(binding.recyOrder)
+                    .navigate(R.id.nav_product)
+            }
         }
 
         viewModel.orderlist().observe(viewLifecycleOwner) {
@@ -65,7 +69,7 @@ class DateDetailFragment : Fragment() {
                     layoutData.visibility = View.VISIBLE
                 }
             }
-            if (it.results == null) {
+            if (it.results == null || it.results.isEmpty()) {
                 binding.apply {
                     NoOrder.visibility = View.VISIBLE
                     layoutData.visibility = View.GONE

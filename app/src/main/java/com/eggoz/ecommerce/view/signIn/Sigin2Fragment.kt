@@ -96,8 +96,6 @@ class Sigin2Fragment : Fragment() {
                 city_id = city_id
             ).observe(viewLifecycleOwner) {
 
-                var sas = it.toString();
-
                 if (dialog.isShowing())
                     dialog.dismiss()
 
@@ -117,9 +115,14 @@ class Sigin2Fragment : Fragment() {
                                             ?: -1
                                     )
                             }
+                        if (it.existing_user == true){
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.nav_home)
+                        }else{
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.nav_updatereferandearn)
+                        }
                     }
-                    Navigation.findNavController(binding.root)
-                        .navigate(R.id.nav_home)
                 }
             }
         }

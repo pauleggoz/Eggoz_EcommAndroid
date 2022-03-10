@@ -52,5 +52,8 @@ data class CartToken(
     var phone: String? = null,
     @SerializedName("hash")
     @Expose
-    var hash: String? = null
+    var hash: String? = null,
+    @SerializedName("result")
+    @Expose
+    var result: String? = null
 )

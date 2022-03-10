@@ -129,11 +129,14 @@ class Retrofithit {
 
     fun getSubscribe(context: Context): Flow<Subscribe> = flow {
         val response = RetrofitClient().retrofitApiSerInterceptor(context = context)
-            .getSubscribe()
+            .getSubscribe(is_visible = 1)
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-
+    fun getCartList(ids:String): Flow<CartResponse> = flow {
+        val response = RetrofitClient().retrofitApiSerwithoutInterceptor.getCartList(ids)
+        emit(response)
+    }.flowOn(Dispatchers.IO)
 
 }
 

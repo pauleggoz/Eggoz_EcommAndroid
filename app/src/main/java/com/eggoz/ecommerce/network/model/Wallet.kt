@@ -28,11 +28,6 @@ data class Wallet(
     var errorType: String? = null
 ){
 
-
-
-
-
-
     class Result(
         @SerializedName("id")
         @Expose

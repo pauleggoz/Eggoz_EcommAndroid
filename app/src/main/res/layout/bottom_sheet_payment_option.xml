@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s16"
+            android:layout_marginEnd="@dimen/s16"
+            android:paddingTop="@dimen/s16"
+            android:paddingBottom="@dimen/s16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/icon_region"
+                android:layout_width="@dimen/s24"
+                android:layout_height="@dimen/s24"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/legal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s12"
+                android:fontFamily="@font/spartanmedium"
+                android:text="@string/menu_wallet"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/icon_region"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s12"
+                android:fontFamily="@font/spartanmedium"
+                android:text="@string/pay_now"
+                android:padding="@dimen/s6"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/view_div_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/s1"
+            android:layout_marginStart="@dimen/s12"
+            android:layout_marginEnd="@dimen/s12"
+            android:background="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_wallet"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_card_upi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/s16"
+            android:layout_marginEnd="@dimen/s16"
+            android:paddingTop="@dimen/s16"
+            android:paddingBottom="@dimen/s16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_div_wallet">
+
+            <ImageView
+                android:id="@+id/icon_card"
+                android:layout_width="@dimen/s24"
+                android:layout_height="@dimen/s24"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/legal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s12"
+                android:fontFamily="@font/spartanmedium"
+                android:text="@string/card_upi_banking"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/icon_card"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s12"
+                android:fontFamily="@font/spartanmedium"
+                android:text="@string/pay_now"
+                android:padding="@dimen/s6"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

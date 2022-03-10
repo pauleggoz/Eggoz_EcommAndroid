@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.eggoz.ecommerce.R
+import com.eggoz.ecommerce.ViewModelFactory
 import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.databinding.FragmentWalletBinding
 import com.eggoz.ecommerce.utils.Loadinddialog
@@ -16,7 +17,6 @@ import com.eggoz.ecommerce.view.wallet.viewmodel.WalletViewModel
 import com.eggoz.ecommerce.view.wallet.adapter.PromoAdapter
 import com.eggoz.ecommerce.view.wallet.adapter.WalletHistoryAdapter
 import com.eggoz.ecommerce.view.wallet.viewmodel.WalletRepository
-import com.eggoz.ecommerce.view.wallet.viewmodel.WalletViewModelFactory
 
 
 class WalletFragment : Fragment() {
@@ -43,7 +43,8 @@ class WalletFragment : Fragment() {
         dialog = Loadinddialog()
         val userPreferences = UserPreferences(requireContext())
         val repository = WalletRepository(userPreferences)
-        val viewmodelFat = WalletViewModelFactory(repository)
+//        val viewmodelFat = WalletViewModelFactory(repository)
+        val viewmodelFat = ViewModelFactory(repository)
 
         viewModel = ViewModelProvider(this, viewmodelFat)[WalletViewModel::class.java]
         walletadapter = WalletHistoryAdapter()
@@ -82,29 +83,29 @@ class WalletFragment : Fragment() {
         if (!dialog.isShowing())
             dialog.create(requireContext())
         viewModel.walletPromo()
-        viewModel.responWalletPromo.observe(viewLifecycleOwner, {
+        viewModel.responWalletPromo.observe(viewLifecycleOwner) {
 
             if (dialog.isShowing())
                 dialog.dismiss()
-            if (it?.errorType == null){
+            if (it?.errorType == null) {
                 promoAdapter.submitList(it.results)
             }
-        })
+        }
     }
 
     private fun orderhistory() {
         if (!dialog.isShowing())
             dialog.create(requireContext())
-        viewModel.responWallet.observe(viewLifecycleOwner, {
+        viewModel.responWallet.observe(viewLifecycleOwner) {
             if (it?.errorType == null) {
                 walletadapter.submitList(it.results)
-               /* walletadapter = WalletHistoryAdapter(result = it.results!!)
-                binding.apply {
-                    recWallethis.adapter = walletadapter
-                    (recWallethis.adapter as WalletHistoryAdapter).notifyDataSetChanged()
-                }*/
+                /* walletadapter = WalletHistoryAdapter(result = it.results!!)
+                 binding.apply {
+                     recWallethis.adapter = walletadapter
+                     (recWallethis.adapter as WalletHistoryAdapter).notifyDataSetChanged()
+                 }*/
             }
-        })
+        }
     }
 
     @SuppressLint("SetTextI18n")

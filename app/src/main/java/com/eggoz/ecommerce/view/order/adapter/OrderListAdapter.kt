@@ -19,7 +19,7 @@ class OrderAdapter(val callback: (OrderDetail) -> (Unit)) : ListAdapter<OrderDet
         fun bind(item: OrderDetail, callback: (OrderDetail) -> Unit) {
             binding.apply {
                 itemData=item
-                txtOrderqnt.text="${item.orderLines?.totalQuantity} Pieces"
+//                txtOrderqnt.text="${item.orderLines?.totalQuantity} Pieces"
                 root.setOnClickListener {
                     callback(item)
                 }
