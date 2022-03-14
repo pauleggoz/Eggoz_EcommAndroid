@@ -245,4 +245,10 @@ interface RetrofitApiService {
         @Field("is_resolved") is_resolved: Boolean
     ): UserProfileModel
 
+
+    @GET(Constants.ecommerce_orderEvent)
+    suspend fun orderEvent(
+        @Query("order") id: Int
+    ): OrderEventModel
+
 }

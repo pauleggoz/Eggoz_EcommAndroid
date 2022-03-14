@@ -2,6 +2,7 @@ package com.eggoz.ecommerce.view.order.viewmodel
 
 import com.eggoz.ecommerce.localdata.UserPreferences
 import com.eggoz.ecommerce.network.model.OrderDetail
+import com.eggoz.ecommerce.network.model.OrderEventModel
 import com.eggoz.ecommerce.network.model.OrderList
 import com.eggoz.ecommerce.network.model.Orderhistory
 import com.eggoz.ecommerce.network.repository.RetrofitClient
@@ -24,6 +25,12 @@ class OrderStatusRepository(private var userPreferences: UserPreferences, orderi
     fun orderDetail(token:String): Flow<OrderDetail?> = flow {
         val response = RetrofitClient().retrofitApiSerInterceptor(token = token)
             .orderDetail(id = orderId)
+        emit(response)
+    }.flowOn(Dispatchers.IO)
+
+    fun orderEvent(token:String): Flow<OrderEventModel?> = flow {
+        val response = RetrofitClient().retrofitApiSerInterceptor(token = token)
+            .orderEvent(id = orderId)
         emit(response)
     }.flowOn(Dispatchers.IO)
 }

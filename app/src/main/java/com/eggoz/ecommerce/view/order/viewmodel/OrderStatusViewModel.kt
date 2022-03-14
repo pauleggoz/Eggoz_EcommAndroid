@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggoz.ecommerce.network.model.OrderDetail
+import com.eggoz.ecommerce.network.model.OrderEventModel
 import com.eggoz.ecommerce.network.model.OrderList
 import com.eggoz.ecommerce.network.model.Orderhistory
 import com.google.gson.Gson
@@ -18,10 +19,12 @@ import retrofit2.HttpException
 class OrderStatusViewModel(val repository:OrderStatusRepository): ViewModel() {
 
     private var user_id = -1
-    public var order_id = -1
+    var order_id = -1
     private var authtoken = ""
     private var responOrderdetail: MutableLiveData<OrderDetail> = MutableLiveData()
     val order get() = responOrderdetail
+    private var responOrderevent: MutableLiveData<OrderEventModel> = MutableLiveData()
+    val orderevent get() = responOrderevent
 
     init {
         viewModelScope.launch {
@@ -29,6 +32,7 @@ class OrderStatusViewModel(val repository:OrderStatusRepository): ViewModel() {
             authtoken = repository.auth_token.buffer().first() ?: ""
             order_id = repository.orderId
             orderDetail()
+            orderEvent()
         }
     }
 
@@ -51,6 +55,28 @@ class OrderStatusViewModel(val repository:OrderStatusRepository): ViewModel() {
                     responOrderdetail.value = errorResponse!!
                 }.collect { response ->
                     responOrderdetail.value = response
+                }
+        }
+    }
+
+    private fun orderEvent() {
+        viewModelScope.launch {
+            repository.orderEvent( token = authtoken)
+                .catch { e ->
+
+                    var errorResponse: OrderEventModel? = null
+                    when (e) {
+                        is HttpException -> {
+                            val gson = Gson()
+                            val type = object : TypeToken<OrderEventModel>() {}.type
+                            errorResponse = gson.fromJson(
+                                e.response()?.errorBody()!!.charStream(), type
+                            )
+                        }
+                    }
+                    responOrderevent.value = errorResponse!!
+                }.collect { response ->
+                    responOrderevent.value = response
                 }
         }
     }

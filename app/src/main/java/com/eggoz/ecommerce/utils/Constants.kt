@@ -46,5 +46,6 @@ class Constants {
         const val ecommerce_customer_referral= "ecommerce/customer_subscriptions/customer_referral/"
         const val ecommerce_contact_us= "api/feedback/contact_us/"
         const val ecommerce_feedback= "api/feedback/"
+        const val ecommerce_orderEvent = "order/order_events/"
     }
 }
