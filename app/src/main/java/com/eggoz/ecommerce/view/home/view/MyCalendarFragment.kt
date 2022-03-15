@@ -77,7 +77,7 @@ class MyCalendarFragment : Fragment() {
         binding.apply {
             orderadapter = OrderAdapter(callback = {order->
                 val bundle = Bundle()
-                bundle.putInt("id", order.orderid)
+                bundle.putInt("id", order.id ?:-1)
                 Navigation.findNavController(calander)
                     .navigate(R.id.action_nav_my_calendar_to_nav_orderdetail, bundle)
             })
@@ -135,7 +135,7 @@ class MyCalendarFragment : Fragment() {
 
                     }
 
-
+/*
                     for (i in it.results.indices) {
                         if (it.results[i].orderLines != null) {
                             if (it.results[i].orderLines?.orderItems != null)
@@ -149,9 +149,9 @@ class MyCalendarFragment : Fragment() {
                                     viewModel.ordermodel.add(order)
                                 }
                         }
-                    }
-                    if (viewModel.ordermodel.size>0) {
-                        orderadapter.submitList(viewModel.ordermodel)
+                    }*/
+                    if (it.results.isNotEmpty()) {
+                        orderadapter.submitList(it.results)
                         binding.txtMyorders.visibility = View.VISIBLE
                     }
                 }

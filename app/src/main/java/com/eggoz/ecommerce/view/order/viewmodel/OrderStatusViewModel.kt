@@ -25,6 +25,8 @@ class OrderStatusViewModel(val repository:OrderStatusRepository): ViewModel() {
     val order get() = responOrderdetail
     private var responOrderevent: MutableLiveData<OrderEventModel> = MutableLiveData()
     val orderevent get() = responOrderevent
+//    private var responOrderhistory: MutableLiveData<Orderhistory> = MutableLiveData()
+//    val order get() = responOrderhistory
 
     init {
         viewModelScope.launch {
@@ -33,8 +35,34 @@ class OrderStatusViewModel(val repository:OrderStatusRepository): ViewModel() {
             order_id = repository.orderId
             orderDetail()
             orderEvent()
+//            orderhistory()
         }
     }
+
+/*
+
+    private fun orderhistory(){
+        viewModelScope.launch {
+            repository.orderhistory(customer = user_id, token = authtoken)
+                .catch { e ->
+
+                    var errorResponse: Orderhistory? = null
+                    when (e) {
+                        is HttpException -> {
+                            val gson = Gson()
+                            val type = object : TypeToken<Orderhistory>() {}.type
+                            errorResponse = gson.fromJson(
+                                e.response()?.errorBody()!!.charStream(), type
+                            )
+                        }
+                    }
+                    responOrderhistory.value = errorResponse!!
+                }.collect { response ->
+                    responOrderhistory.value = response
+                }
+        }
+    }
+*/
 
 
     private fun orderDetail() {

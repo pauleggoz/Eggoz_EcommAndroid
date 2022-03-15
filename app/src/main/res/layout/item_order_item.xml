@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="com.eggoz.ecommerce.utils.CustomBindingUtils" />
 
         <variable
@@ -11,41 +12,48 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.cardview.widget.CardView
-            android:id="@+id/crd_img"
-            android:layout_width="@dimen/s28"
-            android:layout_height="@dimen/s28"
-            app:cardCornerRadius="@dimen/s8"
-            android:layout_marginTop="@dimen/s4"
-            android:layout_marginStart="@dimen/s4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                setImageUrl="@{itemData.product_image}"
-                />
-        </androidx.cardview.widget.CardView>
-        <TextView
-            android:id="@+id/txt_name"
-            android:layout_width="@dimen/s0"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/crd_img"
-            android:layout_marginTop="@dimen/s6"
-            android:layout_marginStart="@dimen/s8"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/s8"
-            app:layout_constraintTop_toTopOf="parent"/>
-        <View
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/s1"
-            android:background="@color/gray"
-            android:layout_marginTop="@dimen/s8"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_name"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/s4">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/crd_img"
+                android:layout_width="@dimen/s32"
+                android:layout_height="@dimen/s32"
+                android:layout_marginStart="@dimen/s4"
+                android:layout_marginTop="@dimen/s4"
+                app:cardCornerRadius="@dimen/s8"
+                setImageUrl="@{itemData.product_image}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="@dimen/s0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s8"
+                android:layout_marginTop="@dimen/s6"
+                android:layout_marginEnd="@dimen/s8"
+                android:text="@{itemData.name}"
+                app:layout_constraintEnd_toStartOf="@+id/txt_qnt"
+                app:layout_constraintStart_toEndOf="@+id/crd_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_qnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s6"
+                android:layout_marginEnd="@dimen/s8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </layout>

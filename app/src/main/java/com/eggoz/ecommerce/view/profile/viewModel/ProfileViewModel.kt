@@ -22,7 +22,6 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     var email = ""
     var mobile = ""
     var isverifide = false
-    val ordermodel = ArrayList<OrderModel>()
 
     private var user_id = -1
     private var customer_id = -1
