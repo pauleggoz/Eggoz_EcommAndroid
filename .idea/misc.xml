@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/circle_app.xml" value="0.132" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/curvedgrayborder.xml" value="0.1" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1135" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/ic_baseline_arrow_drop_up_24.xml" value="0.1" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1135" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/non_active_dot.xml" value="0.1" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/drawable/solid_cornerbtn_background.xml" value="0.1" />
@@ -31,7 +33,7 @@
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_payment_sucessful.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_product.xml" value="0.1425925925925926" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_product_detail.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_profile.xml" value="0.14266304347826086" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_profile.xml" value="0.12454873646209386" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_select_city.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_sign_in1.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/fragment_subscribe.xml" value="0.17552083333333332" />
@@ -44,7 +46,13 @@
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_custom_order.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_faq.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_loc.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_order.xml" value="0.1" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_order_inline.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_order_item.xml" value="0.1" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_order_status_history.xml" value="0.1" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_poddetailprod.xml" value="0.1" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/item_popprod.xml" value="0.1" />
+        <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/itemorderitem.xml" value="0.1" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/layout_loader.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/layout/nav_header.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/akhil/AndroidStudioProjects/Android_Ecomm/app/src/main/res/menu/navmenu.xml" value="0.17552083333333332" />

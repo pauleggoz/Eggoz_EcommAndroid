@@ -21,37 +21,26 @@ class OrderListAdapter(val callback: (OrderDetail) -> (Unit)) :
         private val binding: ItemCustomOrderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var adapter:OrderItemAdapter
-
-
         @SuppressLint("SetTextI18n")
         fun bind(item: OrderDetail, callback: (OrderDetail) -> Unit) {
+            val adapter = com.eggoz.ecommerce.view.profile.adapter.OrderItemAdapter()
             binding.apply {
                 itemData = item
 
-                adapter=OrderItemAdapter()
-
-                itemAdapter =adapter
+                viewadapter =adapter
 
                 adapter.submitList(item.orderLines?.orderItems)
 
 
-
-                txtPrice.text = "₹ ${item.orderPriceAmount?.toDouble()?.toInt() ?: 0}"
-//                txtOrderqnt.text = "${item.orderLines?.totalQuantity?.toInt() ?: 0} Pieces"
                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sszzz", Locale.US)
 
                 try {
                     val d = sdf.parse(item.deliveryDate)
                     val date2 = (SimpleDateFormat("dd MMM, hh:mm aa")).format(d)
-                    txtDate.text = "$date2"
+                    txtEstimatedDelivery.text = "$date2"
                 } catch (e: Exception) {
                     e.printStackTrace();
                 }
-
-
-
-
 
                 root.setOnClickListener {
                     callback(item)

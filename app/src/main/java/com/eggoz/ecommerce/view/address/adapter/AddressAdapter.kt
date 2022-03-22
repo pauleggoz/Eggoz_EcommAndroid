@@ -28,9 +28,6 @@ class AddressAdapter(private val mycallback: (Address.AAddress?, Int) -> Unit) :
 
                 addSelect.isChecked = item.isSelected
 
-                /*if (item.isSelected)
-                    txtDefault.visibility = View.VISIBLE*/
-
                 addSelect.setOnCheckedChangeListener { compoundButton, b ->
                     if (b) {
                         callback.reset(currentPos)

@@ -33,4 +33,11 @@ class OrderStatusRepository(private var userPreferences: UserPreferences, orderi
             .orderEvent(id = orderId)
         emit(response)
     }.flowOn(Dispatchers.IO)
+
+
+    fun orderhistory(customer: Int, token: String): Flow<Orderhistory?> = flow {
+        val response = RetrofitClient().retrofitApiSerInterceptor(token = token)
+            .orderHistory(customer = customer)
+        emit(response)
+    }.flowOn(Dispatchers.IO)
 }

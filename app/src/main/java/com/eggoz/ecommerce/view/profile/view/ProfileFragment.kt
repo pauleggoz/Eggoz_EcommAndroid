@@ -50,7 +50,7 @@ class ProfileFragment : Fragment() {
         binding.apply {
             orderadapter = OrderAdapter(callback = { order ->
                 val bundle = Bundle()
-                bundle.putInt("id", order.orderid)
+                bundle.putInt("id", order.id ?:-1)
                 Navigation.findNavController(root)
                     .navigate(R.id.action_nav_profile_to_nav_orderdetail, bundle)
             })
@@ -110,24 +110,9 @@ class ProfileFragment : Fragment() {
 
                 } else {
                     if (it.results != null) {
-                        viewModel.ordermodel.clear()
-                        for (i in it.results.indices) {
-                            if (it.results[i].orderLines != null) {
-                                if (it.results[i].orderLines?.orderItems != null)
-                                    for (j in it.results[i].orderLines?.orderItems?.indices!!) {
-                                        val order = OrderModel(
-                                            it.results[i].orderLines?.orderItems!![j],
-                                            it.results[i].generationDate ?: "",
-                                            it.results[i].id ?: -1,
-                                            it.results[i].status ?: ""
-                                        )
-                                        viewModel.ordermodel.add(order)
-                                    }
-                            }
-                        }
-                        if (viewModel.ordermodel.size > 0) {
+                        if (it.results.isNotEmpty()) {
                             binding.layoutPastOrders.visibility = View.VISIBLE
-                            orderadapter.submitList(viewModel.ordermodel)
+                            orderadapter.submitList(it.results)
                         }
                     }
 

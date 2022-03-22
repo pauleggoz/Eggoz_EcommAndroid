@@ -21,6 +21,7 @@ class HomeViewModel(private val repository: HomeRepository) :ViewModel() {
     private var user_id = -1
     private var token = ""
     var blogsPage = 1
+
     var blogsPageMax = 1
     val blogsresults: ArrayList<Blogs.Result> = ArrayList()
 

@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewOrderadapter"
-            type="com.eggoz.ecommerce.view.home.adapter.OrderInLineAdapter" />
+            type="com.eggoz.ecommerce.view.profile.adapter.OrderItemAdapter" />
+
+        <variable
+            name="viewOrderHisadapter"
+            type="com.eggoz.ecommerce.view.order.adapter.OrderStatusHistoryAdapter" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -18,304 +24,106 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/s30" />
+
+            <TextView
+                android:id="@+id/txt_order_id"
+                style="@style/textLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s14"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_order_status"
+                style="@style/textLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s14"
+                android:layout_marginEnd="@dimen/s30"
+                android:textColor="@color/app_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_estimated_delivery_title"
+                style="@style/textssmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s14"
+                android:text="@string/estimated_delivery"
+                android:textColor="@color/gray_2"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@+id/txt_order_id" />
+
+            <TextView
+                android:id="@+id/txt_estimated_delivery"
+                style="@style/textssmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/s14"
+                android:layout_marginEnd="@dimen/s30"
+                android:textColor="@color/gray_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_order_id" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_orderInline"
+                setAdapter="@{viewOrderadapter}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/s8"
-                setAdapter="@{viewOrderadapter}"
+                android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-
-            <ImageView
-                android:id="@+id/img_Order_Confirm"
-                android:layout_width="34sp"
-                android:layout_height="34sp"
-                android:layout_marginStart="28sp"
-                android:layout_marginTop="34sp"
-                android:background="@drawable/solid_cornerbtn_background"
-                android:src="@drawable/ic_baseline_done_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rec_orderInline" />
-
-            <TextView
-                android:id="@+id/txt_Order_Confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="34sp"
-                android:fontFamily="@font/spartansemibold"
-                android:text="Order Confirm"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/img_Order_Confirm"
-                app:layout_constraintTop_toBottomOf="@+id/rec_orderInline" />
-
-            <TextView
-                android:id="@+id/txt_Order_Confirm_detail"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="36sp"
-                android:fontFamily="@font/spartanregular"
-                android:text="Your order #212423 was placed on 23th November 2019."
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_Order_Confirm"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Order_Confirm" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="0sp"
-                android:layout_marginStart="45sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="8sp"
-                android:background="@color/app_color"
-                app:layout_constraintBottom_toTopOf="@+id/img_Packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_Order_Confirm" />
-
-            <ImageView
-                android:id="@+id/img_Packed"
-                android:layout_width="34sp"
-                android:layout_height="34sp"
-                android:layout_marginStart="28sp"
-                android:layout_marginTop="36sp"
-                android:background="@drawable/cornerbtn_background"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Order_Confirm_detail" />
-
-            <TextView
-                android:id="@+id/txt_Packed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="36sp"
-                android:fontFamily="@font/spartansemibold"
-                android:text="Order Packed"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/img_Packed"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Order_Confirm_detail" />
-
-            <TextView
-                android:id="@+id/txt_Packed_detail"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="24sp"
-                android:fontFamily="@font/spartanregular"
-                android:text="Your order still needs to be processed by our store before sending it to you."
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_Packed"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Packed" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="0sp"
-                android:layout_marginStart="45sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="8sp"
-                android:background="@color/app_color"
-                app:layout_constraintBottom_toTopOf="@+id/img_Picked_up_by_the_courier"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_Packed" />
-
-            <ImageView
-                android:id="@+id/img_Picked_up_by_the_courier"
-                android:layout_width="34sp"
-                android:layout_height="34sp"
-                android:layout_marginStart="28sp"
-                android:layout_marginTop="36sp"
-                android:background="@drawable/cornerbtn_background"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Packed_detail" />
-
-            <TextView
-                android:id="@+id/txt_Picked_up_by_the_courier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="36sp"
-                android:fontFamily="@font/spartansemibold"
-                android:text="Picked up by the courier"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/img_Packed"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Packed_detail" />
-
-            <TextView
-                android:id="@+id/txt_Picked_up_by_the_courier_detail"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="24sp"
-                android:fontFamily="@font/spartanregular"
-                android:text="Your order has been picked up by one of our couriers and its on your way."
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_Packed"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Picked_up_by_the_courier" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="0sp"
-                android:layout_marginStart="45sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="8sp"
-                android:background="@color/app_color"
-                app:layout_constraintBottom_toTopOf="@+id/img_On_the_Way"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_Picked_up_by_the_courier" />
-
-            <ImageView
-                android:id="@+id/img_On_the_Way"
-                android:layout_width="34sp"
-                android:layout_height="34sp"
-                android:layout_marginStart="28sp"
-                android:layout_marginTop="36sp"
-                android:background="@drawable/cornerbtn_background"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Picked_up_by_the_courier_detail" />
-
-            <TextView
-                android:id="@+id/txt_On_the_Way"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="36sp"
-                android:fontFamily="@font/spartansemibold"
-                android:text="On the Way"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/img_Packed"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Picked_up_by_the_courier_detail" />
-
-            <TextView
-                android:id="@+id/txt_On_the_Way_detail"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="24sp"
-                android:fontFamily="@font/spartanregular"
-                android:text="The package is on your way. Make sure to be at the location to meet the courier."
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_Packed"
-                app:layout_constraintTop_toBottomOf="@+id/txt_On_the_Way" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="0sp"
-                android:layout_marginStart="45sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="8sp"
-                android:background="@color/app_color"
-                app:layout_constraintBottom_toTopOf="@+id/img_Delivered"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_On_the_Way" />
-
-            <ImageView
-                android:id="@+id/img_Delivered"
-                android:layout_width="34sp"
-                android:layout_height="34sp"
-                android:layout_marginStart="28sp"
-                android:layout_marginTop="36sp"
-                android:background="@drawable/cornerbtn_background"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_On_the_Way_detail" />
-
-            <TextView
-                android:id="@+id/txt_Delivered"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="36sp"
-                android:fontFamily="@font/spartansemibold"
-                android:text="Delivered"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/img_Delivered"
-                app:layout_constraintTop_toBottomOf="@+id/txt_On_the_Way_detail" />
-
-            <TextView
-                android:id="@+id/txt_Delivered_detail"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="8sp"
-                android:layout_marginBottom="24sp"
-                android:fontFamily="@font/spartanregular"
-                android:text="It seems like the package has arrived to you. Hope you are happy with it!"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_Delivered"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Delivered" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_50"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_estimated_delivery_title" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="@dimen/s0"
+                android:id="@+id/con_history"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/guideline_50"
-                android:layout_marginTop="@dimen/s14"
-                android:layout_marginStart="@dimen/s8"
-                android:layout_marginBottom="@dimen/s14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:background="@drawable/cornerbtn_background"
-                android:layout_marginEnd="@dimen/s8"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Delivered_detail">
+                app:layout_constraintTop_toBottomOf="@+id/rec_orderInline">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/txt_History"
+                    style="@style/texts14"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_query"
-                    android:textColor="@color/app_color"
-                    style="@style/textLarge"
-                    android:gravity="center"
+                    android:layout_marginStart="@dimen/s14"
+                    android:layout_marginTop="@dimen/s14"
+                    android:text="@string/History"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:paddingTop="@dimen/s12"
-                    android:paddingBottom="@dimen/s12"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/img_sel"
+                    android:layout_width="@dimen/s32"
+                    android:layout_height="@dimen/s32"
+                    android:layout_marginEnd="@dimen/s14"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btn_add_query"
-                android:layout_width="@dimen/s0"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_history"
+                setAdapter="@{viewOrderHisadapter}"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/s4"
-                android:layout_marginStart="@dimen/s8"
-                android:layout_marginEnd="@dimen/s8"
-                android:layout_marginBottom="@dimen/s14"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:cardBackgroundColor="@color/app_color"
-                app:layout_constraintStart_toStartOf="@+id/guideline_50"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_Delivered_detail"
-                android:layout_marginTop="@dimen/s14">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_query"
-                    android:textColor="@color/white"
-                    style="@style/textLarge"
-                    android:gravity="center"
-                    android:paddingTop="@dimen/s12"
-                    android:paddingBottom="@dimen/s12"/>
-            </androidx.cardview.widget.CardView>
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/con_history" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
