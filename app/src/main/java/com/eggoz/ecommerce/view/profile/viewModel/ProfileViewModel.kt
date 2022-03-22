@@ -28,23 +28,31 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
     private var authtoken = ""
 
 
-    private var responUser: MutableLiveData<Address> = MutableLiveData()
-    val user get() = responUser
-    private var responOrderhistory: MutableLiveData<Orderhistory> = MutableLiveData()
-    val order get() = responOrderhistory
+    private val responUser: MutableLiveData<Address> by lazy {
+        MutableLiveData<Address>().also {
+            user()
+        }
+    }
+    val user: LiveData<Address> get() = responUser
+    private val responOrderhistory: MutableLiveData<Orderhistory> by lazy {
+        MutableLiveData<Orderhistory>().also {
+            orderhistory()
+        }
+    }
+    val order:LiveData<Orderhistory> get() = responOrderhistory
 
     init {
         viewModelScope.launch {
             user_id = repository.user_id.buffer().first() ?: -1
             authtoken = repository.auth_token.buffer().first() ?: ""
             customer_id = repository.customer_id.buffer().first() ?: -1
-            user()
-            orderhistory()
+//            user()
+//            orderhistory()
         }
     }
 
 
-    private fun orderhistory(){
+    private fun orderhistory() {
         viewModelScope.launch {
             repository.orderhistory(customer = user_id, token = authtoken)
                 .catch { e ->
@@ -89,7 +97,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         }
     }
 
-    fun deleteAddress(id: Int) :LiveData<Otpgenerate>{
+    fun deleteAddress(id: Int): LiveData<Otpgenerate> {
         val responOtpgenerate: MutableLiveData<Otpgenerate> = MutableLiveData()
         viewModelScope.launch {
             repository.deleteAddress(id = id, token = authtoken)
@@ -112,7 +120,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         return responOtpgenerate
     }
 
-    suspend fun saveToken(token:String){
+    suspend fun saveToken(token: String) {
         repository.userPreferences!!.saveAuthtoke(token = token)
     }
 
@@ -144,21 +152,21 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                 token = authtoken
             ).catch { e ->
 
-                    var errorResponse: Address? = null
-                    when (e) {
-                        is HttpException -> {
-                            val gson = Gson()
-                            val type = object : TypeToken<Address>() {}.type
-                            errorResponse = gson.fromJson(
-                                e.response()?.errorBody()!!.charStream(), type
-                            )
-                        }
+                var errorResponse: Address? = null
+                when (e) {
+                    is HttpException -> {
+                        val gson = Gson()
+                        val type = object : TypeToken<Address>() {}.type
+                        errorResponse = gson.fromJson(
+                            e.response()?.errorBody()!!.charStream(), type
+                        )
                     }
-
-                    responUser.value = errorResponse!!
-                }.collect { response ->
-                    responUser.value = response
                 }
+
+                responUser.value = errorResponse!!
+            }.collect { response ->
+                responUser.value = response
+            }
         }
         return responUser
     }
@@ -191,26 +199,26 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
                 token = authtoken
             ).catch { e ->
 
-                    var errorResponse: Address? = null
-                    when (e) {
-                        is HttpException -> {
-                            val gson = Gson()
-                            val type = object : TypeToken<Address>() {}.type
-                            errorResponse = gson.fromJson(
-                                e.response()?.errorBody()!!.charStream(), type
-                            )
-                        }
+                var errorResponse: Address? = null
+                when (e) {
+                    is HttpException -> {
+                        val gson = Gson()
+                        val type = object : TypeToken<Address>() {}.type
+                        errorResponse = gson.fromJson(
+                            e.response()?.errorBody()!!.charStream(), type
+                        )
                     }
-
-                    responUser.value = errorResponse!!
-                }.collect { response ->
-                    responUser.value = response
                 }
+
+                responUser.value = errorResponse!!
+            }.collect { response ->
+                responUser.value = response
+            }
         }
         return responUser
     }
 
-    fun getCity() :LiveData<CityData>{
+    fun getCity(): LiveData<CityData> {
         val responsecity: MutableLiveData<CityData> = MutableLiveData()
         viewModelScope.launch {
             repository.getCity()
@@ -234,7 +242,7 @@ class ProfileViewModel(private val repository: ProfileRepository) : ViewModel() 
         return responsecity
     }
 
-    fun getLocality(id: Int) : LiveData<CityData.Result?>{
+    fun getLocality(id: Int): LiveData<CityData.Result?> {
         val responselocality: MutableLiveData<CityData.Result?> = MutableLiveData()
         viewModelScope.launch {
             repository.getLocality(id = id)
